@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: projeto-java-restaurante
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/restaurante
+    username: postgres
+    password: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+
