@@ -2,10 +2,7 @@ package com.projetoJavaRestaurante.demo.model;
 
 import com.projetoJavaRestaurante.demo.model.enums.PerfilUsuario;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,16 +11,16 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idUsuario;
+    @Column(name = "id_usuario")
+    private int id;
 
     @Column(nullable = false)
     private String nomeUsuario;

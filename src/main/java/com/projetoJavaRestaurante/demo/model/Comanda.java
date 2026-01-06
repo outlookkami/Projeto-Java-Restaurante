@@ -1,0 +1,41 @@
+package com.projetoJavaRestaurante.demo.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "comandas")
+public class Comanda {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_comanda")
+    private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "id_mesa", nullable = false)
+    private Mesa mesa;
+
+    private String status;
+
+    @CreationTimestamp
+    @Column(name = "data_abertura")
+    private LocalDateTime dataAbertura;
+
+    @UpdateTimestamp
+    @Column(name = "data_fechamento")
+    private LocalDateTime dataFechamento;
+
+    //@OneToMany(mappedBy = "comanda")
+    //@JsonIgnore
+    //private List<Produto> produtos;
+}

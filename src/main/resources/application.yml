@@ -1,14 +1,16 @@
 spring:
   application:
     name: projeto-java-restaurante
-sql:
-  init:
-    mode: always
+
+  sql:
+    init:
+      mode: always
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/restaurante
+    url: jdbc:postgresql://localhost:5431/meson_restaurantes
     username: postgres
     password: root
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect

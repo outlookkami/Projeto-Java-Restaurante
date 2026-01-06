@@ -1,18 +1,18 @@
-version: "3.9"
+version: "3.8"
 
 services:
   postgres:
     image: postgres:15
-    container_name: restaurante-postgres
+    container_name: java-postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: restaurante
+      POSTGRES_DB: meson_restaurantes
     ports:
-      - "5432:5432"
+      - "5431:5432"
     volumes:
-      - restaurante_pgdata:/var/lib/postgresql/data
+      - postgres_pgdata:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
@@ -27,4 +27,4 @@ services:
       - postgres
 
 volumes:
-  restaurante_pgdata:
+  postgres_pgdata:
