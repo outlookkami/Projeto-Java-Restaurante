@@ -21,6 +21,9 @@ public class Restaurante{
     @Column(name = "id_restaurante")
     private int id;
 
+    @Column(unique = true)
+    private String cnpj;
+
     @Column(name = "nome_restaurante")
     private String nome;
 
