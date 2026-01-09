@@ -31,14 +31,21 @@ public class Pedido {
     private LocalDateTime dataPreparo;
 
     @UpdateTimestamp
+    @Column(name = "data_pronto")
+    private LocalDateTime dataPronto;
+
+    @UpdateTimestamp
     @Column(name = "data_entrega")
     private LocalDateTime dataEntrega;
+
+    @Column(name = "obs_pedido")
+    private String obsPedido;
 
     @ManyToOne
     @JoinColumn(name = "id_comanda", nullable = false)
     private Comanda comanda;
 
     @ManyToOne
-    @JoinColumn(name = "id_garcom", nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario garcom;
 }

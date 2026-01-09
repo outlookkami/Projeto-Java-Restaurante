@@ -10,30 +10,22 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(
-        name = "mesas",
+        name = "categoriaProduto",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "uk_mesas_restaurante_numero",
-                        columnNames = {"id_restaurante", "numero_mesa"}
+                        name = "uk_categria_restaurante_nome",
+                        columnNames = {"id_restaurante", "nome_categoria"}
                 )
         }
 )
-public class Mesa {
+public class CategoriaProduto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_mesa")
+    @Column(name = "id_categoria")
     private int id;
-    
-    @Column(name = "numero_mesa")
-    private short numero;
 
-    @Column(name = "posicao_x")
-    private int posicaoX;
-
-    @Column(name = "posicao_y")
-    private int posicaoY;
-
-    private String status;
+    @Column(name = "nome_categoria")
+    private String nome;
 
     @ManyToOne
     @JoinColumn(name = "id_restaurante", nullable = false)

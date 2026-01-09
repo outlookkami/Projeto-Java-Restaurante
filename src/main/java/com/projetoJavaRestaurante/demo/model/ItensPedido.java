@@ -17,7 +17,7 @@ public class ItensPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_item_pedido")
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "pedido_id", nullable = false)
@@ -32,6 +32,6 @@ public class ItensPedido {
     @Column(name = "preco_unitario")
     private BigDecimal precoUnitario;
 
-    @Column(name = "data_criacao")
-    private LocalDateTime dataCriacao;
+    @Column(name = "obs_item_pedido")
+    private String obsItemPedido;
 }

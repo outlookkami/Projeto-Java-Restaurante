@@ -11,7 +11,8 @@
     <div class="auth-card">
 
         <h1 class="logo">Meson</h1>
-        <p class="subtitle">Cadastro de usuário (teste)</p>
+        <br>
+        <p class="subtitle">Cadastro de usuário</p>
 
         <form th:action="@{/cadastro}" method="post">
 
@@ -24,13 +25,22 @@
             <label>Senha</label>
             <input type="password" name="senhaUsuario" required>
 
-            <label>Restaurante</label>
-            <input type="text" name="nome" required>
+            <label>Confirme a senha</label>
+            <input type="password" name="confSenhaUsuario" required>
+            <br><br>
+            <p class="subtitle">Cadastro do restaurante</p>
 
             <label>CNPJ</label>
             <input type="text" name="cnpj" required>
 
+            <label>Nome</label>
+            <input type="text" name="nomeRestaurante" required>
 
+            <label>Razão Social</label>
+            <input type="text" name="razaoSocial" required>
+
+            <label>Telefone</label>
+            <input type="tel" name="telefone" required>
             <button type="submit">Cadastrar</button>
 
             <p class="success" th:if="${sucesso}">

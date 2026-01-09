@@ -35,6 +35,10 @@ public class Comanda {
     @Column(name = "data_fechamento")
     private LocalDateTime dataFechamento;
 
+    @ManyToOne
+    @JoinColumn(name = "id_restaurante")
+    private Restaurante restaurante;
+
     //@OneToMany(mappedBy = "comanda")
     //@JsonIgnore
     //private List<Produto> produtos;

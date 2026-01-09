@@ -25,11 +25,86 @@ public class Restaurante{
     private String cnpj;
 
     @Column(name = "nome_restaurante")
-    private String nome;
+    private String nomeRestaurante;
+
+    @Column(name = "telefone_restaurante")
+    private String telefone;
+
+    private String cnae;
+
+    @Column(name = "cnae_descricao")
+    private String cnaeDescricao;
+
+    @Column(name = "razao_social")
+    private String razaoSocial;
 
     private Boolean ativo;
 
     @CreationTimestamp
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getNomeRestaurante() {
+        return nomeRestaurante;
+    }
+
+    public void setNomeRestaurante(String nomeRestaurante) {
+        this.nomeRestaurante = nomeRestaurante;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCnae() {
+        return cnae;
+    }
+
+    public void setCnae(String cnae) {
+        this.cnae = cnae;
+    }
+
+    public String getCnaeDescricao() {
+        return cnaeDescricao;
+    }
+
+    public void setCnaeDescricao(String cnaeDescricao) {
+        this.cnaeDescricao = cnaeDescricao;
+    }
+
+    public String getRazaoSocial() {
+        return razaoSocial;
+    }
+
+    public void setRazaoSocial(String razaoSocial) {
+        this.razaoSocial = razaoSocial;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 }

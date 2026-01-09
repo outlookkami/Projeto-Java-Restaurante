@@ -1,7 +1,6 @@
 package com.projetoJavaRestaurante.demo.model;
 
 import com.projetoJavaRestaurante.demo.model.enums.PerfilUsuario;
-import com.projetoJavaRestaurante.demo.model.enums.StatusUsuario;
 import jakarta.persistence.*;
 import lombok.*;
 //import org.springframework.security.core.GrantedAuthority;
@@ -9,12 +8,10 @@ import lombok.*;
 //import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+//@Builder
 @Getter
 @Setter
 @Entity
@@ -23,12 +20,12 @@ public class Usuario{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private int id;
+    private long id;
 
     @Column(name = "nome_usuario", nullable = false)
     private String nomeUsuario;
 
-    @Column(name = "email_usuario", nullable = false, unique = true)
+    @Column(name = "email_usuario", unique = true, nullable = false)
     private String emailUsuario;
 
     @Column(name = "senha_usuario", nullable = false)
@@ -38,18 +35,22 @@ public class Usuario{
     @Column(name = "perfil_usuario", nullable = false)
     private PerfilUsuario perfilUsuario;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusUsuario ativo;
+    private boolean ativo;
 
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao =  LocalDateTime.now();
 
-    public int getId() {
+    @ManyToOne
+    @JoinColumn(name = "id_restaurante", nullable = false)
+    private Restaurante restaurante;
+
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -85,13 +86,11 @@ public class Usuario{
         this.perfilUsuario = perfilUsuario;
     }
 
-    public StatusUsuario getAtivo() {
+    public boolean isAtivo() {
         return ativo;
     }
 
-    public void setAtivo(StatusUsuario ativo) {
+    public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-
-
 }
