@@ -10,37 +10,30 @@
 <div class="auth-container">
     <div class="auth-card">
 
-        <h1 class="logo">Meson</h1>
+<!--        <h1 class="logo">Meson</h1>-->
+        <img src="../../static/logoMeson.png" alt="" width="240px">
         <br>
-        <p class="subtitle">Cadastro de usuário</p>
+        <form th:action="@{/cadastro/restaurante}" th:object="${RestauranteDTO}" method="post">
 
-        <form th:action="@{/cadastro}" method="post">
-
-            <label>Nome</label>
-            <input type="text" name="nomeUsuario" required>
-
-            <label>Email</label>
-            <input type="text" name="emailUsuario" required>
-
-            <label>Senha</label>
-            <input type="password" name="senhaUsuario" required>
-
-            <label>Confirme a senha</label>
-            <input type="password" name="confSenhaUsuario" required>
-            <br><br>
             <p class="subtitle">Cadastro do restaurante</p>
 
             <label>CNPJ</label>
-            <input type="text" name="cnpj" required>
+            <input th:field="${cnpj}" type="text" required>
 
             <label>Nome</label>
-            <input type="text" name="nomeRestaurante" required>
+            <input th:field="${nomeRestaurante}" type="text" required>
 
             <label>Razão Social</label>
-            <input type="text" name="razaoSocial" required>
+            <input th:field="*{razaoSocial}" type="text" required>
+
+            <label>Cnae</label>
+            <input th:field="*{cnae}" type="text" required>
+
+            <label>Cnae - descrição</label>
+            <input th:field="*{cnaeDescricao}" type="text" required>
 
             <label>Telefone</label>
-            <input type="tel" name="telefone" required>
+            <input th:field="*{telefone}" type="tel" required>
             <button type="submit">Cadastrar</button>
 
             <p class="success" th:if="${sucesso}">
@@ -58,7 +51,6 @@
 
     </div>
 </div>
-
 
 <style>
     * {

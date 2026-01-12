@@ -1,8 +1,5 @@
 package com.projetoJavaRestaurante.demo.service;
 
-import com.projetoJavaRestaurante.demo.dto.RestauranteEAdminDTO;
-import com.projetoJavaRestaurante.demo.model.Restaurante;
-import com.projetoJavaRestaurante.demo.model.Usuario;
 import org.springframework.stereotype.Service;
 
 @Service

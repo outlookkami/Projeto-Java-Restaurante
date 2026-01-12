@@ -1,13 +1,13 @@
 package com.projetoJavaRestaurante.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 @Entity
 @Table(
         name = "categoriaProduto",
@@ -22,10 +22,12 @@ public class CategoriaProduto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")
-    private int id;
+    private Long id;
 
     @Column(name = "nome_categoria")
     private String nome;
+
+    private Boolean ativa;
 
     @ManyToOne
     @JoinColumn(name = "id_restaurante", nullable = false)
