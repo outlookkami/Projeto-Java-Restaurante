@@ -23,13 +23,13 @@ public class Usuario{
     private long id;
 
     @Column(name = "nome_usuario", nullable = false)
-    private String nomeUsuario;
+    private String nome;
 
     @Column(name = "email_usuario", unique = true, nullable = false)
-    private String emailUsuario;
+    private String email;
 
     @Column(name = "senha_usuario", nullable = false)
-    private String senhaUsuario;
+    private String senha;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "perfil_usuario", nullable = false)

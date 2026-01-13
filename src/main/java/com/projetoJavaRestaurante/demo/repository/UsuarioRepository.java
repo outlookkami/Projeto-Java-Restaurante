@@ -11,15 +11,15 @@ import org.springframework.stereotype.Repository;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Usuario findByEmail(String email);
 
-//    public boolean existsByEmailUsuario(String emailUsuario);
-//
-//    @Query(
-//            value = "SELECT * FROM meson_restaurantes.usuarios WHERE email_usuario = :emailUsuario AND senha_usuario = :senhaUsuario",
-//            nativeQuery = true
-//    )
-//    Usuario login(
-//            @Param("emailUsuario") String emailUsuario,
-//            @Param("senhaUsuario") String senhaUsuario
-//    );
+    public boolean existsByEmail(String email);
+
+    @Query(
+            value = "SELECT * FROM meson_restaurantes.usuarios WHERE email_usuario = :email AND senha_usuario = :senha",
+            nativeQuery = true
+    )
+    Usuario login(
+            @Param("email") String email,
+            @Param("senha") String senha
+    );
 }
 

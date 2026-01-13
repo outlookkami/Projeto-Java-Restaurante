@@ -1,15 +1,15 @@
 package com.projetoJavaRestaurante.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 @Entity
 @Table(
         name = "produtos",
@@ -35,10 +35,10 @@ public class Produto {
     @Column(name = "preco_produto")
     private BigDecimal preco;
 
-    private Boolean ativo;
-
     @Column(name = "imagem_produto")
     private String imagemUrl;
+
+    private Boolean ativo;
 
     @ManyToOne
     @JoinColumn(name = "id_restaurante", nullable = false)

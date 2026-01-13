@@ -17,6 +17,7 @@ public class CategoriaService {
 
     public List<CategoriaProduto> listar() {
         this.categoriaRepository.findAll();
+        return(List<CategoriaProduto>)  this.categoriaRepository.findAll();
     }
 
     public void salvar(CategoriaDTO categoriaDto) {

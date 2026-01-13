@@ -26,13 +26,13 @@ public class LoginController {
 
     @GetMapping("/")
     public String dashboard() {
-        return "instrucoes";
+        return "cadastro/instrucoes";
     }
 
     @PostMapping("/logar")
     public String loginUsuario(Usuario usuario, Model model, HttpServletResponse response) {
-        Usuario user = this.usuarioRepository.login(usuario.getEmailUsuario(), usuario.getSenhaUsuario());
-        if (usuarioRepository != null) {
+        Usuario user = this.usuarioRepository.login(usuario.getEmail(), usuario.getSenha());
+        if (user != null) {
             return "redirect:/instrucoes";
         }
 
