@@ -1,12 +1,11 @@
-package com.projetoJavaRestaurante.demo.dto;
+package com.projetoJavaRestaurante.demo.dto.response;
 
 import com.projetoJavaRestaurante.demo.model.enums.PerfilUsuario;
 
-public class UsuarioDTO {
+public class UsuarioResponseDTO {
     private Long id;
     private String nomeUsuario;
     private String emailUsuario;
-    private String senhaUsuario;
     private PerfilUsuario perfilUsuario;
 
     public long getId() {
@@ -31,14 +30,6 @@ public class UsuarioDTO {
 
     public void setEmailUsuario(String emailUsuario) {
         this.emailUsuario = emailUsuario;
-    }
-
-    public String getSenhaUsuario() {
-        return senhaUsuario;
-    }
-
-    public void setSenhaUsuario(String senhaUsuario) {
-        this.senhaUsuario = senhaUsuario;
     }
 
     public PerfilUsuario getPerfilUsuario() {

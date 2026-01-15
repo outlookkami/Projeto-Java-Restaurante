@@ -1,6 +1,6 @@
 package com.projetoJavaRestaurante.demo.service;
 
-import com.projetoJavaRestaurante.demo.dto.CategoriaDTO;
+import com.projetoJavaRestaurante.demo.dto.response.CategoriaResponseDTO;
 import com.projetoJavaRestaurante.demo.model.CategoriaProduto;
 import com.projetoJavaRestaurante.demo.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
@@ -20,9 +20,9 @@ public class CategoriaService {
         return(List<CategoriaProduto>)  this.categoriaRepository.findAll();
     }
 
-    public void salvar(CategoriaDTO categoriaDto) {
+    public void salvar(CategoriaResponseDTO categoriaResponseDto) {
         CategoriaProduto categoriaProduto = new CategoriaProduto();
-        categoriaProduto.setNome(categoriaDto.getNome());
+        categoriaProduto.setNome(categoriaResponseDto.getNome());
         categoriaRepository.save(categoriaProduto);
     }
 
@@ -31,9 +31,9 @@ public class CategoriaService {
             .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
     }
 
-    public void atualizar(Long id, CategoriaDTO categoriaDto) {
+    public void atualizar(Long id, CategoriaResponseDTO categoriaResponseDto) {
         CategoriaProduto categoriaProduto = buscarPorId(id);
-        categoriaProduto.setNome(categoriaDto.getNome());
+        categoriaProduto.setNome(categoriaResponseDto.getNome());
         categoriaRepository.save(categoriaProduto);
     }
 

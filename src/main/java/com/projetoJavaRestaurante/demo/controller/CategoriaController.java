@@ -1,6 +1,6 @@
 package com.projetoJavaRestaurante.demo.controller;
 
-import com.projetoJavaRestaurante.demo.dto.CategoriaDTO;
+import com.projetoJavaRestaurante.demo.dto.response.CategoriaResponseDTO;
 import com.projetoJavaRestaurante.demo.service.CategoriaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,29 +23,29 @@ public class CategoriaController {
 
     @GetMapping("/nova")
     public String nova(Model model) {
-        model.addAttribute("categoriaDTO", new CategoriaDTO());
+        model.addAttribute("categoriaDTO", new CategoriaResponseDTO());
         return "categoria/formulario";
     }
 
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute CategoriaDTO categoriaDto) {
-        service.salvar(categoriaDto);
+    public String salvar(@ModelAttribute CategoriaResponseDTO categoriaResponseDto) {
+        service.salvar(categoriaResponseDto);
         return "redirect:/categorias";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable("id") Long id, Model model) {
        var categoria = service.buscarPorId(id);
-       CategoriaDTO categoriaDto = new CategoriaDTO();
-       categoriaDto.setId(categoria.getId());
-       categoriaDto.setNome(categoria.getNome());
-       model.addAttribute("categoriaDTO", categoriaDto);
+       CategoriaResponseDTO categoriaResponseDto = new CategoriaResponseDTO();
+       categoriaResponseDto.setId(categoria.getId());
+       categoriaResponseDto.setNome(categoria.getNome());
+       model.addAttribute("categoriaDTO", categoriaResponseDto);
        return "categoria/formulario";
     }
 
     @PostMapping("/atualizar/{id}")
-    public String atualizar(@PathVariable("id") Long id, @ModelAttribute CategoriaDTO categoriaDto) {
-        service.atualizar(id, categoriaDto);
+    public String atualizar(@PathVariable("id") Long id, @ModelAttribute CategoriaResponseDTO categoriaResponseDto) {
+        service.atualizar(id, categoriaResponseDto);
         return "redirect:/categorias";
     }
 

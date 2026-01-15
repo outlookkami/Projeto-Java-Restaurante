@@ -23,42 +23,60 @@ public class CadastroController {
     @Autowired
     private RestauranteRepository restauranteRepository;
 
-    @GetMapping("/restaurante")
-    public String cadastroRestaurante(Model model) {
-        model.addAttribute("restaurante", new Restaurante());
-        return "cadastro/restaurante";
-    }
-
-    @PostMapping("/restaurante")
-    public String salvarRestaurante(
-            @ModelAttribute Restaurante restaurante,
-            RedirectAttributes redirect
-    ){
-        Restaurante restauranteSalvo = restauranteRepository.save(restaurante);
-        redirect.addAttribute("restauranteId", restauranteSalvo.getId());
-        return "redirect:/cadastro/admin";
-    }
-
     @GetMapping("/admin")
-    public String cadastroAdmin(
-        @ModelAttribute("restauranteId") Long restauranteId,
-        Model model
-    ) {
-        if(restauranteId == null) {
-            return "redirect:/cadastro/restaurante";
-        }
-
-        model.addAttribute("usuario", new Usuario());
-        model.addAttribute("restaurante", new Restaurante());
-
+    public String cadastroAdmin() {
         return "cadastro/admin";
     }
 
-    @GetMapping("/instrucoes")
-    public String instrucoes(Model model) {
-        Model instrucoes = model.addAttribute("instrucoes");
-        return "/instrucoes";
+    @GetMapping("/restaurante")
+    public String cadastroRestaurante() {
+        return "cadastro/restaurante";
     }
+//    @RequestMapping(value = "/cadastro/admin", method = RequestMethod.POST)
+//    public String cadastroUsuario(@Valid Usuario usuario, BindingResult result) {
+//        if(result.hasErrors()){
+//            return "redirect:/cadastro/admin";
+//        }
+//        usuarioRepository.save(usuario);
+//        return "redirect:/cadastro/login";
+//    }
+
+//    @GetMapping("/restaurante")
+//    public String cadastroRestaurante(Model model) {
+//        model.addAttribute("restaurante", new Restaurante());
+//        return "cadastro/restaurante";
+//    }
+//
+//    @PostMapping("/restaurante")
+//    public String salvarRestaurante(
+//            @ModelAttribute Restaurante restaurante,
+//            RedirectAttributes redirect
+//    ){
+//        Restaurante restauranteSalvo = restauranteRepository.save(restaurante);
+//        redirect.addAttribute("restauranteId", restauranteSalvo.getId());
+//        return "redirect:/cadastro/admin";
+//    }
+//
+//    @GetMapping("/admin")
+//    public String cadastroAdmin(
+//        @ModelAttribute("restauranteId") Long restauranteId,
+//        Model model
+//    ) {
+//        if(restauranteId == null) {
+//            return "redirect:/cadastro/restaurante";
+//        }
+//
+//        model.addAttribute("usuario", new Usuario());
+//        model.addAttribute("restaurante", new Restaurante());
+//
+//        return "cadastro/admin";
+//    }
+//
+//    @GetMapping("/instrucoes")
+//    public String instrucoes(Model model) {
+//        Model instrucoes = model.addAttribute("instrucoes");
+//        return "/instrucoes";
+//    }
 
 //    @RequestMapping(value = "/cadastro/restaurante", method = RequestMethod.POST)
 //    public String cadastroRestaurante(@Valid Restaurante restaurante, BindingResult result) {

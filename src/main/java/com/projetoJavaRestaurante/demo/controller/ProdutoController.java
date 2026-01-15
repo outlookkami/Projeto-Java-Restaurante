@@ -17,9 +17,9 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    @GetMapping("/listar")
-    public String getAllProducts(){
-        List<Produto> produtoList = produtoService.listarProdutos()
-
-    }
+//    @GetMapping("/listar")
+//    public String getAllProducts(){
+//        List<Produto> produtoList = produtoService.listarProdutos();
+//
+//    }
 }

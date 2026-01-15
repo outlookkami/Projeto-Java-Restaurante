@@ -1,9 +1,18 @@
-package com.projetoJavaRestaurante.demo.dto;
+package com.projetoJavaRestaurante.demo.dto.response;
 
-public class RestauranteDTO {
+public class RestauranteResponseDTO {
+    private Long id;
     private String nomeRestaurante;
     private String cnpj;
     private String telefone;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNomeRestaurante() {
         return nomeRestaurante;

@@ -1,6 +1,6 @@
-package com.projetoJavaRestaurante.demo.dto;
+package com.projetoJavaRestaurante.demo.dto.request;
 
-public class AdminDTO {
+public class AdminRequestDTO {
     private String nomeAdmin;
     private String emailAdmin;
     private String senhaAdmin;

@@ -9,17 +9,19 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    Usuario findByEmail(String email);
 
-    public boolean existsByEmail(String email);
-
-    @Query(
-            value = "SELECT * FROM meson_restaurantes.usuarios WHERE email_usuario = :email AND senha_usuario = :senha",
-            nativeQuery = true
-    )
-    Usuario login(
-            @Param("email") String email,
-            @Param("senha") String senha
-    );
+    Usuario findById(long id);
+    //    Usuario findByEmail(String email);
+//
+//    public boolean existsByEmail(String email);
+//
+//    @Query(
+//            value = "SELECT * FROM meson_restaurantes.usuarios WHERE email_usuario = :email AND senha_usuario = :senha",
+//            nativeQuery = true
+//    )
+//    Usuario login(
+//            @Param("email") String email,
+//            @Param("senha") String senha
+//    );
 }
 

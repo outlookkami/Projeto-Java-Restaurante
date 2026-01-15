@@ -29,15 +29,15 @@ public class LoginController {
         return "cadastro/instrucoes";
     }
 
-    @PostMapping("/logar")
-    public String loginUsuario(Usuario usuario, Model model, HttpServletResponse response) {
-        Usuario user = this.usuarioRepository.login(usuario.getEmail(), usuario.getSenha());
-        if (user != null) {
-            return "redirect:/instrucoes";
-        }
-
-        model.addAttribute("erro", "Usuário Inválido!");
-        return "login";
-    }
+//    @PostMapping("/logar")
+//    public String loginUsuario(Usuario usuario, Model model, HttpServletResponse response) {
+//        Usuario user = this.usuarioRepository.login(usuario.getEmail(), usuario.getSenha());
+//        if (user != null) {
+//            return "redirect:/instrucoes";
+//        }
+//
+//        model.addAttribute("erro", "Usuário Inválido!");
+//        return "login";
+//    }
 }
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro | Meson</title>
-    <link rel="stylesheet" th:href="@{/css/auth.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/auth.css}">-->
 </head>
 <body>
 
@@ -16,19 +16,19 @@
         <br>
         <p class="subtitle">Cadastro de usuário</p>
 
-        <form th:action="@{/cadastro/admin}" th:object="${AdminDTO}" method="post" >
+        <form th:action="@{/cadastro/admin}" th:object=${AdminRequestDTO} method="post" >
 
             <label>Nome</label>
-            <input th:field="*{nomeUsuario}" type="text" required>
+            <input th:field="*{nomeAdmin}" type="text" required>
 
             <label>Email</label>
-            <input th:field="*{emailUsuario}" type="text" required>
+            <input th:field="*{emailAdmin}" type="text" required>
 
             <label>Senha</label>
-            <input th:field="*{senhaUsuario}" type="password" required>
+            <input th:field="*{senhaAdmin}" type="password" required>
 
             <label>Confirme a senha</label>
-            <input type="password" name="confSenhaUsuario" required>
+            <input type="password" name="confSenhaAdmin" required>
             <br><br>
             
             <button type="submit">Cadastrar</button>

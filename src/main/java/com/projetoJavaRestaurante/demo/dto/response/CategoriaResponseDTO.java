@@ -1,6 +1,6 @@
-package com.projetoJavaRestaurante.demo.dto;
+package com.projetoJavaRestaurante.demo.dto.response;
 
-public class CategoriaDTO {
+public class CategoriaResponseDTO {
     private Long id;
     private String nome;
 
