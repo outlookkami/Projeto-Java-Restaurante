@@ -1,4 +1,4 @@
-package com.projetoJavaRestaurante.demo.model;
+package com.kamilly.model;
 
 import com.projetoJavaRestaurante.demo.model.enums.PerfilUsuario;
 import jakarta.persistence.*;

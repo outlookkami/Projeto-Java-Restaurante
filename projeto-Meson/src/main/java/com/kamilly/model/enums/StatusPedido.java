@@ -1,4 +1,4 @@
-package com.projetoJavaRestaurante.demo.model.enums;
+package com.kamilly.model.enums;
 
 public enum StatusPedido {
     RECEBIDO,

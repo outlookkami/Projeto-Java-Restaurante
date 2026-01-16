@@ -1,4 +1,4 @@
-package com.projetoJavaRestaurante.demo.model.enums;
+package model.enums;
 
 public enum StatusMesa {
     DISPONÍVEL,

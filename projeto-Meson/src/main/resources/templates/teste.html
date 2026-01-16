@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início - ADM</title>
+</head>
+<body>
+    <p th:text="$(variavel)"></p>
+    <div th:each="nome: ${variavel}">
+        <p th:text="${nome}"></p>
+    </div>
+
+    <div th:fragment="">
+
+    <div th:insert></div>
+
+    </div>
+</body>
+</html>

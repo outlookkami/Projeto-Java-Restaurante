@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Categoria Produto</title>
+</head>
+<body>
+    <h2>Categoria</h2>
+    <form th:object="${categoriaDTO}"
+          th:action="${categoriaDTO.id} == null ? @{/categorias/salvar} : @{/categorias/atualizar/{id}(id=${categoriaDTO.id})}"
+            method="post">
+
+        <input type="text" th:field="*{nome}" placeholder="Nome da categoria">
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>

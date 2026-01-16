@@ -1,4 +1,4 @@
-package com.projetoJavaRestaurante.demo.model;
+package com.kamilly.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

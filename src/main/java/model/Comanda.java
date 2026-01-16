@@ -1,4 +1,4 @@
-package com.projetoJavaRestaurante.demo.model;
+package model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,6 +23,9 @@ public class Comanda {
     @ManyToOne
     @JoinColumn(name = "id_mesa", nullable = false)
     private Mesa mesa;
+
+    @Column(name = "nome_cliente")
+    private String nomeCliente;
 
     private String status;
 
