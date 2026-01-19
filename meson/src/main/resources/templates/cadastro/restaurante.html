@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro | Meson</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="auth-card">
+
+<!--        <h1 class="logo">Meson</h1>-->
+        <img src="../../static/logoMeson.png" alt="" width="240px">
+        <br>
+        <form th:action="@{/cadastro/restaurante/salvar}" th:object="${restauranteDTO}" method="post">
+
+            <p class="subtitle">Cadastro do restaurante</p>
+
+            <label>CNPJ</label>
+            <input type="text" id="cnpj" th:field="*{cnpj}" required>
+
+            <label>Nome</label>
+            <input type="text" id="nomeFantasia" th:field="*{nomeFantasia}" required>
+
+            <label>Razão Social</label>
+            <input type="text" id="razaoSocial" th:field="*{razaoSocial}" required>
+
+            <label>CNAE</label>
+            <input type="text" id="cnae" th:field="*{cnae}"required>
+
+            <label>Descrição do CNAE</label>
+            <input type="text" id="descricaoCnae" th:field="*{descricaoCnae}" required>
+
+            <label>Telefone</label>
+            <input type="tel" required>
+            <button type="submit">Cadastrar</button>
+
+            <p class="success" th:if="${sucesso}">
+                Usuário cadastrado com sucesso
+            </p>
+
+            <p class="error" th:if="${erro}">
+                Erro ao cadastrar usuário
+            </p>
+        </form>
+
+        <a th:href="@{/login}" class="link">
+            Voltar para login
+        </a>
+
+    </div>
+</div>
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: #AFD2E9;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-card {
+    background: #161925;
+    width: 420px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    color: white;
+}
+
+.logo {
+    text-align: center;
+    font-size: 32px;
+    color: #B48B7D;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #AFD2E9;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+input, select {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px;
+    background: #567568;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #AFD2E9;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.success {
+    margin-top: 15px;
+    color: #A7F3D0;
+    font-size: 14px;
+}
+
+.error {
+    margin-top: 15px;
+    color: #FCA5A5;
+    font-size: 14px;
+}
+
+</style>
+
+<script src="/js/cnpj.js"></script>
+</body>
+</html>

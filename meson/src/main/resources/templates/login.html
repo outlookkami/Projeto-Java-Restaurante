@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Meson</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #AFD2E9;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            width: 900px;
+            height: 500px;
+            display: flex;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        /* LADO ESQUERDO */
+        .login-image {
+            width: 50%;
+            background: #161925;
+            color: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-image h1 {
+            font-size: 36px;
+            color: #B48B7D;
+            margin-bottom: 10px;
+        }
+
+        .login-image p {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .login-image small {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+
+        /* LADO DIREITO */
+        .login-form {
+            width: 50%;
+            background: #FFFFFF;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-form h2 {
+            font-size: 26px;
+            color: #161925;
+            margin-bottom: 10px;
+        }
+
+        .login-form p {
+            font-size: 14px;
+            color: #5E3023;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-size: 14px;
+            margin-top: 15px;
+            color: #161925;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+            border-radius: 6px;
+            border: 1px solid #CBD5E1;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #567568;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            background: #567568;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .error {
+            margin-top: 15px;
+            color: #EF4444;
+            font-size: 14px;
+        }
+
+        .link {
+            display: block;
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #567568;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="login-image">
+        <h1>Meson</h1>
+        <p>
+            Sistema de organização e gestão para restaurantes.
+        </p>
+
+        <small>
+            Gerencie pedidos, mesas e equipe em um só lugar.
+        </small>
+    </div>
+
+    <div class="login-form">
+        <h2>Entrar</h2>
+        <p>Informe seus dados para acessar o sistema</p>
+
+        <form th:action="@{/login}" method="post">
+
+            <label>Email ou usuário</label>
+            <input type="text" name="email_usuario" placeholder="ex: admin@restaurante.com" required>
+
+            <label>Senha</label>
+            <input type="password" name="senha_usuario" placeholder="••••••••" required>
+
+            <button type="submit">Acessar sistema</button>
+
+            <p class="error" th:if="${param.error}">
+                Usuário ou senha inválidos
+            </p>
+        </form>
+
+        <a th:href="@{/cadastro/restaurante}" class="link">
+            Cadastrar meu restaurante
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
