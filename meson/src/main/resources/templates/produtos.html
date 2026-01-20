@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Categorias</title>
+    <link rel="stylesheet" href="categorias.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <aside th:insert="~{fragments :: menu-lateral}"></aside>
+
+    <aside th:replace="fragments :: menu-lateral"></aside>
+
+    <main class="content">
+        <header class="header">
+            <h1>Produtos</h1>
+            <button class="btn-primary">+ Novo Produto</button>
+        </header>
+
+        <table>
+
+            <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+            </tr>
+
+            <tbody>
+            <tr th:each="produto, row : ${produtos}">
+                <td></td>
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.preco}"></td>
+                <td th:text="${produto.categoria}"></td>
+                <td th:text="${produto.descricao}"></td>
+                <td th:text="${produto.ativo == true} ? 'Sim' : 'Não'"></td>
+                <td>
+                    <button class="btn-edit">Editar</button>
+                    <button class="btn-delete">Excluir</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+
+</div>
+
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+    background-color: #afd2e9;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    color: #161925;
+}
+
+.btn-primary {
+    background-color: #5e3023;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-primary:hover {
+    background-color: #b48b7d;
+}
+
+.btn-edit {
+    background-color: #567568;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-delete {
+    background-color: #5e3023;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 30px;
+}
+
+th {
+    background-color: #b48b7d;
+    color: #161925;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+</style>
+</body>
+</html>

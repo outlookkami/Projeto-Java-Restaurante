@@ -29,6 +29,8 @@ public class Produto {
     @Column(name = "nome_produto")
     private String nome;
 
+    private String categoria;
+
     @Column(name = "descricao_produto")
     private String descricao;
 

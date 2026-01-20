@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Categorias</title>
+    <link rel="stylesheet" href="categorias.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="../static/assets/logoMeson.png" alt="Logo Restaurante">
+        </div>
+
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href="/categorias" class="active">Categorias</a>
+            <a href="/produtos">Produtos</a>
+            <a href="#">Pedidos</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <header class="header">
+            <h1>Categorias</h1>
+            <button class="btn-primary">+ Nova Categoria</button>
+        </header>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Ativa</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="categoria, row : ${categorias}">
+                <td th:text="${categoria.nome}"></td>
+                <td th:text="${categoria.ativa == true} ? 'Sim' : 'Não'"></td>
+                <td>
+                    <button class="btn-edit">Editar</button>
+                    <button class="btn-delete">Excluir</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+
+</div>
+
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    background-color: #b48b7d;
+    color: #b48b7d;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid;
+}
+
+.logo img {
+    max-width: 120px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar nav a {
+    padding: 15px 20px;
+    color: #afd2e9;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background-color: #5e3023;
+}
+
+.content {
+    flex: 1;
+    background-color: #afd2e9;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    color: #161925;
+}
+
+.btn-primary {
+    background-color: #5e3023;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-primary:hover {
+    background-color: #b48b7d;
+}
+
+.btn-edit {
+    background-color: #567568;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-delete {
+    background-color: #5e3023;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th {
+    background-color: #b48b7d;
+    color: #161925;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+</style>
+</body>
+</html>
