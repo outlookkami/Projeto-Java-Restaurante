@@ -1,9 +1,9 @@
 package com.kamilly.meson.repository;
 
-import com.kamilly.meson.model.CategoriaProduto;
+import com.kamilly.meson.model.Mesa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<CategoriaProduto, Long> {
+public interface MesaRepository extends JpaRepository<Mesa, Long> {
 }

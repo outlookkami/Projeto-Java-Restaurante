@@ -3,6 +3,7 @@ package com.kamilly.meson.controller;
 import com.kamilly.meson.dto.request.RestauranteDTO;
 import com.kamilly.meson.service.CnpjService;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

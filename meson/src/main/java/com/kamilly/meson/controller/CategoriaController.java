@@ -2,6 +2,7 @@ package com.kamilly.meson.controller;
 
 import com.kamilly.meson.model.CategoriaProduto;
 import com.kamilly.meson.service.CategoriaService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +15,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/categorias")
+@RequiredArgsConstructor
 public class CategoriaController {
 
-    @Autowired
-    private CategoriaService categoriaService;
+    private final CategoriaService categoriaService;
 
     @GetMapping
     public String listarCategorias(Model model){

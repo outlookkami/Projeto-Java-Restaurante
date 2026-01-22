@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro | Meson</title>
-<!--    <link rel="stylesheet" th:href="@{/css/auth.css}">-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!--    <link rel="stylesheet" th:href="@{/css/auth.css}">-->
 </head>
 <body>
 
 <div class="auth-container">
     <div class="auth-card">
-
-        <h1 class="logo">Meson</h1>
-        <img src="../../static/logoMeson.png" alt="">
+        <img src="../../static/assets/logoMeson.png" alt="" class="logo">
         
         <br>
         <p class="subtitle">Cadastro de usuário</p>
@@ -19,16 +21,16 @@
         <form method="post" >
 
             <label>Nome</label>
-            <input type="text" required>
+            <input type="text" required placeholder="Seu nome completo">
 
             <label>Email</label>
-            <input type="text" required>
+            <input type="text" required placeholder="ex: admin@gmail.com">
 
             <label>Senha</label>
-            <input type="password" required>
+            <input type="password" required placeholder="••••••••">
 
             <label>Confirme a senha</label>
-            <input type="password" name="confSenhaAdmin" required>
+            <input type="password" name="confSenhaAdmin" required placeholder="••••••••">
             <br><br>
             
             <button type="submit">Cadastrar</button>
@@ -54,11 +56,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Dm Sans', 'Inter', sans-serif;
 }
 
 body {
-    background: #AFD2E9;
+    background: #eee0cb;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -72,24 +74,23 @@ body {
 }
 
 .auth-card {
-    background: #161925;
+    background: #fdf6ee;
     width: 420px;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-    color: white;
+    color: black;
 }
 
 .logo {
-    text-align: center;
-    font-size: 32px;
-    color: #B48B7D;
+    display: flex;
+    width: 240px;
 }
 
 .subtitle {
     text-align: center;
-    font-size: 14px;
-    color: #AFD2E9;
+    font-size: 15px;
+    color: #5c3024;
     margin-bottom: 25px;
 }
 
@@ -129,9 +130,10 @@ button:hover {
     display: block;
     margin-top: 20px;
     text-align: center;
-    color: #AFD2E9;
+    color: #5c3024;
     text-decoration: none;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .link:hover {
@@ -140,13 +142,13 @@ button:hover {
 
 .success {
     margin-top: 15px;
-    color: #A7F3D0;
+    color: #567568;
     font-size: 14px;
 }
 
 .error {
     margin-top: 15px;
-    color: #FCA5A5;
+    color: #D16363;
     font-size: 14px;
 }
 

@@ -1,13 +1,13 @@
 package com.kamilly.meson.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 @Entity
 @Table(
         name = "mesas",
@@ -22,10 +22,13 @@ public class Mesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mesa")
-    private int id;
+    private long id;
     
     @Column(name = "numero_mesa")
     private short numero;
+
+    @Column(name = "capacidade_mesa")
+    private short capacidade;
 
     @Column(name = "posicao_x")
     private int posicaoX;

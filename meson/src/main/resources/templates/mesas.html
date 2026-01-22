@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD de Mesas</title>
+    <link rel="stylesheet" href="mesas.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>Meson</h2>
+        </div>
+
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href="#" class="active">Mesas</a>
+            <a href="#">Categorias</a>
+            <a href="#">Produtos</a>
+            <a href="#">Funcionários</a>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="content">
+
+        <header class="topbar">
+            <h1>Mesas</h1>
+            <button class="btn-primary">+ Nova Mesa</button>
+        </header>
+
+        <section class="card">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nº da Mesa</th>
+                    <th>Capacidade</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>01</td>
+                    <td>4 pessoas</td>
+                    <td><span class="status-livre">Livre</span></td>
+                    <td class="acoes">
+                        <button class="btn-edit">Editar</button>
+                        <button class="btn-delete">Excluir</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>02</td>
+                    <td>2 pessoas</td>
+                    <td><span class="status-ocupada">Ocupada</span></td>
+                    <td class="acoes">
+                        <button class="btn-edit">Editar</button>
+                        <button class="btn-delete">Excluir</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+</div>
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, sans-serif;
+}
+
+body {
+    background: #f4f4f4;
+    color: #161925;
+}
+
+/* Layout */
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    background: #5e3023;
+    color: white;
+    padding: 20px;
+}
+
+.logo {
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+.sidebar nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.sidebar nav a:hover,
+.sidebar nav .active {
+    background: #b48b7d;
+}
+
+/* Conteúdo */
+.content {
+    flex: 1;
+    padding: 30px;
+}
+
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background: #567568;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+/* Card */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #afd2e9;
+}
+
+td {
+    padding: 14px 0;
+}
+
+/* Ações */
+.acoes button {
+    margin-right: 6px;
+}
+
+.btn-edit {
+    background: #afd2e9;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-delete {
+    background: #5e3023;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Status */
+.status-livre {
+    color: #567568;
+    font-weight: bold;
+}
+
+.status-ocupada {
+    color: #5e3023;
+    font-weight: bold;
+}
+
+</style>
+
+</body>
+</html>
