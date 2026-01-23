@@ -1,9 +1,7 @@
 package com.kamilly.meson.controller;
 
-import com.kamilly.meson.dto.request.RestauranteDTO;
-import com.kamilly.meson.repository.RestauranteRepository;
+import com.kamilly.meson.dto.request.RestauranteReqDTO;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,12 +24,12 @@ public class CadastroController {
 
     @GetMapping("/restaurante")
     public String cadRest(Model model){
-        model.addAttribute("restauranteDTO", new RestauranteDTO());
+        model.addAttribute("restauranteDTO", new RestauranteReqDTO());
         return "cadastro/restaurante";
     }
 
     @PostMapping("/salvar")
-    public String salvarRestaurante(@Valid @ModelAttribute RestauranteDTO restauranteDTO){
+    public String salvarRestaurante(@Valid @ModelAttribute RestauranteReqDTO restauranteDTO){
         System.out.println(restauranteDTO.getCnpj());
         return "redirect:/cadastro/admin";
     }

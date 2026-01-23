@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class RestauranteDTO {
+public class RestauranteReqDTO {
     private String cnpj;
     @JsonProperty("razao_social")
     private String razaoSocial;

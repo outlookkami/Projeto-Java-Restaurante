@@ -2,7 +2,6 @@ package com.kamilly.meson.service;
 
 import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.repository.UsuarioRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service

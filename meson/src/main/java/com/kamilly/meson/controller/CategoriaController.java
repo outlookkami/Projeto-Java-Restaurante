@@ -4,9 +4,12 @@ import com.kamilly.meson.model.CategoriaProduto;
 import com.kamilly.meson.service.CategoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +29,12 @@ public class CategoriaController {
         model.addAttribute("categorias", categorias);
 
         return "categorias";
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> salvarCategoria(@ModelAttribute CategoriaProduto categoria){
+        categoriaService.salvarCategoria(categoria);
+        return ResponseEntity.ok().build();
     }
 
 //    @GetMapping

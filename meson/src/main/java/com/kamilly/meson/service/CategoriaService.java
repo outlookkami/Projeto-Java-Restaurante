@@ -9,9 +9,13 @@ import java.util.List;
 
 @Service
 public class CategoriaService {
+    private final CategoriaRepository categoriaRepository;
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    public CategoriaService(CategoriaRepository categoriaRepository) {
+        this.categoriaRepository = categoriaRepository;
+    }
+
+    public void salvarCategoria(CategoriaProduto categoria){categoriaRepository.saveAndFlush(categoria);}
 
     public List<CategoriaProduto> listarCategorias(){
         return categoriaRepository.findAll();
