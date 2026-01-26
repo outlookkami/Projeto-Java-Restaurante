@@ -17,9 +17,9 @@ public class Usuario{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private long id;
+    private Long id;
 
-    @Column(name = "nome_usuario", nullable = false)
+    @Column(name = "nome_usuario", nullable = false, length = 80)
     private String nome;
 
     @Column(name = "email_usuario", unique = true, nullable = false)
@@ -29,7 +29,7 @@ public class Usuario{
     private String senha;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "perfil_usuario", nullable = false)
+    @Column(name = "perfil_usuario", nullable = false, length = 20)
     private PerfilUsuario perfilUsuario;
 
     @Column(nullable = false)

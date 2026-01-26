@@ -3,10 +3,7 @@ package com.kamilly.meson.controller;
 import com.kamilly.meson.dto.request.RestauranteReqDTO;
 import com.kamilly.meson.service.CnpjService;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/cnpj")
@@ -19,6 +16,7 @@ public class RestauranteController {
     }
 
     @GetMapping("/{cnpj}")
+//    @ResponseBody
     public RestauranteReqDTO getCnpj(@PathVariable String cnpj) {
         return cnpjService.getCnpj(cnpj);
     }

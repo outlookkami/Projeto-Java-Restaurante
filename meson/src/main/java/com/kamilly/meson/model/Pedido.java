@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pedido")
-    private long id;
+    private Long id;
 
     private String status;
 
@@ -44,6 +45,9 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(name = "id_comanda", nullable = false)
     private Comanda comanda;
+
+    @OneToMany(mappedBy = "pedido",  cascade = CascadeType.ALL,  orphanRemoval = true)
+    private List<ItemPedido> itens;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)

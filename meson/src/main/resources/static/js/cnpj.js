@@ -1,4 +1,3 @@
-//alert("JS carregou");
 document.getElementById("cnpj").addEventListener("blur", verifCnpj);
 
 
@@ -9,33 +8,22 @@ function verifCnpj(){
         console.log("Chamando API...");
 
         fetch(`/api/cnpj/${cnpj}`)
-            .then(res => {
-                console.log("status:", res.status);
-                return res.json();
-            })
-            .then(data => {
-                console.log("RETORNO:", data);
-            })
-            .catch(err => console.error("ERRO:", err));
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("CNPJ inválido");
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log(data);
+            document.getElementById("razaoSocial").value = data.razao_social;
+            document.getElementById("nomeFantasia").value = data.nome_fantasia;
+            document.getElementById("cnae").value = data.cnae_fiscal;
+            document.getElementById("descricaoCnae").value = data.cnae_fiscal_descricao;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+
 }
 
-//function verifCnpj() {
-//
-//    const cnpj = document.getElementById("cnpj").value.replace(/\D/g, '');
-//    if(cnpj.lenght !== 14) return;
-//
-//    fetch(`/api/cnpj/${cnpj}`)
-//        .then(res => {
-//            if(!res.ok) throw new Error();
-//            return res.json();
-//        })
-//
-//        .then(data => {
-//            document.getElementById("razaoSocial").value = data.razaoSocial;
-//            document.getElementById("nomeFantasia").value = data.nomeFantasia;
-//            document.getElementById("cnae").value = data.cnae;
-//            document.getElementById("descricaoCnae").value = data.descricaoCnae;
-//        })
-//
-//        .catch(() => alert("CNPJ inválido!"));
-//}

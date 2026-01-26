@@ -20,21 +20,22 @@ public class Restaurante{
     @Column(name = "id_restaurante")
     private int id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false,  length = 14)
     private String cnpj;
 
-    @Column(name = "nome_restaurante")
+    @Column(name = "nome_restaurante", length = 100)
     private String nomeFantasia;
 
-    @Column(name = "telefone_restaurante")
+    @Column(name = "telefone_restaurante", length = 14)
     private String telefone;
 
+    @Column(length = 7)
     private String cnae;
 
-    @Column(name = "cnae_descricao")
+    @Column(name = "cnae_descricao", length = 180)
     private String descricaoCnae;
 
-    @Column(name = "razao_social")
+    @Column(name = "razao_social", length = 100)
     private String razaoSocial;
 
     private Boolean ativo;

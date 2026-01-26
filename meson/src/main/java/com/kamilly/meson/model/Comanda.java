@@ -18,7 +18,7 @@ public class Comanda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comanda")
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_mesa", nullable = false)

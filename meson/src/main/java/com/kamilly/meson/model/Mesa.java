@@ -22,7 +22,7 @@ public class Mesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mesa")
-    private long id;
+    private Long id;
     
     @Column(name = "numero_mesa")
     private short numero;

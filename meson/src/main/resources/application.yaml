@@ -7,8 +7,8 @@ spring:
       mode: always
 
   datasource:
-#    url: jdbc:postgresql://localhost:5431/meson_restaurantes
-    url: jdbc:postgresql://localhost:5432/meson_restaurantes
+    url: jdbc:postgresql://localhost:5431/meson_restaurantes
+#    url: jdbc:postgresql://localhost:5432/meson_restaurantes
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
