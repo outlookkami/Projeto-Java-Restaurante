@@ -1,9 +1,9 @@
-package com.kamilly.meson.dto.request;
+package com.kamilly.meson.controller.form;
 
 import lombok.Data;
 
 @Data
-public class UsuarioDTO {
+public class AdminForm {
     private String nome;
     private String email;
     private String senha;

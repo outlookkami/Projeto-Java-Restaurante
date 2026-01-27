@@ -16,18 +16,18 @@
         <img src="../../static/assets/logoMeson.png" alt="" class="logo">
         
         <br>
-        <p class="subtitle">Cadastro de usuário</p>
+        <p class="subtitle">Cadastro de administrador</p>
 
-        <form method="post" >
+        <form th:action="@{/cadastro/admin}" th:object="${adminDTO}" method="post">
 
             <label>Nome</label>
-            <input type="text" required placeholder="Seu nome completo">
+            <input type="text" th:field="*{nome}" required placeholder="Seu nome completo">
 
             <label>Email</label>
-            <input type="text" required placeholder="ex: admin@gmail.com">
+            <input type="text" th:field="*{email}" required placeholder="ex: admin@gmail.com">
 
             <label>Senha</label>
-            <input type="password" required placeholder="••••••••">
+            <input type="password" th:field="*{senha}" required placeholder="••••••••">
 
             <label>Confirme a senha</label>
             <input type="password" name="confSenhaAdmin" required placeholder="••••••••">

@@ -1,6 +1,8 @@
 package com.kamilly.meson.service;
 
+import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.Usuario;
+import com.kamilly.meson.model.enums.PerfilUsuario;
 import com.kamilly.meson.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +40,11 @@ public class UsuarioService {
                 .build();
 
         usuarioRepository.saveAndFlush(usuarioAtualizado);
+    }
+
+    public Usuario criarAdmin(Usuario usuario, Restaurante restaurante) {
+        usuario.setPerfilUsuario(PerfilUsuario.ADMIN);
+        usuario.setRestaurante(restaurante);
+        return usuario;
     }
 }

@@ -19,6 +19,8 @@
             $('#cnae').mask('0000-0/00');
             $('#telefone').mask('(00) 00000-0000');
         });
+
+
     </script>
 </head>
 <body>
@@ -29,7 +31,7 @@
 <!--        <h1 class="logo">Meson</h1>-->
         <img th:src="@{/assets/logoMeson.png}" src="../../static/assets/logoMeson.png" alt="" width="240px" class="logo">
         <br>
-        <form th:action="@{/cadastro/restaurante/salvar}" th:object="${restauranteDTO}" method="post">
+        <form th:action="@{/cadastro/restaurante}" th:object="${restauranteDTO}" method="post">
 
             <p class="subtitle">Cadastro do restaurante</p>
 
@@ -50,7 +52,7 @@
             <input type="text" id="descricaoCnae" th:field="*{descricaoCnae}" required placeholder="ex: Restaurantes e similares">
 
             <label>Telefone</label>
-            <input type="tel" id="telefone" required placeholder="ex: 41 99999-9999">
+            <input type="tel" id="telefone" th:field="*{telefone}" required placeholder="ex: 41 99999-9999">
             <button type="submit">Cadastrar</button>
 
             <p class="success" th:if="${sucesso}">
