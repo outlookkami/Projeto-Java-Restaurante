@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -43,4 +44,10 @@ public class Restaurante{
     @CreationTimestamp
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
+
+    @OneToMany(mappedBy = "restaurante")
+    private List<Usuario> usuariosRestaurante;
+
+    @OneToMany(mappedBy = "restaurante")
+    private List<Produto> produtosRestaurante;
 }

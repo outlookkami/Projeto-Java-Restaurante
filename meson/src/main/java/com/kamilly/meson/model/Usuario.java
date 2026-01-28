@@ -3,8 +3,13 @@ package com.kamilly.meson.model;
 import com.kamilly.meson.model.enums.PerfilUsuario;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,7 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "Usuarios")
-public class Usuario{
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
@@ -41,4 +46,28 @@ public class Usuario{
     @ManyToOne
     @JoinColumn(name = "id_restaurante", nullable = false)
     private Restaurante restaurante;
+
+//    Spring Security
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(
+                new SimpleGrantedAuthority("ROLE_" + perfilUsuario.name())
+        );
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override public boolean isAccountNonExpired() { return true;}
+    @Override public boolean isAccountNonLocked() { return true;}
+    @Override public boolean isCredentialsNonExpired() { return true;}
+    @Override public boolean isEnabled() { return true;}
+
 }

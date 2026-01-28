@@ -4,15 +4,13 @@ import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.model.enums.PerfilUsuario;
 import com.kamilly.meson.repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
-
-    public UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-    }
 
     public void salvarUsuario(Usuario usuario) {
         usuarioRepository.saveAndFlush(usuario);
@@ -47,4 +45,8 @@ public class UsuarioService {
         usuario.setRestaurante(restaurante);
         return usuario;
     }
+
+//    Usuario usuario = usuarioRepository
+//            .findByEmailAndRestaurante(email, idRestaurante)
+//            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"))
 }

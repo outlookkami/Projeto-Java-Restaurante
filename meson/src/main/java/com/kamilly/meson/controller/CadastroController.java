@@ -11,6 +11,7 @@ import com.kamilly.meson.service.RestauranteService;
 import com.kamilly.meson.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,8 @@ import org.springframework.web.bind.support.SessionStatus;
 public class CadastroController {
 
     private final RestauranteService restauranteService;
-
     private final UsuarioService usuarioService;
-
+    private final PasswordEncoder encoder;
 
     @ModelAttribute("cadastro")
     public CadastroDTO cadastro() {
@@ -58,7 +58,7 @@ public class CadastroController {
 
         cadastroDTO.setNomeAdmin(adminForm.getNome());
         cadastroDTO.setEmailAdmin(adminForm.getEmail());
-        cadastroDTO.setSenhaAdmin(adminForm.getSenha());
+        cadastroDTO.setSenhaAdmin(encoder.encode(adminForm.getSenha()));
 
         Restaurante restaurante = restauranteService.salvarRestaurante(cadastroDTO);
 
