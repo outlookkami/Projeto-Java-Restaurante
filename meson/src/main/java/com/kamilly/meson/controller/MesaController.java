@@ -17,10 +17,10 @@ public class MesaController {
 
     private final MesaService mesaService;
 
-    @GetMapping
-    public String listarMesas(Model model) {
-        List<Mesa> mesas = mesaService.listarMesas();
-        model.addAttribute("mesas", mesas);
-        return "admin/mesas";
-    }
+//    @GetMapping
+//    public String listarMesas(Model model) {
+//        List<Mesa> mesas = mesaService.listarMesas();
+//        model.addAttribute("mesas", mesas);
+//        return "admin/mesas";
+//    }
 }

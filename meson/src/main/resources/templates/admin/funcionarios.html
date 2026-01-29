@@ -42,6 +42,40 @@
 
 </div>
 
+<div id="modal" class="modal">
+    <div class="modal-conteudo">
+        <span class="fechar" onclick="fecharModal()">&times;</span>
+        <h3>Novo funcionário</h3>
+
+        <form th:action="@{/funcionarios/salvar}" method="post">
+            <div class="form-div">
+                <div>
+                    <label>Nome do funcionário:</label>
+                    <input type="text" name="nome" required>
+                </div>
+
+                <div>
+                    <label>Email do funcionário:</label>
+                    <input type="email" name="capacidade" required>
+                </div>
+
+                <div>
+                    <label>Cargo:</label>
+                    <select name="perfilUsuario.enum" required>
+                        <option value="">Selecione</option>
+                        <option th:each="perfil : ${perfis}" th:text="${perfil.descricao}" th:value="${perfil}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-acoes">
+                <button type="submit" class="btn btn-salvar">Salvar</button>
+                <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>
+                <button type="submit" class="btn btn-salvar">Ativar</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <style>
     * {

@@ -1,9 +1,11 @@
 package com.kamilly.meson.controller;
 
 import com.kamilly.meson.model.Usuario;
+import com.kamilly.meson.model.enums.PerfilUsuario;
 import com.kamilly.meson.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,6 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+
+    @GetMapping("funcionarios/novo")
+    public String novoFuncionario(Model model) {
+        model.addAttribute("perfis", PerfilUsuario.values());
+        return "funcionarios-form";
+    }
 
     @PostMapping
     public ResponseEntity<Void> salvarUsuario(@RequestBody Usuario usuario){
@@ -35,5 +43,7 @@ public class UsuarioController {
         usuarioService.atualizarUsuarioPorId(id, usuario);
         return ResponseEntity.ok().build();
     }
+
+
 
 }
