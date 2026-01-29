@@ -1,6 +1,7 @@
 package com.kamilly.meson.dto.request;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class CadastroDTO {

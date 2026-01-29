@@ -48,8 +48,11 @@ public class CadastroController {
     }
 
     @GetMapping("/admin")
-    public String cadAdmin(Model model){
+    public String cadAdmin(@ModelAttribute("cadastro") CadastroDTO cadastroDTO, Model model){
         model.addAttribute("adminDTO", new UsuarioDTO());
+        if (cadastroDTO.getCnpj() == null) {
+            return "redirect:/cadastro/restaurante";
+        }
         return "cadastro/admin";
     }
 
@@ -70,7 +73,8 @@ public class CadastroController {
         usuarioService.criarAdmin(admin, restaurante);
         usuarioService.salvarUsuario(admin);
 
-        return "redirect:/cadastro/admin";
+        status.setComplete();
+        return "redirect:/cadastro/instrucoes";
     }
 
     @GetMapping("/instrucoes")

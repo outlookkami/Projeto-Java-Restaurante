@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/categorias")
+@RequestMapping("/admin/categorias")
 @RequiredArgsConstructor
 public class CategoriaController {
 
@@ -28,7 +28,7 @@ public class CategoriaController {
         List<CategoriaProduto> categorias = categoriaService.listarCategorias();
         model.addAttribute("categorias", categorias);
 
-        return "categorias";
+        return "admin/categorias";
     }
 
     @PostMapping

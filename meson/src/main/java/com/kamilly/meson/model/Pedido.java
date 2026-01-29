@@ -52,4 +52,8 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario garcom;
+
+    @ManyToOne
+    @JoinColumn(name = "id_restaurante", nullable = false)
+    private Restaurante restaurante;
 }

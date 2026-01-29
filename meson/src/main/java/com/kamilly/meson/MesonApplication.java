@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class MesonApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MesonApplication.class, args);
+        SpringApplication.run(MesonApplication.class, args);
 	}
 
     @Bean

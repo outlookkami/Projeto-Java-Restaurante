@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/produtos")
+@RequestMapping("/admin/produtos")
 @RequiredArgsConstructor
 public class ProdutoController {
 
@@ -23,6 +23,6 @@ public class ProdutoController {
     public String listarProdutos(Model model) {
         List<Produto> produtos = produtoService.listarProdutos();
         model.addAttribute("produtos", produtos);
-        return "produtos";
+        return "admin/produtos";
     }
 }

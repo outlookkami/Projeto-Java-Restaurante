@@ -5,7 +5,11 @@ import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.model.enums.PerfilUsuario;
 import com.kamilly.meson.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +49,25 @@ public class UsuarioService {
         usuario.setRestaurante(restaurante);
         return usuario;
     }
+
+    public Usuario getUsuarioLogado() {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("Usuário não autenticado");
+        }
+
+        String email = authentication.getName(); // username/email
+
+        return usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
+
+//    public Usuario getRestauranteUsuarioLogado(){
+//        Optional<Usuario> usuarioRestaurante = usuarioRepository.findByEmailAndRestaurante(getRestauranteUsuarioLogado().getEmail(), getRestauranteUsuarioLogado().getId());
+//        return usuarioRestaurante.orElseThrow(() -> new RuntimeException("Não foi encontrado um restaurante nos dados do usuário."));
+//    }
 
 //    Usuario usuario = usuarioRepository
 //            .findByEmailAndRestaurante(email, idRestaurante)
