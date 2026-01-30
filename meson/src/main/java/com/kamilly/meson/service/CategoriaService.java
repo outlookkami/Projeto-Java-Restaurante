@@ -15,7 +15,7 @@ public class CategoriaService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public void salvarCategoria(CategoriaProduto categoria){categoriaRepository.saveAndFlush(categoria);}
+    public void salvarCategoria(CategoriaProduto categoria){categoriaRepository.save(categoria);}
 
     public List<CategoriaProduto> listarCategorias(){
         return categoriaRepository.findAll();

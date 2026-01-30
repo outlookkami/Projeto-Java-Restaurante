@@ -12,3 +12,4 @@ function previewImagem(event) {
     img.style.display = "block";
 }
 
+

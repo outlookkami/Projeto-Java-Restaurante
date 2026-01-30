@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/funcionarios")
@@ -15,11 +17,18 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-    @GetMapping("funcionarios/novo")
-    public String novoFuncionario(Model model) {
-        model.addAttribute("perfis", PerfilUsuario.values());
-        return "funcionarios-form";
+    @GetMapping("funcionarios")
+    public String listarFuncionarios(Model model) {
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        model.addAttribute("funcionarios", usuarios);
+        return "admin/funcionarios";
     }
+
+//    @GetMapping("funcionarios/novo")
+//    public String novoFuncionario(Model model) {
+//        model.addAttribute("perfis", PerfilUsuario.values());
+//        return "funcionarios-form";
+//    }
 
     @PostMapping
     public ResponseEntity<Void> salvarUsuario(@RequestBody Usuario usuario){
@@ -27,10 +36,10 @@ public class UsuarioController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity<Usuario> buscarUsuarioEmail(@RequestParam String email){
-        return ResponseEntity.ok(usuarioService.buscarUsuarioEmail(email));
-    }
+//    @GetMapping
+//    public ResponseEntity<Usuario> buscarUsuarioEmail(@RequestParam String email){
+//        return ResponseEntity.ok(usuarioService.buscarUsuarioEmail(email));
+//    }
 
     @DeleteMapping
     public ResponseEntity<Void> deletarUsuarioPorEmail(@RequestParam String email){

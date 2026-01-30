@@ -1,10 +1,13 @@
 package com.kamilly.meson.controller;
 
 import com.kamilly.meson.model.CategoriaProduto;
+import com.kamilly.meson.model.Mesa;
+import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.service.CategoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,10 +34,17 @@ public class CategoriaController {
         return "admin/categorias";
     }
 
-    @PostMapping
-    public ResponseEntity<Void> salvarCategoria(@ModelAttribute CategoriaProduto categoria){
+//    @PostMapping("categorias/salvar")
+//    public ResponseEntity<Void> salvarCategoria(@ModelAttribute CategoriaProduto categoria){
+//        categoriaService.salvarCategoria(categoria);
+//        return ResponseEntity.ok().build();
+//    }
+
+    @PostMapping("/salvar")
+    public String salvarCategoria(CategoriaProduto categoria, @AuthenticationPrincipal Usuario usuarioLogado) {
+        categoria.setRestaurante(usuarioLogado.getRestaurante());
         categoriaService.salvarCategoria(categoria);
-        return ResponseEntity.ok().build();
+        return "redirect:/admin/categorias";
     }
 
 //    @GetMapping

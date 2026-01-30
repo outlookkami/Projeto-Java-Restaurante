@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/head :: head('Cardápio')}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
+    <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
+    <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <script th:src="@{/js/modalIncluir.js}"></script>
+</head>
+<body>
+
+<div class="layout">
+    <aside th:replace="~{fragments/menu-lateral-garcom :: menu-lateral}"></aside>
+
+    <main class="content">
+        <header class="header">
+            <h1>Pratos</h1>
+        </header>
+
+        <section class="pratos">
+            <div class="card-prato" th:each="produto : ${produtos}" th:classappend="${produto.categoria}" id="prato">
+                <span class="titulo-prato" th:text="${produto.nome}"></span>
+                <p>
+                    <span th:text="${produto.categoria}"></span>
+                </p>
+                <span class="status">
+                </span>
+            </div>
+        </section>
+    </main>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-conteudo">
+        <span class="fechar" onclick="fecharModal()">&times;</span>
+        <h3>Nova Comanda</h3>
+
+        <form th:action="@{/garcom/}" method="post">
+            <div class="form-div">
+                <div>
+                    <label>Nome do cliente:</label>
+                    <input type="text" name="nomeCliente" required>
+                </div>
+            </div>
+
+            <div class="modal-acoes">
+                <button type="submit" class="btn btn-salvar">Salvar</button>
+                <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Dm Sans', Arial, sans-serif;
+}
+
+.mesas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.card-mesa {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card-mesa .titulo-mesa {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #777;
+}
+
+.card-mesa h4 {
+    font-size: 32px;
+    margin: 10px 0;
+    color: #6b3b2a;
+    font-family: 'Playfair Display', 'DM Sans', 'Inter', Arial;
+}
+
+.card-mesa p {
+    font-size: 14px;
+    color: #555;
+}
+
+.status {
+    display: flex;
+    margin-top: 10px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.ocupada .status {
+    background: #f1e3dd;
+    color: #6b3b2a;
+}
+
+.disponivel .status {
+    background: #e3f1ec;
+    color: #2f7a5f;
+}
+
+</style>
+</body>
+</html>

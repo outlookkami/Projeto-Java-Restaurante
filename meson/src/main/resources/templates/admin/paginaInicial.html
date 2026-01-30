@@ -10,11 +10,11 @@
 <body>
 
 <div class="layout">
-    <aside th:replace="~{fragments/menu-lateral :: menu-lateral}"></aside>
+    <aside th:replace="~{fragments/menu-lateral-admin :: menu-lateral}"></aside>
 
     <main class="content">
         <header class="header">
-            <h1 th:text="usuario.nome">Olá </h1>
+            <h1 th:text="'Olá, ' + ${usuario.nome}"></h1>
         </header>
 
         <h2>Bem-vindo ao Meson</h2>

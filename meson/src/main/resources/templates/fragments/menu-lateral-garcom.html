@@ -1,0 +1,15 @@
+<div th:fragment="layout" class="layout" xmlns:th="http://www.w3.org/1999/xhtml">
+    <aside class="sidebar" th:fragment="menu-lateral">
+        <div class="logo">
+            <img th:src="@{/assets/logoMeson.png}" alt="Logo Restaurante">
+        </div>
+
+        <nav>
+            <a th:href="@{/garcom/dashboard}">Dashboard</a>
+            <a th:href="@{/garcom/mesas}">Mesas</a>
+            <a th:href="@{/garcom/comandas}">Comandas</a>
+            <a th:href="@{/garcom/pedidos}">Pedidos</a>
+            <a th:href="@{/garcom/cardapio}">Cardápio</a>
+        </nav>
+    </aside>
+</div>

@@ -57,4 +57,10 @@ public class LoginController {
         model.addAttribute("usuario", usuarioLogado());
         return "admin/paginaInicial";
     }
+
+    @GetMapping("garcom/paginaInicial")
+    public String garPagInicial(Model model){
+        model.addAttribute("usuario", usuarioLogado());
+        return "garcom/paginaInicial";
+    }
 }

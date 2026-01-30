@@ -10,7 +10,7 @@
 <body>
 
 <div class="layout">
-    <aside th:replace="~{fragments/menu-lateral :: menu-lateral}"></aside>
+    <aside th:replace="~{fragments/menu-lateral-admin :: menu-lateral}"></aside>
 
     <main class="content">
         <header class="header">
@@ -29,7 +29,6 @@
             </thead>
             <tbody>
             <tr th:each="mesa, row : ${mesas}">
-                <td></td>
                 <td th:text="${mesa.numero}"></td>
                 <td th:text="${mesa.capacidade}"></td>
                 <td th:text="${mesa.status}"></td>
@@ -47,9 +46,14 @@
 <div id="modal" class="modal">
     <div class="modal-conteudo">
         <span class="fechar" onclick="fecharModal()">&times;</span>
+        <script>
+        function criarComandaMesa(){
+        document.getElementById('mesa').addEventListener('click', modalAdd(){});
+        }
+        </script>
         <h3>Nova Mesa</h3>
 
-        <form th:action="@{/mesas/salvar}" method="post">
+        <form th:action="@{/admin/mesas/salvar}" method="post">
             <div class="form-div">
                 <div>
                     <label>N° da mesa:</label>

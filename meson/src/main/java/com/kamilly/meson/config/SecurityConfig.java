@@ -61,7 +61,7 @@ public class SecurityConfig {
             } else if (usuario.getPerfilUsuario() == PerfilUsuario.ADMIN) {
                 response.sendRedirect("/admin/paginaInicial");
             } else if (usuario.getPerfilUsuario() == PerfilUsuario.GARCOM) {
-                response.sendRedirect("/garcom/dashboard");
+                response.sendRedirect("/garcom/paginaInicial");
             } else {
                 response.sendRedirect("/cozinha/dashboard");
             }

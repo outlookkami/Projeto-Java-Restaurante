@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,6 +63,10 @@ public class UsuarioService {
 
         return usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
+
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepository.findAll();
     }
 
 //    public Usuario getRestauranteUsuarioLogado(){

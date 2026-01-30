@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/mesas")
+@RequestMapping("/garcom/mesas")
 @RequiredArgsConstructor
-public class MesaController {
+public class MesaGarcomController {
 
     private final MesaService mesaService;
 
-//    @GetMapping
-//    public String listarMesas(Model model) {
-//        List<Mesa> mesas = mesaService.listarMesas();
-//        model.addAttribute("mesas", mesas);
-//        return "admin/mesas";
-//    }
+    @GetMapping
+    public String listarMesas(Model model){
+        List<Mesa> mesas = mesaService.listarMesas();
+        model.addAttribute("mesas", mesas);
+        return "garcom/mesas";
+    }
 }
