@@ -51,28 +51,28 @@ public class UsuarioService {
         return usuario;
     }
 
-    public Usuario getUsuarioLogado() {
-        Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new RuntimeException("Usuário não autenticado");
-        }
-
-        String email = authentication.getName(); // username/email
-
-        return usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-    }
+//    public Usuario getUsuarioLogado() {
+//        Authentication authentication =
+//                SecurityContextHolder.getContext().getAuthentication();
+//
+//        if (authentication == null || !authentication.isAuthenticated()) {
+//            throw new RuntimeException("Usuário não autenticado");
+//        }
+//
+//        String email = authentication.getName(); // username/email
+//
+//        return usuarioRepository.findByEmail(email)
+//                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+//    }
 
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
     }
 
-//    public Usuario getRestauranteUsuarioLogado(){
-//        Optional<Usuario> usuarioRestaurante = usuarioRepository.findByEmailAndRestaurante(getRestauranteUsuarioLogado().getEmail(), getRestauranteUsuarioLogado().getId());
-//        return usuarioRestaurante.orElseThrow(() -> new RuntimeException("Não foi encontrado um restaurante nos dados do usuário."));
-//    }
+    public Usuario getUsuarioLogado() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return (Usuario) auth.getPrincipal();
+    }
 
 //    Usuario usuario = usuarioRepository
 //            .findByEmailAndRestaurante(email, idRestaurante)

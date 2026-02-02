@@ -3,6 +3,8 @@ package com.kamilly.meson.config;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.model.enums.PerfilUsuario;
+import com.kamilly.meson.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,7 +18,35 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+//        @Bean
+//        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//
+//            http
+//                    // desativa CSRF (necessário pra não dar erro em POST/PUT)
+//                    .csrf(csrf -> csrf.disable())
+//
+//                    // libera TODAS as rotas
+//                    .authorizeHttpRequests(auth -> auth
+//                            .anyRequest().permitAll()
+//                    )
+//
+//                    // desativa tela de login
+//                    .formLogin(form -> form.disable())
+//
+//                    // desativa auth básica (popup do navegador)
+//                    .httpBasic(basic -> basic.disable())
+//
+//                    // desativa logout automático
+//                    .logout(logout -> logout.disable());
+//
+//            return http.build();
+//        }
+
+//----------------------
+    private final UsuarioService usuarioService;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -53,7 +83,8 @@ public class SecurityConfig {
         return (request, response, authentication) -> {
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            Usuario usuario = (Usuario) authentication.getPrincipal();
+//            Usuario usuario = (Usuario) authentication.getPrincipal();
+            Usuario usuario = usuarioService.getUsuarioLogado();
             Restaurante restaurante = usuario.getRestaurante();
 
             if (usuario.getPerfilUsuario() == PerfilUsuario.ADMIN_GERAL) {

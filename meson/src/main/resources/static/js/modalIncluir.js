@@ -3,7 +3,7 @@ function fecharModal() {
 }
 
 function modalAdd() {
-    document.getElementById("modal").style.display = "block";
+    document.getElementById("modal").style.display = "flex";
 }
 
 function previewImagem(event) {

@@ -12,12 +12,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findByEmail(String email);
 
-    Optional<Usuario> findByEmailAndRestaurante(String email, Long idRestaurante);
-
-
+    Optional<Usuario> findByIdAndRestaurante(Long id, Integer idRestaurante);
 
     @Transactional //@Transactional para que caso dê erro, o email não seja excluído
     void deleteByEmail(String email);
-
-
 }

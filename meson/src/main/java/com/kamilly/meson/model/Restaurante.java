@@ -50,4 +50,7 @@ public class Restaurante{
 
     @OneToMany(mappedBy = "restaurante")
     private List<Produto> produtosRestaurante;
+
+    @OneToMany(mappedBy = "restaurante")
+    private List<CategoriaProduto> categoriasRestaurante;
 }

@@ -38,7 +38,7 @@ public class Comanda {
     private LocalDateTime dataFechamento;
 
     @ManyToOne
-    @JoinColumn(name = "id_restaurante")
+    @JoinColumn(name = "id_restaurante", nullable = false)
     private Restaurante restaurante;
 
     //@OneToMany(mappedBy = "comanda")
