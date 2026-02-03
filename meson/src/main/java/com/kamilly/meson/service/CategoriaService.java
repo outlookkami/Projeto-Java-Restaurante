@@ -31,7 +31,7 @@ public class CategoriaService {
     }
 
     @Transactional
-    public void deletarCategoria(Long id,Restaurante restaurante){
+    public void deletarCategoria(Long id, Restaurante restaurante){
        CategoriaProduto categoria= categoriaRepository
                 .findByIdAndRestaurante(id, restaurante)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada."));

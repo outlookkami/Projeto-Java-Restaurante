@@ -46,8 +46,9 @@ public class CategoriaController {
     public String editarCategoria(@PathVariable Long id, Model model){
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         CategoriaProduto categoria = categoriaService.buscarCategoriaPorId(id, restaurante);
-        model.addAttribute("categorias", categoria);
-        model.addAttribute("mostrarModal", false);
+        model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
+        model.addAttribute("categoria", categoriaService.buscarCategoriaPorId(id, restaurante));
+        model.addAttribute("mostrarModal", true);
         return "admin/categorias";
     }
 
@@ -59,8 +60,10 @@ public class CategoriaController {
     }
 
     @PostMapping("/excluir")
-    public String excluirCategoria(@PathVariable Long id) {
+    public String excluirCategoria(@PathVariable Long id, Model model) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        CategoriaProduto categoria = categoriaService.buscarCategoriaPorId(id, restaurante);
+        model.addAttribute("categorias", categoriaService.buscarCategoriaPorId(id, restaurante));
         categoriaService.deletarCategoria(id, restaurante);
         return "redirect:/admin/categorias";
     }

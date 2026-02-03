@@ -5,6 +5,7 @@
     <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
     <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
     <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <link rel="stylesheet" th:href="@{/css/modalExcluir.css}">
     <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
@@ -33,8 +34,8 @@
                 <td th:text="${mesa.capacidade}"></td>
                 <td th:text="${mesa.status}"></td>
                 <td>
-                    <button class="btn-edit">Editar</button>
-                    <button class="btn-delete">Excluir</button>
+                    <a th:href="@{/admin/mesas/editar/{id}(id=${mesa.id})}" class="btn-edit">Editar</a>
+                    <button type="button" class="btn-delete" th:onclick="'abrirModalExclusao(' + ${mesa.id} + ')'">Excluir</button>
                 </td>
             </tr>
             </tbody>
@@ -46,23 +47,24 @@
 <div id="modal" class="modal">
     <div class="modal-conteudo">
         <span class="fechar" onclick="fecharModal()">&times;</span>
-        <script>
-        function criarComandaMesa(){
-        document.getElementById('mesa').addEventListener('click', modalAdd(){});
-        }
+        <script th:if="${mostrarModal}">
+            document.addEventListener("DOMContentLoaded", function (){
+                document.getElementById("modal").style.display = "block";
+            });
         </script>
         <h3>Nova Mesa</h3>
 
-        <form th:action="@{/admin/mesas/salvar}" method="post">
+        <form th:action="@{/admin/mesas/salvar}" th:object="${mesa}" method="post">
             <div class="form-div">
                 <div>
+                    <input type="hidden" th:field="*{id}">
                     <label>N° da mesa:</label>
-                    <input type="text" name="numero" required>
+                    <input type="text" th:field="*{numero}" name="numero" required>
                 </div>
 
                 <div>
                     <label>Capacidade:</label>
-                    <input type="number" min="1" step="1" name="capacidade" required>
+                    <input type="number" min="1" step="1" th:field="*{capacidade}" name="capacidade" required>
                 </div>
             </div>
 
@@ -70,6 +72,28 @@
                 <button type="submit" class="btn btn-salvar">Salvar</button>
                 <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>
             </div>
+        </form>
+    </div>
+</div>
+<script>
+    function abrirModalExclusao(id) {
+        const form = document.getElementById("formExclusao");
+        form.action = "/admin/mesas/excluir/" + id;
+        document.getElementById("modalExclusao").style.display = "block";
+    }
+
+    function fecharModalExclusao() {
+        document.getElementById("modalExclusao").style.display = "none";
+    }
+</script>
+
+<div class="modalExcluir" id="modalExclusao">
+    <div class="modal-conteudo">
+        <form method="post" id="formExclusao">
+            <p>Tem certeza de que deseja excluir esta mesa?</p>
+
+            <button type="submit" class="btn-confirmar">Confirmar</button>
+            <button type="button" class="btn-cancelar2" onclick="fecharModalExclusao()">Cancelar</button>
         </form>
     </div>
 </div>

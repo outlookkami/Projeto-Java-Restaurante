@@ -5,6 +5,7 @@
     <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
     <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
     <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <link rel="stylesheet" th:href="@{/css/modalExcluir.css}">
     <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
@@ -32,14 +33,15 @@
             </thead>
             <tbody>
             <tr th:each="produto, row : ${produtos}">
+                <td><img th:if="${produto.imagemUrl != null}" th:src="@{${produto.imagemUrl}}" alt=""></td>
                 <td th:text="${produto.nome}"></td>
                 <td th:text="${produto.preco}"></td>
-                <td th:text="${produto.categoria}"></td>
+                <td th:text="${produto.categoria.nome}"></td>
                 <td th:text="${produto.descricao}"></td>
                 <td th:text="${produto.ativo == true} ? 'Sim' : 'Não'"></td>
                 <td>
                     <a th:href="@{/admin/produtos/editar/{id}(id=${produto.id})}"><button class="btn-edit">Editar</button></a>
-                    <button class="btn-delete" onclick="return confirm('Tem certeza que deseja excluir o produto?')">Excluir</button>
+                    <button type="button" class="btn-delete" th:onclick="'abrirModalExclusao(' + ${produto.id} + ')'">Excluir</button>
                 </td>
             </tr>
             </tbody>
@@ -51,6 +53,11 @@
 <div id="modal" class="modal">
     <div class="modal-conteudo modal-produto">
         <span class="fechar" onclick="fecharModal()">&times;</span>
+        <script th:if="${mostrarModal}">
+            document.addEventListener("DOMContentLoaded", function (){
+                document.getElementById("modal").style.display = "block";
+            });
+        </script>
         <h3>Novo Produto</h3>
 
         <form th:action="@{/admin/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
@@ -89,7 +96,7 @@
 
                 <div>
                     <label>Imagem</label>
-                    <input type="file" name="imagemUrl" accept="image/*" onchange="previewImagem(event)">
+                    <input type="file" name="imagem" accept="image/*" onchange="previewImagem(event)">
                 </div>
 
                 <img id="preview" class="preview-img" style="display:none">
@@ -100,6 +107,29 @@
                 <button type="submit" class="btn btn-salvar">Salvar</button>
                 <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>
             </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function abrirModalExclusao(id) {
+        const form = document.getElementById("formExclusao");
+        form.action = "/admin/produtos/excluir/" + id;
+        document.getElementById("modalExclusao").style.display = "block";
+    }
+
+    function fecharModalExclusao() {
+        document.getElementById("modalExclusao").style.display = "none";
+    }
+</script>
+
+<div class="modalExcluir" id="modalExclusao">
+    <div class="modal-conteudo">
+        <form method="post" id="formExclusao">
+            <p>Tem certeza de que deseja excluir este produto?</p>
+
+            <button type="submit" class="btn-confirmar">Confirmar</button>
+            <button type="button" class="btn-cancelar2" onclick="fecharModalExclusao()">Cancelar</button>
         </form>
     </div>
 </div>

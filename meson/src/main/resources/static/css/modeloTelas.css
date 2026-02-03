@@ -42,6 +42,8 @@
 }
 
 .btn-edit {
+    text-decoration: none;
+    font-size: 14px;
     background-color: #567568;
     color: white;
     border: none;

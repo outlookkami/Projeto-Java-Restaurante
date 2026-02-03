@@ -1,7 +1,9 @@
 package com.kamilly.meson.controller;
 
 import com.kamilly.meson.model.Mesa;
+import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.service.MesaService;
+import com.kamilly.meson.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +18,13 @@ import java.util.List;
 public class MesaGarcomController {
 
     private final MesaService mesaService;
+    private final UsuarioService usuarioService;
 
     @GetMapping
     public String listarMesas(Model model){
-        List<Mesa> mesas = mesaService.listarMesas();
-        model.addAttribute("mesas", mesas);
+        Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
+        model.addAttribute("mesas", mesaService.listarMesas(restaurante));
         return "garcom/mesas";
     }
+
 }

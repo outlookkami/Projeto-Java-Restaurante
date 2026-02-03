@@ -52,7 +52,4 @@ public class UsuarioController {
         usuarioService.atualizarUsuarioPorId(id, usuario);
         return ResponseEntity.ok().build();
     }
-
-
-
 }

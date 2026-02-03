@@ -1,7 +1,11 @@
 package com.kamilly.meson.service;
 
+import com.kamilly.meson.model.CategoriaProduto;
 import com.kamilly.meson.model.Mesa;
+import com.kamilly.meson.model.Restaurante;
+import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.repository.MesaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +18,24 @@ public class MesaService {
     private final MesaRepository mesaRepository;
     private final UsuarioService usuarioService;
 
-//    public Mesa listarMesas(Long id) {
-//        Usuario usuario = usuarioService.getUsuarioLogado();
-//        Restaurante restaurante = usuario.getRestaurante();
-//
-//        return mesaRepository.findByRestaurante(restaurante);
-//    }
-
-    public List<Mesa> listarMesas(){
-        return mesaRepository.findAll();
+    public List<Mesa> listarMesas(Restaurante restaurante) {
+        return mesaRepository.findAllByRestaurante(restaurante);
     }
 
-    public void salvarMesa(Mesa mesa){
+    public Mesa buscarMesaPorId(Long id, Restaurante restaurante){
+        return mesaRepository.findByIdAndRestaurante(id, restaurante)
+                .orElseThrow(() -> new RuntimeException("Mesa não encontrada."));
+    }
+
+    public void salvarMesa(Mesa mesa, Restaurante restaurante){
+        mesa.setRestaurante(restaurante);
         mesaRepository.save(mesa);
+    }
+
+    @Transactional
+    public void deletarMesa(Long id, Restaurante restaurante){
+        Mesa mesa = mesaRepository.findByIdAndRestaurante(id, restaurante)
+                .orElseThrow(() -> new RuntimeException("Mesa não encontrada."));
+        mesaRepository.delete(mesa);
     }
 }

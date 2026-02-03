@@ -34,7 +34,7 @@
                 <td th:text="${categoria.ativa == true} ? 'Sim' : 'Não'"></td>
                 <td>
                     <a th:href="@{/admin/categorias/editar/{id}(id=${categoria.id})}"><button class="btn-edit">Editar</button></a>
-                    <button class="btn-delete" onclick="return confirm('Tem certeza que deseja excluir a categoria?')">Excluir</button>
+                    <button type="button" class="btn-delete" th:onclick="'abrirModalExclusao(' + ${categoria.id} + ')'">Excluir</button>
                 </td>
             </tr>
             </tbody>
@@ -61,6 +61,28 @@
     </div>
 </div>
 
+<script>
+    function abrirModalExclusao(id) {
+        const form = document.getElementById("formExclusao");
+        form.action = "/admin/categorias/excluir/" + id;
+        document.getElementById("modalExclusao").style.display = "block";
+    }
+
+    function fecharModalExclusao() {
+        document.getElementById("modalExclusao").style.display = "none";
+    }
+</script>
+
+<div class="modalExcluir" id="modalExclusao">
+    <div class="modal-conteudo">
+        <form method="post" id="formExclusao">
+            <p>Tem certeza de que deseja excluir esta categoria?</p>
+
+            <button type="submit" class="btn-confirmar">Confirmar</button>
+            <button type="button" class="btn-cancelar2" onclick="fecharModalExclusao()">Cancelar</button>
+        </form>
+    </div>
+</div>
 
 <style>
     * {
@@ -69,7 +91,6 @@
         box-sizing: border-box;
         font-family: 'Dm Sans', 'Inter', Arial, sans-serif;
     }
-
 </style>
 </body>
 </html>

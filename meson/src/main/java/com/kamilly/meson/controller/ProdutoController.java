@@ -14,9 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,14 +61,15 @@ public class ProdutoController {
     public String editarProduto(@PathVariable Long id, Model model) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         Produto produto = produtoService.buscarProdutoPorId(id, restaurante);
-        model.addAttribute("produtos", produto);
+        model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
+        model.addAttribute("produto", produtoService.buscarProdutoPorId(id, restaurante));
         model.addAttribute("mostrarModal", true);
         return "admin/produtos";
     }
 
     @PostMapping("/salvar")
-    public String salvarProduto(@ModelAttribute Produto produto, @RequestParam("imagem") MultipartFile imagem, @AuthenticationPrincipal Usuario usuarioLogado) {
-        String imagemUrl = imagemService.salvar(imagem);
+    public String salvarProduto(@ModelAttribute Produto produto, BindingResult result, @RequestParam("imagem") MultipartFile imagem, @AuthenticationPrincipal Usuario usuarioLogado) {
+        String imagemUrl = imagemService.salvarImagem(imagem);
         produto.setImagemUrl(imagemUrl);
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         produtoService.salvarProduto(produto, restaurante);
@@ -73,8 +77,10 @@ public class ProdutoController {
     }
 
     @PostMapping("/excluir")
-    public String excluirProduto(@PathVariable Long id) {
+    public String excluirProduto(@PathVariable Long id, Model model) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        Produto produto = produtoService.buscarProdutoPorId(id, restaurante);
+        model.addAttribute("produtos", produtoService.buscarProdutoPorId(id, restaurante));
         produtoService.deletarProduto(id, restaurante);
         return "redirect:/admin/produtos";
     }
