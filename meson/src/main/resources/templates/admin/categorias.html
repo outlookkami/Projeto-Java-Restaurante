@@ -48,7 +48,7 @@
         <span class="fechar" onclick="fecharModal()">&times;</span>
         <h3>Nova Categoria</h3>
 
-        <form th:action="@{/admin/categorias/salvar}" th:object="${categoria}" method="post">
+        <form th:action="@{/admin/categorias/salvar}" th:object="${categoria}" method="post" id="form">
             <input type="hidden" th:field="*{id}">
             <label>Nome da Categoria:</label>
             <input type="text" th:field="*{nome}" name="nome" required>

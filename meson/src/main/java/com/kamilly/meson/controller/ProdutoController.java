@@ -35,14 +35,22 @@ public class ProdutoController {
     private final CategoriaRepository categoriaRepository;
 
     @GetMapping
-    public String listarProdutos(Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
+    public String listarProdutos(@RequestParam(required = false) String nome, Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
         Restaurante restaurante = usuarioLogado.getRestaurante();
-
         List<CategoriaProduto> categorias = categoriaRepository.findAllByRestaurante(restaurante);
         model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
         model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
         model.addAttribute("produto", new  Produto());
         return "admin/produtos";
+    }
+
+    @GetMapping("/buscar")
+    public String buscarProdutos(@RequestParam(required = false) String nome, @RequestParam(required = false) Long idCategoria, Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
+        System.out.println("Categoria recebida: " + idCategoria);
+
+        Restaurante restaurante = usuarioLogado.getRestaurante();
+        model.addAttribute("produtos", produtoService.buscarProduto(nome, restaurante, idCategoria));
+        return "admin/produtos :: tabelaProdutos";
     }
 
     @GetMapping("/novo")
@@ -76,7 +84,7 @@ public class ProdutoController {
         return "redirect:/admin/produtos";
     }
 
-    @PostMapping("/excluir")
+    @PostMapping("/excluir/{id}")
     public String excluirProduto(@PathVariable Long id, Model model) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         Produto produto = produtoService.buscarProdutoPorId(id, restaurante);

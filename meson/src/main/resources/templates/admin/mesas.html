@@ -5,7 +5,6 @@
     <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
     <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
     <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
-    <link rel="stylesheet" th:href="@{/css/modalExcluir.css}">
     <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
@@ -44,7 +43,7 @@
     </main>
 </div>
 
-<div id="modal" class="modal">
+<div id="modal" class="modal" data-mode="novo">
     <div class="modal-conteudo">
         <span class="fechar" onclick="fecharModal()">&times;</span>
         <script th:if="${mostrarModal}">
@@ -54,10 +53,10 @@
         </script>
         <h3>Nova Mesa</h3>
 
-        <form th:action="@{/admin/mesas/salvar}" th:object="${mesa}" method="post">
+        <form th:action="@{/admin/mesas/salvar}" th:object="${mesa}" method="post" id="form" data-action-novo="/admin/mesas/salvar" data-action-editar="/admin/mesas/editar/{id}">
             <div class="form-div">
                 <div>
-                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{id}" id="id">
                     <label>N° da mesa:</label>
                     <input type="text" th:field="*{numero}" name="numero" required>
                 </div>

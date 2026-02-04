@@ -26,7 +26,28 @@ public class ProdutoService {
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado."));
     }
 
+    public List<Produto> buscarProduto(String nome, Restaurante restaurante, Long idCategoria){
+        if ((nome == null || nome.isBlank()) && idCategoria == null) {
+            return produtoRepository.findAllByRestaurante(restaurante);
+        }
+
+        if (idCategoria != null && (nome == null || nome.isBlank())) {
+            return produtoRepository.findByIdCategoriaAndRestaurante(idCategoria, restaurante);
+        }
+
+        if (idCategoria == null) {
+            return produtoRepository.findByNomeContainingIgnoreCaseAndRestaurante(nome, restaurante);
+        }
+
+        return produtoRepository.findByNomeContainingIgnoreCaseAndIdCategoriaAndRestaurante(nome, idCategoria, restaurante);
+    }
+
     public void salvarProduto(Produto produto, Restaurante restaurante){
+        if(produto.getIdCategoria() != null) {
+            produto.setCategoria(produto.getIdCategoria().getNome());
+        } else {
+            throw new RuntimeException("Categoria não selecionada.");
+        }
         produto.setRestaurante(restaurante);
         produtoRepository.save(produto);
     }

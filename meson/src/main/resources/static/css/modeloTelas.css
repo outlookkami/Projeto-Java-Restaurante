@@ -79,3 +79,11 @@ td {
     padding: 12px;
     border-bottom: 1px solid #ddd;
 }
+
+select {
+    width: 180px;
+    height: 32px;
+    font-size: 14px;
+    padding: 4px;
+    margin-bottom: 10px;
+}

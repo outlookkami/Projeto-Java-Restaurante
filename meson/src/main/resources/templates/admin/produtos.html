@@ -5,7 +5,6 @@
     <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
     <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
     <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
-    <link rel="stylesheet" th:href="@{/css/modalExcluir.css}">
     <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
@@ -19,6 +18,15 @@
             <button type="button" class="btn-primary" onclick="modalAdd()">+ Novo Produto</button>
         </header>
 
+        <div class="div-pesquisa">
+            <input id="busca" class="barra-pesquisa" type="text" name="nome" placeholder="Buscar produto..." th:value="${nome}">
+
+            <select id="categoria" class="filtro-categoria">
+                <option value="">Todas as categorias</option>
+                <option th:each="categoria : ${categorias}" th:text="${categoria.nome}" th:value="${categoria.id}"></option>
+            </select>
+        </div>
+
         <table>
             <thead>
                 <tr>
@@ -31,19 +39,19 @@
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody>
-            <tr th:each="produto, row : ${produtos}">
-                <td><img th:if="${produto.imagemUrl != null}" th:src="@{${produto.imagemUrl}}" alt=""></td>
-                <td th:text="${produto.nome}"></td>
-                <td th:text="${produto.preco}"></td>
-                <td th:text="${produto.categoria.nome}"></td>
-                <td th:text="${produto.descricao}"></td>
-                <td th:text="${produto.ativo == true} ? 'Sim' : 'Não'"></td>
-                <td>
-                    <a th:href="@{/admin/produtos/editar/{id}(id=${produto.id})}"><button class="btn-edit">Editar</button></a>
-                    <button type="button" class="btn-delete" th:onclick="'abrirModalExclusao(' + ${produto.id} + ')'">Excluir</button>
-                </td>
-            </tr>
+            <tbody th:fragment="tabelaProdutos">
+                <tr th:each="produto, row : ${produtos}">
+                    <td><img th:if="${produto.imagemUrl != null}" th:src="@{${produto.imagemUrl}}" alt=""></td>
+                    <td th:text="${produto.nome}"></td>
+                    <td th:text="${produto.preco}"></td>
+                    <td th:text="${produto.categoria}"></td>
+                    <td th:text="${produto.descricao}"></td>
+                    <td th:text="${produto.ativo == true} ? 'Sim' : 'Não'"></td>
+                    <td>
+                        <a th:href="@{/admin/produtos/editar/{id}(id=${produto.id})}"><button class="btn-edit">Editar</button></a>
+                        <button type="button" class="btn-delete" th:onclick="'abrirModalExclusao(' + ${produto.id} + ')'">Excluir</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
@@ -60,10 +68,10 @@
         </script>
         <h3>Novo Produto</h3>
 
-        <form th:action="@{/admin/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/admin/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data" id="form" data-action-novo="/admin/produtos/salvar" data-action-editar="/admin/produtos/editar/{id}">
             <div class="form-div">
                 <div>
-                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{id}" id="id">
                     <label>Nome do produto:</label>
                     <input type="text" th:field="*{nome}" name="nome" required>
                 </div>
@@ -75,7 +83,7 @@
 
                 <div>
                     <label>Categoria:</label>
-                    <select th:field="*{categoria}" required>
+                    <select th:field="*{idCategoria}" name="idCategoria" required>
                         <option value="">Selecione</option>
                         <option th:each="categoria : ${categorias}" th:text="${categoria.nome}" th:value="${categoria.id}"></option>
                     </select>
@@ -134,6 +142,8 @@
     </div>
 </div>
 
+<script th:src="@{/js/barras-pesquisa/buscarProduto.js}"></script>
+
 <style>
     * {
       margin: 0;
@@ -141,18 +151,44 @@
       box-sizing: border-box;
       font-family: 'Dm Sans', 'Inter', Arial, sans-serif;
   }
+
+  .div-pesquisa{
+    margin-bottom: 16px;
+  }
+
+  .barra-pesquisa{
+    width: 400px;
+    height: 32px;
+    font-size: 14px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border: solid 1px #5c3024;
+    padding-left: 7px;
+    margin-right: 10px;
+  }
+
+  .barra-pesquisa:focus{
+    border-style: solid 2px #5c3024;
+    border-color: #5c3024;
+    outline:none;
+  }
+
+  .filtro-categoria{
+    width:160px;
+    border: solid 1px #5c3024;
+  }
+
+  .filtro-categoria:focus{
+    border-color: #5c3024;
+    outline: none;
+    border-style: solid 2px #5c3024;
+  }
+
   .form-div{
       display: flex;
       flex-direction: column;
       gap: 10px;
-  }
-
-  select {
-      width: 180px;
-      height: 32px;
-      font-size: 14px;
-      padding: 4px;
-      margin-bottom: 10px;
   }
 
   .modal-produto {

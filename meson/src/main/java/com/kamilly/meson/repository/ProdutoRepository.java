@@ -15,6 +15,12 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     List<Produto> findAllByRestaurante(Restaurante restaurante);
 
+    List<Produto> findByNomeContainingIgnoreCaseAndRestaurante(String nome, Restaurante restaurante);
+
+    List<Produto> findByIdCategoriaAndRestaurante(Long idCategoria, Restaurante restaurante);
+
+    List<Produto> findByNomeContainingIgnoreCaseAndIdCategoriaAndRestaurante(String nome, Long idCategoria, Restaurante restaurante);
+
     @Transactional
     void deleteByIdAndRestaurante(Long id, Restaurante restaurante);
 }

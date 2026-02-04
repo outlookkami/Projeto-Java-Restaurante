@@ -29,13 +29,6 @@ public class Produto {
     @Column(name = "nome_produto")
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_produto")
-    private CategoriaProduto categoria;
-//
-//    @Column(name = "categoria_produto")
-//    private String categoria;
-
     @Column(name = "descricao_produto")
     private String descricao;
 
@@ -53,5 +46,8 @@ public class Produto {
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    private CategoriaProduto categoriaProduto;
+    private CategoriaProduto idCategoria;
+
+    @Column(name = "categoria_produto")
+    private String categoria;
 }

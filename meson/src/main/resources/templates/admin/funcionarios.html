@@ -2,8 +2,10 @@
 <html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments/head :: head('CRUD Funcionários')}"></th:block>
-    <link rel="stylesheet" th:href="../../static/css/menu-lateral.css">
     <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
+    <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
+    <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
 <div class="layout">
@@ -13,7 +15,7 @@
     <main class="content">
         <header class="header">
             <h1>Funcionários</h1>
-            <button class="btn-primary">+ Novo funcionário</button>
+            <button type="button" class="btn-primary" onclick="modalAdd()">+ Novo funcionário</button>
         </header>
 
         <table>
@@ -47,7 +49,7 @@
         <span class="fechar" onclick="fecharModal()">&times;</span>
         <h3>Novo funcionário</h3>
 
-        <form th:action="@{/funcionarios/salvar}" method="post">
+        <form th:action="@{/admin/funcionarios/salvar}" th:object="${usuario}" method="post" id="form">
             <div class="form-div">
                 <div>
                     <label>Nome do funcionário:</label>
@@ -71,7 +73,7 @@
             <div class="modal-acoes">
                 <button type="submit" class="btn btn-salvar">Salvar</button>
                 <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>
-                <button type="submit" class="btn btn-salvar">Ativar</button>
+<!--                <button type="submit" class="btn btn-salvar">Ativar</button>-->
             </div>
         </form>
     </div>
@@ -84,80 +86,6 @@
     box-sizing: border-box;
     font-family: 'Dm Sans', Arial, sans-serif;
 }
-
-.layout {
-    display: flex;
-    min-height: 100vh;
-}
-
-.content {
-    flex: 1;
-    background-color: #fdf6ee;
-    padding: 30px;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.header h1 {
-    color: #161925;
-    font-family: 'Playfair Display', 'Dm Sans', Arial;
-}
-
-.btn-primary {
-    background-color: #5e3023;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.btn-primary:hover {
-    background-color: #b48b7d;
-}
-
-.btn-edit {
-    background-color: #567568;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    margin-right: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-delete {
-    background-color: #5e3023;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-}
-
-th {
-    background-color: #eee0cb;
-    color: #161925;
-    padding: 12px;
-    text-align: left;
-}
-
-td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-}
-
 </style>
 </body>
 </html>

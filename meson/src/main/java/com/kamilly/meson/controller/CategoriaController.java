@@ -59,7 +59,7 @@ public class CategoriaController {
         return "redirect:/admin/categorias";
     }
 
-    @PostMapping("/excluir")
+    @PostMapping("/excluir/{id}")
     public String excluirCategoria(@PathVariable Long id, Model model) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         CategoriaProduto categoria = categoriaService.buscarCategoriaPorId(id, restaurante);

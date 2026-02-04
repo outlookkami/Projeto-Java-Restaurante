@@ -21,11 +21,11 @@
             <div class="card-mesa" th:each="mesa : ${mesas}" th:classappend="${mesa.status}" id="mesa" onclick="abrirComandaMesa()">
                 <span class="titulo-mesa">MESA</span>
                 <h4 th:text="${mesa.numero}"></h4>
+                <span class="status" th:text="${mesa.status == T(com.kamilly.meson.model.enums.StatusMesa).OCUPADA ? 'OCUPADA' : 'DISPONÍVEL'}">
+                </span>
                 <p>
                     <span th:text="${mesa.capacidade} + ' Lugares'"></span>
                 </p>
-                <span class="status" th:text="${mesa.status == T(com.kamilly.meson.model.enums.StatusMesa).OCUPADA ? 'OCUPADA' : 'DISPONÍVEL'}">
-                </span>
             </div>
         </section>
     </main>
@@ -36,7 +36,7 @@
         <span class="fechar" onclick="fecharModal()">&times;</span>
         <h3>Nova Comanda</h3>
 
-        <form th:action="@{/garcom/}" method="post">
+        <form th:action="@{/garcom/comandas}" method="post">
             <div class="form-div">
                 <div>
                     <label>Nome do cliente:</label>
