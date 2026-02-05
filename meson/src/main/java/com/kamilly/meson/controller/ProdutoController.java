@@ -88,6 +88,8 @@ public class ProdutoController {
     public String excluirProduto(@PathVariable Long id, Model model) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         Produto produto = produtoService.buscarProdutoPorId(id, restaurante);
+//        model.addAttribute("produto", produto);
+//        model.addAttribute("mostrarModalExclusao", true);
         model.addAttribute("produtos", produtoService.buscarProdutoPorId(id, restaurante));
         produtoService.deletarProduto(id, restaurante);
         return "redirect:/admin/produtos";

@@ -5,6 +5,7 @@
     <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
     <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
     <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <link rel="stylesheet" th:href="@{/css/modalExcluir.css}">
     <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
@@ -15,8 +16,17 @@
     <main class="content">
         <header class="header">
             <h1>Funcionários</h1>
-            <button type="button" class="btn-primary" onclick="modalAdd()">+ Novo funcionário</button>
+            <button type="button" th:onclick="modalAdd()" class="btn-primary">+ Novo funcionário</button>
         </header>
+
+        <div class="div-pesquisa">
+            <input id="busca" class="barra-pesquisa" type="text" name="nome" placeholder="Buscar funcionário..." th:value="${nome}">
+
+            <select id="perfil" class="filtro">
+                <option value="">Todas as categorias</option>
+                <option th:each="perfil : ${perfis}" th:text="${perfil.descricao}" th:value="${perfilUsuario.enum}"></option>
+            </select>
+        </div>
 
         <table>
             <thead>
@@ -49,21 +59,21 @@
         <span class="fechar" onclick="fecharModal()">&times;</span>
         <h3>Novo funcionário</h3>
 
-        <form th:action="@{/admin/funcionarios/salvar}" th:object="${usuario}" method="post" id="form">
+        <form th:action="@{/admin/funcionarios/salvar}" th:object="${funcionario}" method="post" id="form">
             <div class="form-div">
                 <div>
                     <label>Nome do funcionário:</label>
-                    <input type="text" name="nome" required>
+                    <input th:field="*{nome}" type="text" name="nome" required>
                 </div>
 
                 <div>
                     <label>Email do funcionário:</label>
-                    <input type="email" name="capacidade" required>
+                    <input th:field="*{email}" type="email" name="capacidade" required>
                 </div>
 
                 <div>
                     <label>Cargo:</label>
-                    <select name="perfilUsuario.enum" required>
+                    <select th:field="*{perfilUsuario}"  required>
                         <option value="">Selecione</option>
                         <option th:each="perfil : ${perfis}" th:text="${perfil.descricao}" th:value="${perfil}"></option>
                     </select>
@@ -78,6 +88,8 @@
         </form>
     </div>
 </div>
+
+<script th:src="@{/js/barras-pesquisa/buscarFuncionario.js}"></script>
 
 <style>
     * {

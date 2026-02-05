@@ -87,3 +87,37 @@ select {
     padding: 4px;
     margin-bottom: 10px;
 }
+
+/* CSS Pesquisa*/
+  .div-pesquisa{
+    margin-bottom: 16px;
+  }
+
+  .barra-pesquisa{
+    width: 400px;
+    height: 32px;
+    font-size: 14px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border: solid 1px #5c3024;
+    padding-left: 7px;
+    margin-right: 10px;
+  }
+
+  .barra-pesquisa:focus{
+    border-style: solid 2px #5c3024;
+    border-color: #5c3024;
+    outline:none;
+  }
+
+  .filtro-categoria{
+    width:160px;
+    border: solid 1px #5c3024;
+  }
+
+  .filtro-categoria:focus{
+    border-color: #5c3024;
+    outline: none;
+    border-style: solid 2px #5c3024;
+  }

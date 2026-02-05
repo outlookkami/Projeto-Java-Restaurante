@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
     <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
     <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <link rel="stylesheet" th:href="@{/css/modalExcluir.css}">
     <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
@@ -33,7 +34,7 @@
                 <td th:text="${categoria.nome}"></td>
                 <td th:text="${categoria.ativa == true} ? 'Sim' : 'Não'"></td>
                 <td>
-                    <a th:href="@{/admin/categorias/editar/{id}(id=${categoria.id})}"><button class="btn-edit">Editar</button></a>
+                    <a th:href="@{/admin/categorias/editar/{id}(id=${categoria.id})}" class="btn-edit">Editar</a>
                     <button type="button" class="btn-delete" th:onclick="'abrirModalExclusao(' + ${categoria.id} + ')'">Excluir</button>
                 </td>
             </tr>
@@ -46,6 +47,11 @@
 <div id="modal" class="modal">
     <div class="modal-conteudo">
         <span class="fechar" onclick="fecharModal()">&times;</span>
+        <script th:if="${mostrarModal}">
+            document.addEventListener("DOMContentLoaded", function (){
+                document.getElementById("modal").style.display = "block";
+            });
+        </script>
         <h3>Nova Categoria</h3>
 
         <form th:action="@{/admin/categorias/salvar}" th:object="${categoria}" method="post" id="form">
@@ -90,6 +96,10 @@
         padding: 0;
         box-sizing: border-box;
         font-family: 'Dm Sans', 'Inter', Arial, sans-serif;
+    }
+
+    .modalExcluir{
+        display: none;
     }
 </style>
 </body>

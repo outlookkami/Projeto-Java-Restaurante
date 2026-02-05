@@ -33,6 +33,8 @@ public class Usuario implements UserDetails {
     @Column(name = "senha_usuario", nullable = false)
     private String senha;
 
+    private Boolean trocarSenha;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "perfil_usuario", nullable = false, length = 20)
     private PerfilUsuario perfilUsuario;

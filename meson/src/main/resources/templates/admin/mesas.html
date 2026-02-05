@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="~{fragments/head :: head('CRUD ')}"></th:block>
+    <th:block th:replace="~{fragments/head :: head('CRUD Mesas')}"></th:block>
     <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
     <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
     <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <link rel="stylesheet" th:href="@{/css/modalExcluir.css}">
     <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
@@ -104,6 +105,10 @@
     box-sizing: border-box;
     font-family: 'Dm Sans', Arial, sans-serif;
 }
+
+    .modalExcluir{
+        display: none;
+    }
 
 </style>
 </body>

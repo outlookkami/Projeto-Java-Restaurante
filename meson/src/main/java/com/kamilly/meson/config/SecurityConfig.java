@@ -83,9 +83,12 @@ public class SecurityConfig {
         return (request, response, authentication) -> {
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//            Usuario usuario = (Usuario) authentication.getPrincipal();
             Usuario usuario = usuarioService.getUsuarioLogado();
             Restaurante restaurante = usuario.getRestaurante();
+
+            if (usuario.getTrocarSenha() == true) {
+                response.sendRedirect("/trocar-senha");
+            }
 
             if (usuario.getPerfilUsuario() == PerfilUsuario.ADMIN_GERAL) {
                 response.sendRedirect("/admin-geral/dashboard");
@@ -94,7 +97,7 @@ public class SecurityConfig {
             } else if (usuario.getPerfilUsuario() == PerfilUsuario.GARCOM) {
                 response.sendRedirect("/garcom/paginaInicial");
             } else {
-                response.sendRedirect("/cozinha/dashboard");
+                response.sendRedirect("/cozinha/paginaInicial");
             }
         };
     }

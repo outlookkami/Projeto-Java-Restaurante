@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/admin/funcionarios")
 public class UsuarioController {
     private final UsuarioService usuarioService;
+
 //    @GetMapping("funcionarios/novo")
 //    public String novoFuncionario(Model model) {
 //        model.addAttribute("perfis", PerfilUsuario.values());

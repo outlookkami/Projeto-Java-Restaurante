@@ -5,6 +5,7 @@
     <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
     <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
     <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <link rel="stylesheet" th:href="@{/css/modalExcluir.css}">
     <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
@@ -21,7 +22,7 @@
         <div class="div-pesquisa">
             <input id="busca" class="barra-pesquisa" type="text" name="nome" placeholder="Buscar produto..." th:value="${nome}">
 
-            <select id="categoria" class="filtro-categoria">
+            <select id="categoria" class="filtro">
                 <option value="">Todas as categorias</option>
                 <option th:each="categoria : ${categorias}" th:text="${categoria.nome}" th:value="${categoria.id}"></option>
             </select>
@@ -134,8 +135,7 @@
 <div class="modalExcluir" id="modalExclusao">
     <div class="modal-conteudo">
         <form method="post" id="formExclusao">
-            <p>Tem certeza de que deseja excluir este produto?</p>
-
+            <p id="textoExclusao">Tem certeza que deseja excluir este produto?</p>
             <button type="submit" class="btn-confirmar">Confirmar</button>
             <button type="button" class="btn-cancelar2" onclick="fecharModalExclusao()">Cancelar</button>
         </form>
@@ -150,39 +150,6 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Dm Sans', 'Inter', Arial, sans-serif;
-  }
-
-  .div-pesquisa{
-    margin-bottom: 16px;
-  }
-
-  .barra-pesquisa{
-    width: 400px;
-    height: 32px;
-    font-size: 14px;
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 20px;
-    border: solid 1px #5c3024;
-    padding-left: 7px;
-    margin-right: 10px;
-  }
-
-  .barra-pesquisa:focus{
-    border-style: solid 2px #5c3024;
-    border-color: #5c3024;
-    outline:none;
-  }
-
-  .filtro-categoria{
-    width:160px;
-    border: solid 1px #5c3024;
-  }
-
-  .filtro-categoria:focus{
-    border-color: #5c3024;
-    outline: none;
-    border-style: solid 2px #5c3024;
   }
 
   .form-div{
@@ -221,6 +188,9 @@
       padding: 8px;
   }
 
+  .modalExcluir{
+      display: none;
+  }
 </style>
 </body>
 </html>

@@ -1,12 +1,15 @@
 package com.kamilly.meson.service;
 
+import com.kamilly.meson.model.Produto;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.model.enums.PerfilUsuario;
 import com.kamilly.meson.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +18,27 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
+
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public void salvarUsuario(Usuario usuario) {
         usuarioRepository.saveAndFlush(usuario);
+    }
+
+    public void salvarFuncionario(Usuario usuario, Restaurante restaurante){
+        if(usuario.getPerfilUsuario() != null) {
+            usuario.setPerfilUsuario(usuario.getPerfilUsuario());
+        } else {
+            throw new RuntimeException("Cargo não selecionado.");
+        }
+
+        String senhaPadrao = "meson123";
+
+        usuario.setSenha(passwordEncoder.encode(senhaPadrao));
+        usuario.setTrocarSenha(Boolean.TRUE);
+        usuario.setRestaurante(restaurante);
+        usuarioRepository.save(usuario);
     }
 
     public Usuario buscarUsuarioEmail(String email) {
@@ -74,7 +94,20 @@ public class UsuarioService {
         return (Usuario) auth.getPrincipal();
     }
 
-//    Usuario usuario = usuarioRepository
-//            .findByEmailAndRestaurante(email, idRestaurante)
-//            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"))
+    public List<PerfilUsuario> perfisPermitidosCadastro(PerfilUsuario perfilUsuario) {
+        if (perfilUsuario == PerfilUsuario.ADMIN) {
+            return List.of(PerfilUsuario.ADMIN, PerfilUsuario.GARCOM, PerfilUsuario.COZINHA);
+        }
+
+        if (perfilUsuario == PerfilUsuario.ADMIN_GERAL) {
+            return List.of(PerfilUsuario.ADMIN_GERAL, PerfilUsuario.ADMIN, PerfilUsuario.GARCOM, PerfilUsuario.COZINHA);
+        }
+
+        return List.of();
+    }
+
+    public List<Usuario> listarFuncionarios(Restaurante restaurante) {
+        List<PerfilUsuario> perfisFuncionarios = List.of(PerfilUsuario.ADMIN, PerfilUsuario.GARCOM, PerfilUsuario.COZINHA);
+        return usuarioRepository.findByRestauranteAndPerfilUsuarioIn(restaurante, perfisFuncionarios);
+    }
 }
