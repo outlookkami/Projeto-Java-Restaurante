@@ -46,12 +46,13 @@ public class FuncionariosController {
 //    }
 //
     @PostMapping("/salvar")
-    public String salvarFuncionario(@ModelAttribute Usuario funcionario, @AuthenticationPrincipal Usuario usuarioLogado) {
+    public String salvarFuncionario(@ModelAttribute("funcionario") Usuario funcionario, Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
 //        Usuario usuario = new Usuario();
 //        PerfilUsuario perfilUsuario = usuario.getPerfilUsuario();
+        model.addAttribute("funcionario", new Usuario());
+        model.addAttribute("funcionarios", usuarioService.listarFuncionarios(restaurante));
         usuarioService.salvarFuncionario(funcionario, restaurante);
-
         return "admin/funcionarios";
     }
 //

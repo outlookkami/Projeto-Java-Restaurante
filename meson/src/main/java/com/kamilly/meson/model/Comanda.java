@@ -1,11 +1,14 @@
 package com.kamilly.meson.model;
 
+import com.kamilly.meson.model.enums.StatusComanda;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +30,11 @@ public class Comanda {
     @Column(name = "nome_cliente")
     private String nomeCliente;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusComanda status;
+
+    @Column(name = "valor_comanda")
+    private BigDecimal valor;
 
     @CreationTimestamp
     @Column(name = "data_abertura")
@@ -41,7 +48,6 @@ public class Comanda {
     @JoinColumn(name = "id_restaurante", nullable = false)
     private Restaurante restaurante;
 
-    //@OneToMany(mappedBy = "comanda")
-    //@JsonIgnore
-    //private List<Produto> produtos;
+    @OneToMany(mappedBy = "comanda")
+    private List<Pedido> pedidos;
 }

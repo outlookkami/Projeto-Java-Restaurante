@@ -1,5 +1,6 @@
 package com.kamilly.meson.service;
 
+import com.kamilly.meson.config.UsuarioDetails;
 import com.kamilly.meson.model.Produto;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.Usuario;
@@ -91,7 +92,12 @@ public class UsuarioService {
 
     public Usuario getUsuarioLogado() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return (Usuario) auth.getPrincipal();
+        if (auth== null || !auth.isAuthenticated()) {
+            return null;
+        }
+
+        UsuarioDetails details = (UsuarioDetails) auth.getPrincipal();
+        return details.getUsuario();
     }
 
     public List<PerfilUsuario> perfisPermitidosCadastro(PerfilUsuario perfilUsuario) {

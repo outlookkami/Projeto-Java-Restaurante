@@ -88,16 +88,16 @@ public class SecurityConfig {
 
             if (usuario.getTrocarSenha() == true) {
                 response.sendRedirect("/trocar-senha");
-            }
-
-            if (usuario.getPerfilUsuario() == PerfilUsuario.ADMIN_GERAL) {
-                response.sendRedirect("/admin-geral/dashboard");
-            } else if (usuario.getPerfilUsuario() == PerfilUsuario.ADMIN) {
-                response.sendRedirect("/admin/paginaInicial");
-            } else if (usuario.getPerfilUsuario() == PerfilUsuario.GARCOM) {
-                response.sendRedirect("/garcom/paginaInicial");
             } else {
-                response.sendRedirect("/cozinha/paginaInicial");
+                if (usuario.getPerfilUsuario() == PerfilUsuario.ADMIN_GERAL) {
+                    response.sendRedirect("/admin-geral/dashboard");
+                } else if (usuario.getPerfilUsuario() == PerfilUsuario.ADMIN) {
+                    response.sendRedirect("/admin/paginaInicial");
+                } else if (usuario.getPerfilUsuario() == PerfilUsuario.GARCOM) {
+                    response.sendRedirect("/garcom/paginaInicial");
+                } else {
+                    response.sendRedirect("/cozinha/paginaInicial");
+                }
             }
         };
     }

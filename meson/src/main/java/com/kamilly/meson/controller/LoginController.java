@@ -52,6 +52,11 @@ public class LoginController {
                 .getPrincipal();
     }
 
+    @GetMapping("/trocar-senha")
+    public String trocarSenha(Model model){
+        return "trocar-senha";
+    }
+
     @GetMapping("admin/paginaInicial")
     public String admPagInicial(Model model){
         model.addAttribute("usuario", usuarioLogado());

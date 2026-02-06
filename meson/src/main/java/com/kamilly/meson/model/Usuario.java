@@ -40,7 +40,7 @@ public class Usuario implements UserDetails {
     private PerfilUsuario perfilUsuario;
 
     @Column(nullable = false)
-    private boolean ativo;
+    private Boolean ativo;
 
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao =  LocalDateTime.now();

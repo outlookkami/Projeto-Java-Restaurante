@@ -31,12 +31,12 @@
     </main>
 </div>
 
-<div id="modal" class="modal">
+<div id="modalComanda" class="modal">
     <div class="modal-conteudo">
         <span class="fechar" onclick="fecharModal()">&times;</span>
         <h3>Nova Comanda</h3>
 
-        <form th:action="@{/garcom/comandas}" method="post">
+        <form th:action="@{/garcom/mesas/{id}/comandas}" method="post">
             <div class="form-div">
                 <div>
                     <label>Nome do cliente:</label>

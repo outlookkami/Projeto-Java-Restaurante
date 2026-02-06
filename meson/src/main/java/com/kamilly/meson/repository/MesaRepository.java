@@ -11,9 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface MesaRepository extends JpaRepository<Mesa, Long> {
-    Optional<Mesa> findByIdAndRestaurante(Long id, Restaurante idRestaurante);
+    Optional<Mesa> findByIdAndRestaurante(Long id, Restaurante restaurante);
 
-    List<Mesa> findAllByRestaurante(Restaurante idRestaurante);
+    List<Mesa> findAllByRestaurante(Restaurante restaurante);
 
 
 }

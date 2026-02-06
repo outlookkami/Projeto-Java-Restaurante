@@ -24,7 +24,7 @@
 
             <select id="perfil" class="filtro">
                 <option value="">Todas as categorias</option>
-                <option th:each="perfil : ${perfis}" th:text="${perfil.descricao}" th:value="${perfilUsuario.enum}"></option>
+                <option th:each="perfil : ${perfis}" th:text="${perfil.descricao}" th:value="${perfilUsuario}"></option>
             </select>
         </div>
 
@@ -38,7 +38,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="usuario, row : ${usuarios}">
+            <tr th:each="usuario, row : ${funcionarios}">
                 <td th:text="${usuario.nome}"></td>
                 <td th:text="${usuario.perfilUsuario}"></td>
                 <td th:text="${usuario.email}"></td>

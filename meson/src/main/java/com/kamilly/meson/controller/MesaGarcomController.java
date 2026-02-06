@@ -24,7 +24,7 @@ public class MesaGarcomController {
     public String listarMesas(Model model){
         Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
         model.addAttribute("mesas", mesaService.listarMesas(restaurante));
-        return "garcom/mesas";
+        return "garcom/mesas/lista";
     }
 
 }
