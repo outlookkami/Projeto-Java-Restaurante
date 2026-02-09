@@ -2,11 +2,16 @@
 <html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Modal Trocar Mesa</title>
+    <title>Tela Mesa</title>
     <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
 </head>
 <body>
-<div id="modalTrocaMesa" class="modal">
+
+<button>+ Nova Comanda</button>
+
+<!----------------------------------------------->
+
+<div id="modalComanda" class="modal">
     <div class="modal-conteudo">
         <span class="fechar" onclick="fecharModal()">&times;</span>
         <script th:if="${mostrarModal}">
@@ -14,18 +19,15 @@
                 document.getElementById("modal").style.display = "block";
             });
         </script>
-        <h3>Mover a comanda para outra mesa</h3>
+        <h3>Nova Comanda</h3>
 
-        <form th:action="@{/garcom/comandas/modal-trocar-mesa/salvar}" th:object="${comanda}" method="post" id="form">
+        <form th:action="@{/garcom/comandas/modal-comanda/salvar}" th:object="${comanda}" method="post" id="form">
             <input type="hidden" th:field="*{id}">
-            <label>Número da mesa:</label>
-<!--            <input type="" th:field="*{mesa}" name="mesa" required>-->
-            <select th:field="*{mesa}" name="mesa" required>
-                <option value="">Selecione</option>
-                <option th:each="mesa : ${mesas}" th:text="${mesa.numero}" th:value="${mesa.id}"></option>
-            </select>
+            <label>Nome do Cliente:</label>
+            <input type="text" th:field="*{nomeCliente}" name="nome" required>
+
             <div class="modal-acoes">
-                <button type="submit" class="btn btn-salvar">Confirmar troca</button>
+                <button type="submit" class="btn btn-salvar">Salvar</button>
                 <button type="button" class="btn btn-cancelar" onclick="fecharModal()">Cancelar</button>
             </div>
         </form>

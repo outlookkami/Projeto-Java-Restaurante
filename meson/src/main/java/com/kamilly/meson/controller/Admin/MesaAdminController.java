@@ -1,10 +1,8 @@
-package com.kamilly.meson.controller;
+package com.kamilly.meson.controller.Admin;
 
 import com.kamilly.meson.model.Mesa;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.Usuario;
-import com.kamilly.meson.model.enums.StatusMesa;
-import com.kamilly.meson.repository.MesaRepository;
 import com.kamilly.meson.service.MesaService;
 import com.kamilly.meson.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
-
-import static com.kamilly.meson.model.enums.StatusMesa.DISPONIVEL;
 
 @Controller
 @RequestMapping("/admin/mesas")

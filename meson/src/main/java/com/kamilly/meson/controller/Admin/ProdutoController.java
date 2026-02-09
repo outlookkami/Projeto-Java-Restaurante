@@ -1,4 +1,4 @@
-package com.kamilly.meson.controller;
+package com.kamilly.meson.controller.Admin;
 
 import com.kamilly.meson.config.UsuarioDetails;
 import com.kamilly.meson.model.CategoriaProduto;
@@ -11,7 +11,6 @@ import com.kamilly.meson.service.ImagemService;
 import com.kamilly.meson.service.ProdutoService;
 import com.kamilly.meson.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

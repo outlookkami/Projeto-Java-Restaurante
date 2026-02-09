@@ -1,22 +1,13 @@
-package com.kamilly.meson.controller;
+package com.kamilly.meson.controller.Admin;
 
 import com.kamilly.meson.model.CategoriaProduto;
-import com.kamilly.meson.model.Mesa;
 import com.kamilly.meson.model.Restaurante;
-import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.service.CategoriaService;
 import com.kamilly.meson.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin/categorias")

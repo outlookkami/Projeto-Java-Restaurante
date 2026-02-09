@@ -1,4 +1,4 @@
-package com.kamilly.meson.controller;
+package com.kamilly.meson.controller.Admin;
 
 import com.kamilly.meson.config.UsuarioDetails;
 import com.kamilly.meson.model.Restaurante;
@@ -10,8 +10,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
