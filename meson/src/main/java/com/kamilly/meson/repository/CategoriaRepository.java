@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface CategoriaRepository extends JpaRepository<CategoriaProduto, Long> {
     Optional<CategoriaProduto> findByIdAndRestaurante(Long id, Restaurante restaurante);
 
+//    List<CategoriaProduto> findByRestauranteAndId(Restaurante restaurante, Long id);
+
     List<CategoriaProduto> findAllByRestaurante(Restaurante restaurante);
 
     @Transactional

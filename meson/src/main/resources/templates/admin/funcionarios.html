@@ -20,7 +20,7 @@
         </header>
 
         <div class="div-pesquisa">
-            <input id="busca" class="barra-pesquisa" type="text" name="nome" placeholder="Buscar funcionário..." th:value="${nome}">
+            <input id="buscaFunc" class="barra-pesquisa" type="text" name="nome" placeholder="Buscar funcionário..." th:value="${nome}">
 
             <select id="perfil" class="filtro">
                 <option value="">Todas as categorias</option>
@@ -37,15 +37,15 @@
                 <th>Ativo</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody th:fragment="tabelaFuncionarios">
             <tr th:each="usuario, row : ${funcionarios}">
                 <td th:text="${usuario.nome}"></td>
                 <td th:text="${usuario.perfilUsuario}"></td>
                 <td th:text="${usuario.email}"></td>
                 <td th:text="${usuario.ativo == true} ? 'Sim' : 'Não'"></td>
                 <td>
-                    <button class="btn-edit">Editar</button>
-                    <button class="btn-delete">Excluir</button>
+                    <a th:href="@{/admin/funcionarios/editar/{id}(id=${usuario.id})}"><button class="btn-edit">Editar</button></a>
+                    <button type="button" class="btn-delete" th:onclick="'abrirModalExclusao(' + {usuario.id} +')'">Excluir</button>
                 </td>
             </tr>
             </tbody>
@@ -57,6 +57,11 @@
 <div id="modal" class="modal">
     <div class="modal-conteudo">
         <span class="fechar" onclick="fecharModal()">&times;</span>
+        <script th:if="${mostrarModal}">
+            document.addEventListener("DOMContentLoaded", function (){
+                document.getElementById("modal").style.display = "block";
+            });
+        </script>
         <h3>Novo funcionário</h3>
 
         <form th:action="@{/admin/funcionarios/salvar}" th:object="${funcionario}" method="post" id="form">
@@ -82,9 +87,31 @@
 
             <div class="modal-acoes">
                 <button type="submit" class="btn btn-salvar">Salvar</button>
-                <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>
+                <button type="button" class="btn btn-cancelar" onclick="fecharModal()">Cancelar</button>
 <!--                <button type="submit" class="btn btn-salvar">Ativar</button>-->
             </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function abrirModalExclusao(id) {
+        const form = document.getElementById("formExclusao");
+        form.action = "/admin/funcionarios/excluir/" + id;
+        document.getElementById("modalExclusao").style.display = "block";
+    }
+
+    function fecharModalExclusao() {
+        document.getElementById("modalExclusao").style.display = "none";
+    }
+</script>
+
+<div class="modalExcluir" id="modalExclusao">
+    <div class="modal-conteudo">
+        <form method="post" id="formExclusao">
+            <p id="textoExclusao">Tem certeza que deseja excluir este funcionário?</p>
+            <button type="submit" class="btn-confirmar">Confirmar</button>
+            <button type="button" class="btn-cancelar2" onclick="fecharModalExclusao()">Cancelar</button>
         </form>
     </div>
 </div>

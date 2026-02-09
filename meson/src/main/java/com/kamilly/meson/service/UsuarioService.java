@@ -36,10 +36,28 @@ public class UsuarioService {
 
         String senhaPadrao = "meson123";
 
+        usuario.setAtivo(true);
         usuario.setSenha(passwordEncoder.encode(senhaPadrao));
         usuario.setTrocarSenha(Boolean.TRUE);
         usuario.setRestaurante(restaurante);
         usuarioRepository.save(usuario);
+    }
+
+    public List<Usuario> buscarFuncionario(String nome, Restaurante restaurante, PerfilUsuario perfilUsuario){
+        List<PerfilUsuario> perfis = perfisPermitidosCadastro(perfilUsuario);
+        if((nome == null || nome.isBlank()) && perfilUsuario == null ) {
+            return usuarioRepository.findAllByRestaurante(restaurante);
+        }
+
+        if(perfilUsuario != null && (nome == null || nome.isBlank())) {
+//            return usuarioRepository.findByRestauranteAndPerfilUsuarioIn(restaurante, perfis);
+            return usuarioRepository.findAllByPerfilUsuarioAndRestaurante(perfilUsuario, restaurante);
+        }
+
+        if(perfilUsuario == null) {
+            return usuarioRepository.findByNomeContainingIgnoreCaseAndRestaurante(nome, restaurante);
+        }
+        return usuarioRepository.findByNomeContainingIgnoreCaseAndPerfilUsuarioAndRestaurante(nome, perfilUsuario, restaurante);
     }
 
     public Usuario buscarUsuarioEmail(String email) {
@@ -48,8 +66,19 @@ public class UsuarioService {
         );
     }
 
+    public Usuario buscarFuncionarioPorId(Long id, Restaurante restaurante) {
+        return usuarioRepository.findByIdAndRestaurante(id, restaurante)
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado."));
+    }
+
     public void deleteUsuarioPorEmail(String email) {
         usuarioRepository.deleteByEmail(email);
+    }
+
+    public void deletarFuncionario(Long id, Restaurante restaurante) {
+        Usuario funcionario = usuarioRepository.findByIdAndRestaurante(id, restaurante)
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado."));
+        usuarioRepository.delete(funcionario);
     }
 
     public void atualizarUsuarioPorId(Long id, Usuario usuario) {

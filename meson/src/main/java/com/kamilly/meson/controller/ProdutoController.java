@@ -1,5 +1,6 @@
 package com.kamilly.meson.controller;
 
+import com.kamilly.meson.config.UsuarioDetails;
 import com.kamilly.meson.model.CategoriaProduto;
 import com.kamilly.meson.model.Produto;
 import com.kamilly.meson.model.Restaurante;
@@ -35,7 +36,8 @@ public class ProdutoController {
     private final CategoriaRepository categoriaRepository;
 
     @GetMapping
-    public String listarProdutos(@RequestParam(required = false) String nome, Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
+    public String listarProdutos(@RequestParam(required = false) String nome, Model model, @AuthenticationPrincipal UsuarioDetails usuarioDetails) {
+        Usuario usuarioLogado = usuarioDetails.getUsuario();
         Restaurante restaurante = usuarioLogado.getRestaurante();
         List<CategoriaProduto> categorias = categoriaRepository.findAllByRestaurante(restaurante);
         model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
@@ -45,18 +47,18 @@ public class ProdutoController {
     }
 
     @GetMapping("/buscar")
-    public String buscarProdutos(@RequestParam(required = false) String nome, @RequestParam(required = false) Long idCategoria, Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
-        System.out.println("Categoria recebida: " + idCategoria);
-
+    public String buscarProdutos(@RequestParam(required = false) String nome, @RequestParam(required = false) Long idCategoria, Model model, @AuthenticationPrincipal UsuarioDetails usuarioDetails) {
+        Usuario usuarioLogado = usuarioDetails.getUsuario();
         Restaurante restaurante = usuarioLogado.getRestaurante();
         model.addAttribute("produtos", produtoService.buscarProduto(nome, restaurante, idCategoria));
         return "admin/produtos :: tabelaProdutos";
     }
 
     @GetMapping("/novo")
-    public String novoProduto(Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
+    public String novoProduto(Model model, @AuthenticationPrincipal UsuarioDetails usuarioDetails) {
+        Usuario usuarioLogado = usuarioDetails.getUsuario();
         Produto produto = new Produto();
-        Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        Restaurante restaurante = usuarioLogado.getRestaurante();
 
         List<CategoriaProduto> categorias = categoriaRepository.findAllByRestaurante(restaurante);
         model.addAttribute("produtos", produto);

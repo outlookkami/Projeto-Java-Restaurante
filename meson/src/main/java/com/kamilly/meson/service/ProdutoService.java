@@ -1,7 +1,9 @@
 package com.kamilly.meson.service;
 
+import com.kamilly.meson.model.CategoriaProduto;
 import com.kamilly.meson.model.Produto;
 import com.kamilly.meson.model.Restaurante;
+import com.kamilly.meson.repository.CategoriaRepository;
 import com.kamilly.meson.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.List;
 public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
+    private final CategoriaRepository categoriaRepository;
 
     public List<Produto> listarProdutos(Restaurante restaurante){
         return produtoRepository.findAllByRestaurante(restaurante);

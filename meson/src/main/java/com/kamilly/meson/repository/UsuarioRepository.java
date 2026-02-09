@@ -1,5 +1,6 @@
 package com.kamilly.meson.repository;
 
+import com.kamilly.meson.dto.request.RestauranteReqDTO;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.model.enums.PerfilUsuario;
@@ -15,7 +16,15 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findByEmail(String email);
 
-    Optional<Usuario> findByIdAndRestaurante(Long id, Integer idRestaurante);
+    Optional<Usuario> findByIdAndRestaurante(Long id, Restaurante restaurante);
+
+    List<Usuario> findAllByRestaurante(Restaurante restaurante);
+
+    List<Usuario> findAllByPerfilUsuarioAndRestaurante(PerfilUsuario perfilUsuario, Restaurante restaurante);
+
+    List<Usuario> findByNomeContainingIgnoreCaseAndRestaurante(String nome, Restaurante restaurante);
+
+    List<Usuario> findByNomeContainingIgnoreCaseAndPerfilUsuarioAndRestaurante(String nome, PerfilUsuario perfilUsuario, Restaurante restaurante);
 
     List<Usuario> findByRestauranteAndPerfilUsuarioIn(Restaurante restaurante, List<PerfilUsuario> perfis);
 

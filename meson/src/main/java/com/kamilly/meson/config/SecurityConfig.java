@@ -59,7 +59,8 @@ public class SecurityConfig {
                                 "/cadastro/**",
                                 "/css/**",
                                 "/js/**",
-                                "/api/**"
+                                "/api/**",
+                                "/funcionarios/**"
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
@@ -70,6 +71,7 @@ public class SecurityConfig {
                         .successHandler(loginSuccessHandler())
                         .permitAll()
                 )
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")

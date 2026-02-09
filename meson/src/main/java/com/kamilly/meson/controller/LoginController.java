@@ -1,5 +1,6 @@
 package com.kamilly.meson.controller;
 
+import com.kamilly.meson.config.UsuarioDetails;
 import com.kamilly.meson.model.Usuario;
 import com.kamilly.meson.model.enums.PerfilUsuario;
 import com.kamilly.meson.repository.UsuarioRepository;
@@ -7,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -46,10 +48,16 @@ public class LoginController {
     }
 
     public Usuario usuarioLogado(){
-        return (Usuario) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+
+        if(authentication.getPrincipal() instanceof UsuarioDetails usuarioDetails){
+            return usuarioDetails.getUsuario();
+        }
+        return null;
     }
 
     @GetMapping("/trocar-senha")
