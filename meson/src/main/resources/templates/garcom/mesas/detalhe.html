@@ -1,38 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Tela Mesa</title>
-    <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <th:block th:replace="~{fragments/head :: head('Detalhe Mesa')}"></th:block>
 </head>
 <body>
 
-<button>+ Nova Comanda</button>
+<button data-bs-toggle="modal" data-bs-target="#modalNovaComanda">+ Nova Comanda</button>
 
-<!----------------------------------------------->
-
-<div id="modalComanda" class="modal">
-    <div class="modal-conteudo">
-        <span class="fechar" onclick="fecharModal()">&times;</span>
-        <script th:if="${mostrarModal}">
-            document.addEventListener("DOMContentLoaded", function (){
-                document.getElementById("modal").style.display = "block";
-            });
-        </script>
-        <h3>Nova Comanda</h3>
-
-        <form th:action="@{/garcom/comandas/modal-comanda/salvar}" th:object="${comanda}" method="post" id="form">
-            <input type="hidden" th:field="*{id}">
-            <label>Nome do Cliente:</label>
-            <input type="text" th:field="*{nomeCliente}" name="nome" required>
-
-            <div class="modal-acoes">
-                <button type="submit" class="btn btn-salvar">Salvar</button>
-                <button type="button" class="btn btn-cancelar" onclick="fecharModal()">Cancelar</button>
-            </div>
-        </form>
-    </div>
+<div th:each="comanda : ${comandas}">
+    <p th:text="${comanda.nomeCliente}"></p>
 </div>
+
+<div th:replace="garcom/comandas/modal-comanda :: modalNovaComanda"></div>
 
 </body>
 </html>

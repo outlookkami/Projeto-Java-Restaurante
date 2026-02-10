@@ -2,10 +2,6 @@
 <html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments/head :: head('Cardápio')}"></th:block>
-    <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
-    <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
-    <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
-    <script th:src="@{/js/modalIncluir.js}"></script>
 </head>
 <body>
 
@@ -14,8 +10,14 @@
 
     <main class="content">
         <header class="header">
-            <h1>Pratos</h1>
+            <h1>Cardápio</h1>
         </header>
+
+        <div class="categorias-cardapio">
+            <div th:each="categoria : ${categorias}">
+                <button type="button" th:text="${categoria.nome}" class="botao-categoria"></button>
+            </div>
+        </div>
 
         <section class="pratos">
             <div class="card-prato" th:each="produto : ${produtos}" th:classappend="${produto.categoria}" id="prato">
@@ -23,33 +25,32 @@
                 <p>
                     <span th:text="${produto.categoria}"></span>
                 </p>
-                <span class="status">
-                </span>
+                <span class="status"></span>
             </div>
         </section>
     </main>
 </div>
 
-<div id="modal" class="modal">
-    <div class="modal-conteudo">
-        <span class="fechar" onclick="fecharModal()">&times;</span>
-        <h3>Nova Comanda</h3>
+<!--<div id="modal" class="modal">-->
+<!--    <div class="modal-conteudo">-->
+<!--        <span class="fechar" onclick="fecharModal()">&times;</span>-->
+<!--        <h3>Nova Comanda</h3>-->
 
-        <form th:action="@{/garcom/}" method="post">
-            <div class="form-div">
-                <div>
-                    <label>Nome do cliente:</label>
-                    <input type="text" name="nomeCliente" required>
-                </div>
-            </div>
+<!--        <form th:action="@{/garcom/}" method="post">-->
+<!--            <div class="form-div">-->
+<!--                <div>-->
+<!--                    <label>Nome do cliente:</label>-->
+<!--                    <input type="text" name="nomeCliente" required>-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <div class="modal-acoes">
-                <button type="submit" class="btn btn-salvar">Salvar</button>
-                <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>
-            </div>
-        </form>
-    </div>
-</div>
+<!--            <div class="modal-acoes">-->
+<!--                <button type="submit" class="btn btn-salvar">Salvar</button>-->
+<!--                <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
 
 <style>
     * {
@@ -57,6 +58,21 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Dm Sans', Arial, sans-serif;
+}
+
+.categorias-cardapio {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.botao-categoria {
+    color: #5c3024;
+    background-color: #fdf6ee;
+    border: solid 1px #5c3024;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .mesas {

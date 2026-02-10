@@ -1,5 +1,6 @@
 package com.kamilly.meson.controller.Garcom;
 
+import com.kamilly.meson.model.Comanda;
 import com.kamilly.meson.model.Mesa;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.enums.StatusComanda;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/garcom/mesas")
 @RequiredArgsConstructor
@@ -23,9 +26,12 @@ public class MesaGarcomController {
     private final ComandaService comandaService;
 
     @GetMapping
-    public String listarMesas(Model model){
+    public String listarMesas(Model model, Mesa mesa){
         Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
-        model.addAttribute("mesas", mesaService.listarMesas(restaurante));
+        List<Mesa> mesas = mesaService.listarMesas(restaurante);
+        List<Comanda> comandas = comandaService.buscarComandasAbertasMesa(mesa, restaurante);
+        model.addAttribute("mesas", mesas);
+        model.addAttribute("comandas", comandas);
         return "garcom/mesas/lista";
     }
 
@@ -34,8 +40,16 @@ public class MesaGarcomController {
         Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
         Mesa mesa = mesaService.buscarMesaPorId(id, restaurante);
         model.addAttribute("mesa", mesa);
-        model.addAttribute("comandas", comandaService.buscarComandasAbertasMesa(mesa, restaurante, StatusComanda.ABERTA));
+        model.addAttribute("comandas", comandaService.buscarComandasAbertasMesa(mesa, restaurante));
         return "garcom/mesas/detalhe";
     }
+
+//    @GetMapping
+//    public String detalheMesa(Long id, Model model){
+//        Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
+//        Mesa mesa = mesaService.buscarMesaPorId(id, restaurante);
+//
+//        return "redirect:/garcom/mesas";
+//    }
 
 }

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="~{fragments/head :: head('CRUD ')}"></th:block>
-    <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
-    <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
-    <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
-    <script th:src="@{/js/modalIncluir.js}"></script>
+    <th:block th:replace="~{fragments/head :: head('Lista Mesas')}"></th:block>
     <script th:src="@{/js/garcom.js}"></script>
+    <script th:src="@{/js/fluxos-garcom/controleModal.js}"></script>
 </head>
 <body>
 
@@ -19,7 +16,7 @@
         </header>
 
         <section class="mesas">
-            <div class="card-mesa" th:each="mesa : ${mesas}" th:classappend="${mesa.status}" id="mesa" th:onclick="'window.location.href=\'' + @{/garcom/mesas/{id}(id=${mesa.id})} + '\''">
+            <div class="card-mesa" th:each="mesa : ${mesas}" th:classappend="${mesa.status}" th:onclick="'abrirModalDetalheMesa(' + ${mesa.id} + ', ' + ${mesa.numero} + ')'">
                     <span class="titulo-mesa">MESA</span>
                     <h4 th:text="${mesa.numero}"></h4>
                     <span class="status" th:text="${mesa.status == T(com.kamilly.meson.model.enums.StatusMesa).OCUPADA ? 'OCUPADA' : 'DISPONÍVEL'}">
@@ -32,13 +29,28 @@
     </main>
 </div>
 
-<div id="modalComanda" class="modal">
+<div class="modal" id="modalDetalheMesa">
     <div class="modal-conteudo">
-        <span class="fechar" onclick="fecharModal()">&times;</span>
+        <span class="fechar" onclick="fecharModalDetalheMesa()">&times;</span>
+        <h3 id="mesaTitulo"></h3>
+
+        <button type="button" onclick="abrirModalComanda()" class="btn-nova-comanda">+ Nova Comanda</button>
+
+        <div class="card-comanda" th:each="comanda : ${comandas}">
+            <p th:text="${comanda.nomeCliente}"></p>
+            <p th:text="${comanda.status}"></p>
+        </div>
+    </div>
+</div>
+
+<div id="modalNovaComanda" class="modal">
+    <div class="modal-conteudo">
+        <span class="fechar" onclick="fecharModalComanda()">&times;</span>
         <h3>Nova Comanda</h3>
 
-        <form th:action="@{/garcom/mesas/{id}/comandas}" method="post">
+        <form th:action="@{/garcom/comandas}" method="post">
             <div class="form-div">
+                <input type="hidden" name="mesaId" id="mesaIdInput">
                 <div>
                     <label>Nome do cliente:</label>
                     <input type="text" name="nomeCliente" required>
@@ -46,8 +58,8 @@
             </div>
 
             <div class="modal-acoes">
-                <button type="submit" class="btn btn-salvar">Salvar</button>
-                <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>
+                <button type="submit" class="btn-comanda">Abrir Comanda</button>
+                <button type="button" class="btn-cancelar" onclick="fecharModalComanda()">Cancelar</button>
             </div>
         </form>
     </div>
@@ -114,6 +126,36 @@
 .disponivel .status {
     background: #e3f1ec;
     color: #2f7a5f;
+}
+
+.btn-nova-comanda {
+    border: none;
+    background-color: #577569;
+    color: white;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.btn-comanda {
+    background-color: #5c3024;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px;
+    width: 140px;
+    cursor: pointer;
+}
+
+.btn-comanda:hover, btn-cancelar:hover{
+    opacity: 0.9;
+}
+
+.card-comanda {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
 }
 
 </style>

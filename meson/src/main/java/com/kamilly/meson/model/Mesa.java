@@ -1,5 +1,6 @@
 package com.kamilly.meson.model;
 
+import com.kamilly.meson.model.enums.StatusMesa;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,7 +37,8 @@ public class Mesa {
     @Column(name = "posicao_y")
     private int posicaoY;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusMesa status;
 
     @ManyToOne
     @JoinColumn(name = "id_restaurante", nullable = false)
