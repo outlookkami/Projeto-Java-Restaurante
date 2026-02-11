@@ -4,6 +4,9 @@ import com.kamilly.meson.model.CategoriaProduto;
 import com.kamilly.meson.model.Mesa;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.Usuario;
+import com.kamilly.meson.model.enums.StatusComanda;
+import com.kamilly.meson.model.enums.StatusMesa;
+import com.kamilly.meson.repository.ComandaRepository;
 import com.kamilly.meson.repository.MesaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,7 @@ public class MesaService {
 
     private final MesaRepository mesaRepository;
     private final UsuarioService usuarioService;
+    private final ComandaRepository comandaRepository;
 
     public List<Mesa> listarMesas(Restaurante restaurante) {
         return mesaRepository.findAllByRestaurante(restaurante);

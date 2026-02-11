@@ -25,10 +25,10 @@ public class ComandaGarcomController {
     private final MesaService mesaService;
 
     @GetMapping
-    public String listarComandas(Model model, Mesa mesa) {
+    public String listarComandas(Model model, Long mesaId) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
 
-        model.addAttribute("comandas", comandaService.buscarComandasAbertasMesa(mesa, restaurante));
+        model.addAttribute("comandas", comandaService.buscarComandasAbertasMesa(mesaId, restaurante));
         return "garcom/mesas";
     }
 
