@@ -26,54 +26,17 @@
                         <span th:text="${mesa.capacidade} + ' Lugares'"></span>
                     </p>
                 </div>
-                <!-- Modal de Detalhes da Mesa -->
-                <div class="modal" th:id="'modalDetalheMesa-' + ${mesa.id}">
-                    <div class="modal-conteudo">
-                        <span class="fechar" th:onclick="'fecharModalDetalheMesa(' + ${mesa.id} + ')'">&times;</span>
-                        <h3 th:text="'Mesa ' + ${mesa.numero}"></h3>
-                        <div class="header-detalhe">
-                            <span th:text="'Comandas abertas: ' + ${#lists.size(comandasMesa[mesa.id])}"></span>
-                            <button type="button" onclick="abrirModalComanda()" class="btn-nova-comanda">+ Nova Comanda</button>
-                        </div>
-                        <!-- Listagem das Comandas da Mesa -->
-                        <div class="card-comanda" th:each="comanda : ${comandasMesa[mesa.id]}" >
-                            <div>
-                                <p th:text="'Nome: ' + ${comanda.nomeCliente}"></p>
-                                <p th:text="${comanda.status}" class="status-comanda" th:classappend="${comanda.status} ? 'ABERTA' : 'FECHADA'"></p>
-                                <p th:text="'Valor: ' + ${comanda.valor}"></p>
-                            </div>
-                            <div class="div-btn-fechar-comanda">
-                                <button class="btn-ver-detalhes">Ver Detalhes</button>
-                                <button class="btn-fechar-comanda">Fechar Comanda</button>
-                            </div>
 
-                            <!-- Listagem dos Pedidos da Comanda -->
-                            <div class="modal" th:id="'modalDetalheComanda-' + ${comanda.id}">
-                                <div class="modal-conteudo">
-                                    <span class="fechar" th:onclick="'fecharModalDetalheComanda(' + ${comanda.id} + ')'">&times;</span>
-                                    <h3 th:text="'Comanda ' + ${comanda.id}"></h3>
-                                    <div class="header-detalhe">
-                                        <span th:text="'Pedidos abertos: ' + ${#lists.size(pedidosComanda[comanda.id])}"></span>
-                                        <button type="button" onclick="abrirModalPedido()" class="btn-novo-pedido">+ Novo Pedido</button></div>
-                                    <div class="card-pedido" th:each="pedido : ${pedidosComanda[comanda.id]}" >
-<!--                                        <div>-->
-<!--                                            <p th:text="'Nome: ' + ${comanda.nomeCliente}"></p>-->
-<!--                                            <p th:text="${comanda.status}" class="status-comanda" th:classappend="${comanda.status} ? 'ABERTA' : 'FECHADA'"></p>-->
-<!--                                            <p th:text="'Valor: ' + ${comanda.valor}"></p>-->
-<!--                                        </div>-->
-<!--                                        <div class="div-btn-fechar-comanda">-->
-<!--                                            <button class="btn-ver-detalhes">Ver Detalhes</button>-->
-<!--                                            <button class="btn-fechar-comanda">Fechar Comanda</button>-->
-<!--                                        </div>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
+</div>
+
+<div id="modalPrincipal" class="modal">
+    <div class="modal-conteudo">
+        <span class="fechar" onclick="fecharModal()">×</span>
+        <div id="modalConteudo"></div>
+    </div>
 </div>
 
 <div id="modalNovaComanda" class="modal">
@@ -225,17 +188,29 @@
     border: solid 1px #577569;
 }
 
-.div-btn-fechar-comanda{
+.div-btn-comanda{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    width:100%;
+    clear: both;
 }
 
 .btn-fechar-comanda{
     font-size: 14px;
     padding: 4px;
+    border: solid 1px #577569;
+    background-color: #fdf6ee;
+    border-radius: 12px;
+    float: right;
+}
+
+.btn-ver-detalhes{
+    font-size: 14px;
+    padding: 4px;
     border: solid 1px #5c3024;
     background-color: #fdf6ee;
     border-radius: 12px;
+    float: left;
 }
 </style>
 </body>

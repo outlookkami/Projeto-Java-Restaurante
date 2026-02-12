@@ -41,7 +41,7 @@
                 Usuário ou senha inválidos
             </p>
 
-            <p class="error" th:unless="${usuario.ativo}">
+            <p class="error" th:if="${param.error}" th:unless="${usuario.ativo}">
                 Usuário inativo
             </p>
 

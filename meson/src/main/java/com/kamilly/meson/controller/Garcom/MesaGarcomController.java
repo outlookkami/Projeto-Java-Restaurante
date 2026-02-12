@@ -46,9 +46,9 @@ public class MesaGarcomController {
 
             for(Comanda comanda : comandas){
                 List<Pedido> pedidos = pedidoService.listarPedidosPorComanda(comanda.getId(), restaurante);
+
             }
         }
-
 
         model.addAttribute("mesas", mesas);
         model.addAttribute("comandasMesa", comandasMesa);
@@ -56,15 +56,19 @@ public class MesaGarcomController {
         return "garcom/mesas/lista";
     }
 
+
+    @GetMapping("/{id}/detalhe")
+    public String detalheMesa(@PathVariable Long id, Model model){
+        Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
+        Mesa mesa = mesaService.buscarMesaPorId(id, restaurante);
+        List<Comanda> comandas = comandaService.buscarComandasAbertasMesa(id, restaurante);
+        model.addAttribute("mesa", mesa);
+        model.addAttribute("comandas", comandas);
+        return "garcom/mesas/detalheMesa :: detalheMesa";
+    }
+
 //    @GetMapping("/{id}")
-//    public String detalhe(@PathVariable Long id, Model model){
-//        Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
-//        Mesa mesa = mesaService.buscarMesaPorId(id, restaurante);
-//        List<Comanda> comandas = comandaService.buscarComandasAbertasMesa(id, restaurante);
-//        model.addAttribute("mesa", mesa);
-//        model.addAttribute("comandas", comandas);
-//        return "garcom/mesas";
-//    }
+//    public String detalhe
 
 //    @GetMapping
 //    public String detalheMesa(Long id, Model model){

@@ -46,7 +46,7 @@ public class ProdutoService {
     }
 
     public void salvarProduto(Produto produto, Restaurante restaurante){
-        if(produto.getIdCategoria() != null) {
+        if(produto.getCategoria() != null) {
             produto.setCategoria(produto.getIdCategoria().getNome());
         } else {
             throw new RuntimeException("Categoria não selecionada.");

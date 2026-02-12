@@ -2,7 +2,6 @@ package com.kamilly.meson.repository;
 
 import com.kamilly.meson.model.Mesa;
 import com.kamilly.meson.model.Restaurante;
-import com.kamilly.meson.model.enums.StatusComanda;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

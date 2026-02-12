@@ -50,7 +50,6 @@ public class UsuarioService {
         }
 
         if(perfilUsuario != null && (nome == null || nome.isBlank())) {
-//            return usuarioRepository.findByRestauranteAndPerfilUsuarioIn(restaurante, perfis);
             return usuarioRepository.findAllByPerfilUsuarioAndRestaurante(perfilUsuario, restaurante);
         }
 
@@ -92,7 +91,7 @@ public class UsuarioService {
                 .id(usuarioModel.getId())
                 .build();
 
-        usuarioRepository.saveAndFlush(usuarioAtualizado);
+        usuarioRepository.save(usuarioAtualizado);
     }
 
     public Usuario criarAdmin(Usuario usuario, Restaurante restaurante) {
@@ -100,20 +99,6 @@ public class UsuarioService {
         usuario.setRestaurante(restaurante);
         return usuario;
     }
-
-//    public Usuario getUsuarioLogado() {
-//        Authentication authentication =
-//                SecurityContextHolder.getContext().getAuthentication();
-//
-//        if (authentication == null || !authentication.isAuthenticated()) {
-//            throw new RuntimeException("Usuário não autenticado");
-//        }
-//
-//        String email = authentication.getName(); // username/email
-//
-//        return usuarioRepository.findByEmail(email)
-//                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-//    }
 
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();

@@ -1,5 +1,6 @@
 
 let mesaAtualId = null;
+let comandaAtualId = null;
 
 // Modal Detalhe Mesa
 function abrirModalDetalheMesa(mesaId, mesaNumero) {
@@ -27,6 +28,7 @@ function fecharModalComanda() {
 
 // Modal Detalhe Comanda
 function abrirModalDetalheComanda(comandaId) {
+    comandaAtualId = comandaId;
     var modal = document.getElementById("modalDetalheComanda-" + comandaId);
     document.getElementById("comandaIdInput").value = comandaId;
     if (modal) {
@@ -47,3 +49,23 @@ function abrirModalPedido() {
 function fecharModalPedido() {
     document.getElementById("modalNovoPedido").style.display = "none";
 }
+
+
+
+// Modal único
+function abrirModal(url) {
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("modalConteudo").innerHTML = html;
+            document.getElementById("modalPrincipal").style.display = "flex";
+        });
+}
+
+function fecharModal() {
+    document.getElementById("modalPrincipal").style.display = "none";
+}
+
+//function abrirModalDetalheMesa() {
+//
+//}

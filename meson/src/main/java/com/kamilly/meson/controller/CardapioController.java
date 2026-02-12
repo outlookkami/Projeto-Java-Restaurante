@@ -25,4 +25,12 @@ public class CardapioController {
         model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
         return "garcom/cardapio";
     }
+
+    @GetMapping("/admin/cardapio")
+    public String adminCardapio(Model model){
+        Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
+        model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
+        return "admin/cardapio";
+    }
 }

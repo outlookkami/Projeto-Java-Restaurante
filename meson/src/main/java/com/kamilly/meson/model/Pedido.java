@@ -1,5 +1,6 @@
 package com.kamilly.meson.model;
 
+import com.kamilly.meson.model.enums.StatusPedido;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,7 +22,8 @@ public class Pedido {
     @Column(name = "id_pedido")
     private Long id;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
 
     @CreationTimestamp
     @Column(name = "data_criacao")

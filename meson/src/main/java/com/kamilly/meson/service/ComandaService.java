@@ -52,4 +52,18 @@ public class ComandaService {
             mesa.setStatus(StatusMesa.DISPONIVEL);
         }
     }
+
+    public List<Comanda> listarComandas(Restaurante restaurante) {
+        return comandaRepository.findAllByRestaurante(restaurante);
+    }
+
+    public Comanda buscarComandaPorId(Long id, Restaurante restaurante){
+        return comandaRepository.findByIdAndRestaurante(id, restaurante)
+                .orElseThrow(() -> new RuntimeException("Comanda não encontrada."));
+    }
+
+//    public void salvarComanda(Comanda comanda, Restaurante restaurante){
+//        comanda.setRestaurante(restaurante);
+//        comandaRepository.save(comanda);
+//    }
 }
