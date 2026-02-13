@@ -32,7 +32,6 @@ function fecharModalDetalheMesa() {
     document.getElementById("modalPrincipal").style.display = "none";
 }
 
-
 // Modal Comanda
 function abrirModalComanda() {
     document.getElementById("mesaIdInput").value = mesaAtualId;
@@ -51,6 +50,18 @@ function abrirModalDetalheComanda(comandaId) {
     if (modal) {
         modal.style.display = "block";
     }
+}
+
+// Modal Detalhe Comanda NOVO
+function abrirModalDetalheComanda(comandaId) {
+    const url = `/garcom/comandas/${comandaId}/detalhe`;
+
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("modalConteudo").innerHTML = html;
+            document.getElementById("modalPrincipal").style.display = "block";
+        });
 }
 
 function fecharModalDetalheMesa() {

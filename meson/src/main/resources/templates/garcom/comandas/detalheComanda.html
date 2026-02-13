@@ -1,22 +1,20 @@
 <div th:fragment="detalheComanda" xmlns:th="http://www.w3.org/1999/xhtml">
     <!-- Listagem dos Pedidos da Comanda -->
-    <div class="modal" th:id="'modalDetalheComanda-' + ${comanda.id}">
-        <div class="modal-conteudo">
-            <span class="fechar" th:onclick="'fecharModalDetalheComanda(' + ${comanda.id} + ')'">&times;</span>
-            <h3 th:text="'Comanda ' + ${comanda.id}"></h3>
-            <div class="header-detalhe">
-                <span th:text="'Pedidos abertos: ' + ${pedidosComanda[comanda.id] != null ? #lists.size(pedidosComanda[comanda.id]) : 0}"></span>
-                <button type="button" onclick="abrirModalPedido()" class="btn-novo-pedido">+ Novo Pedido</button></div>
-            <div class="card-pedido" th:each="pedido : ${pedidosComanda[comanda.id]}" >
-                <div>
-                    <p th:text="'Nome: ' + ${pedido.comanda.nomeCliente}"></p>
-                    <p th:text="${pedido.status}" class="status-pedido" th:classappend="${pedido.status.name().toLowerCase()}"></p>
-                    <p th:text="'Valor: ' + ${comanda.valor}"></p>
-                </div>
-                <div class="">
-                    <button class=""></button>
-                </div>
-            </div>
+    <h3 th:text="'Comanda - mesa ' + ${comanda.mesa.numero} + ' - '+ ${comanda.nomeCliente}"></h3>
+    <p>Valor Total: <span th:text="'R$ ' + ${comanda.valor != null ? comanda.valor : '0.00'}"></span></p>
+    <hr>
+    <h4>Pedidos</h4>
+    <div class="header-detalhe">
+        <span th:text="'Pedidos abertos: ' + ${pedidosComanda[comanda.id] != null ? #lists.size(pedidosComanda[comanda.id]) : 0}"></span>
+        <button type="button" onclick="abrirModalPedido()" class="btn-novo-pedido">+ Novo Pedido</button>
+    </div>
+    <div class="card-pedido" th:each="pedido : ${pedidosComanda[comanda.id]}" >
+        <div>
+            <p th:text="${pedido.status}" class="status-pedido" th:classappend="${pedido.status.name().toLowerCase()}"></p>
+            <p th:text="'Valor: R$ ' + ${pedido.valor}"></p>
+        </div>
+        <div class="">
+            <button class=""></button>
         </div>
     </div>
 </div>

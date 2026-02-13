@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/garcom/comandas")
@@ -43,8 +45,10 @@ public class ComandaGarcomController {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         Comanda comanda = comandaService.buscarComandaPorId(id, restaurante);
         List<Pedido> pedidos = pedidoService.buscarPedidosPorComanda(id, restaurante);
-        model.addAttribute("comandas", comanda);
-        model.addAttribute("pedidos", pedidos);
+        Map<Long, List<Pedido>> pedidosComanda = new HashMap<>();
+        pedidosComanda.put(id, pedidos);
+        model.addAttribute("comanda", comanda);
+        model.addAttribute("pedidosComanda", pedidosComanda);
         return "garcom/comandas/detalheComanda :: detalheComanda";
     }
 
