@@ -1,8 +1,6 @@
 <div th:fragment="adicionarPedido" xmlns:th="http://www.w3.org/1999/xhtml">
-    <!-- Listagem Produtos -->
-    <div class="lista-produtos">
-        <div class="card-produto" th:each>
+    <input id="busca" class="barra-pesquisa" type="text" name="nome" placeholder="Buscar produto..." th:value="${nome}">
 
-        </div>
-    </div>
+    <!-- Listagem Produtos -->
+    <div class="lista-produtos" th:replace="garcom/cardapio :: cardapio"></div>
 </div>

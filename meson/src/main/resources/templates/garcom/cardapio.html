@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div class="layout">
+<div class="layout" th:fragment="cardapio">
     <aside th:replace="~{fragments/menu-lateral-garcom :: menu-lateral}"></aside>
 
     <main class="content">
@@ -15,13 +15,12 @@
         </header>
 
         <div class="categorias-cardapio" >
-            <button th:onclick="filtrarCategoria('ALL')" class="botao-categoria ativo">Todos</button>
-            <button th:each="categoria : ${categorias}" th:text="${categoria.nome}" th:attr="onclick='filtrarCategoria(' + '\'' + ${categoria.nome} + '\'' + ')'" class="botao-categoria"></button>
-
+            <button type="button" data-categoria="ALL" onclick="filtrarCategoria('ALL')" class="botao-categoria ativo">Todos</button>
+            <button type="button" th:each="categoria : ${categorias}" th:text="${categoria.nome}" th:attr="data-categoria=${categoria.nome}, onclick='filtrarCategoria(\'' + ${categoria.nome} + '\')'" class="botao-categoria"></button>
         </div>
 
         <section class="pratos">
-            <div class="card-produto" th:each="produto : ${produtos}" th:classappend="${produto.categoria}" id="prato">
+            <div class="card-produto" th:each="produto : ${produtos}" th:classappend="${produto.categoria}" th:attr="data-categoria=${produto.categoria}" id="prato">
                 <img th:src="@{${produto.imagemUrl}}" class="imagem-produto" alt="">
                 <div>
                     <div class="div-titulo">
@@ -36,27 +35,6 @@
         </section>
     </main>
 </div>
-
-<!--<div id="modal" class="modal">-->
-<!--    <div class="modal-conteudo">-->
-<!--        <span class="fechar" onclick="fecharModal()">&times;</span>-->
-<!--        <h3>Nova Comanda</h3>-->
-
-<!--        <form th:action="@{/garcom/}" method="post">-->
-<!--            <div class="form-div">-->
-<!--                <div>-->
-<!--                    <label>Nome do cliente:</label>-->
-<!--                    <input type="text" name="nomeCliente" required>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <div class="modal-acoes">-->
-<!--                <button type="submit" class="btn btn-salvar">Salvar</button>-->
-<!--                <button type="button" class="btn btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</div>-->
 
 <style>
     * {
@@ -81,7 +59,7 @@
     cursor: pointer;
 }
 
-.botao-categoria .ativo {
+.botao-categoria.ativo{
     color: #ffffff;
     background-color: #5c3024;
     border: solid 1px #5c3024;
@@ -151,10 +129,12 @@
 }
 
 .imagem-produto{
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
     border-radius: 8px;
+    align-items: center;
+    justify-content: center;
 }
 
 .div-titulo {

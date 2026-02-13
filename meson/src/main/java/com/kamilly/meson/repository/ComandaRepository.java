@@ -19,6 +19,8 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long>{
 
     List<Comanda> findAllByMesaAndRestauranteAndStatus(Mesa mesa, Restaurante restaurante, StatusComanda statusComanda);
 
+    List<Comanda> findAllByRestauranteAndStatus(Restaurante restaurante, StatusComanda statusComanda);
+
     boolean existsByMesaAndStatus(Long mesaId, StatusComanda status);
 
 }

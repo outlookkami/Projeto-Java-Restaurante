@@ -24,8 +24,16 @@ public class ComandaService {
     private final UsuarioService usuarioService;
 
     public List<Comanda> buscarComandasAbertasMesa(Long mesaId, Restaurante restaurante) {
+        if (mesaId == null) {
+            throw new IllegalArgumentException("MesaId não pode ser nulo.");
+        }
+
         Mesa mesa = mesaRepository.findById(mesaId).orElseThrow(() -> new RuntimeException("Mesa não encontrada."));
         return comandaRepository.findAllByMesaAndRestauranteAndStatus(mesa, restaurante, StatusComanda.ABERTA);
+    }
+
+    public List<Comanda> listarComandasAbertasRestaurante(Restaurante restaurante) {
+        return comandaRepository.findAllByRestauranteAndStatus(restaurante, StatusComanda.ABERTA);
     }
 
     public Comanda abrirComanda(Long mesaId, String nomeCliente, Restaurante restaurante) {

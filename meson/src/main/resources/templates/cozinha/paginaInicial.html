@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/head :: head('Página Inicial')}"></th:block>
+</head>
+<body>
+
+<div class="layout">
+    <aside th:replace="~{fragments/menu-lateral-cozinha :: menu-lateral}"></aside>
+
+    <main class="content">
+        <header class="header">
+            <h1 th:text="'Olá, ' + ${usuario.nome}"></h1>
+        </header>
+
+        <h2>Bem-vindo ao Meson</h2>
+        <p></p>
+    </main>
+
+</div>
+
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Dm Sans', 'Inter', Arial, sans-serif;
+  }
+
+</style>
+</body>
+</html>

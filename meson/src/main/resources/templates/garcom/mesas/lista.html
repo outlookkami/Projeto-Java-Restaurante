@@ -17,7 +17,7 @@
         <!-- Listagem das Mesas -->
         <section class="mesas">
             <div class="card-mesa" th:each="mesa : ${mesas}" th:classappend="${mesa.status}" >
-                <div th:onclick="'abrirModalDetalheMesa(' + ${mesa.id} + ', ' + ${mesa.numero} + ')'">
+                <div th:onclick="'abrirModalDetalheMesa(' + ${mesa.id} + ')'">
                     <span class="titulo-mesa">MESA</span>
                     <h4 th:text="${mesa.numero}"></h4>
                     <span class="status" th:text="${mesa.status}" th:classappend="${mesa.status.name().toLowerCase()}"></span>
@@ -26,7 +26,6 @@
                         <span th:text="${mesa.capacidade} + ' Lugares'"></span>
                     </p>
                 </div>
-
             </div>
         </section>
     </main>
@@ -39,35 +38,14 @@
     </div>
 </div>
 
-<div id="modalNovaComanda" class="modal">
-    <div class="modal-conteudo">
-        <span class="fechar" onclick="fecharModalComanda()">&times;</span>
-        <h3>Nova Comanda</h3>
 
-        <form th:action="@{/garcom/comandas}" method="post">
-            <div class="form-div">
-                <input type="hidden" name="mesaId" id="mesaIdInput">
-                <div>
-                    <label>Nome do cliente:</label>
-                    <input type="text" name="nomeCliente" required>
-                </div>
-            </div>
+<!--<div class="modal" id="modalNovoPedido">-->
+<!--    <div class="modal-conteudo">-->
+<!--        <span class="fechar" onclick="fecharModalComanda()">&times;</span>-->
+<!--        <h3>Novo Pedido</h3>-->
 
-            <div class="modal-acoes">
-                <button type="submit" class="btn-comanda">Abrir Comanda</button>
-                <button type="button" class="btn-cancelar" onclick="fecharModalComanda()">Cancelar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="modal" id="modalNovoPedido">
-    <div class="modal-conteudo">
-        <span class="fechar" onclick="fecharModalComanda()">&times;</span>
-        <h3>Novo Pedido</h3>
-
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 
 <style>
     * {
@@ -178,6 +156,7 @@
     gap: 20px;
     margin-top: 12px;
     margin-bottom: 12px;
+    height: 180px;
 }
 
 .status-comanda .aberta{

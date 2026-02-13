@@ -23,11 +23,11 @@ public class ComandaGarcomController {
     private final ProdutoService produtoService;
 
     @GetMapping
-    public String listarComandas(Model model, Long mesaId) {
+    public String listarComandas(Model model) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
-
-        model.addAttribute("comandas", comandaService.buscarComandasAbertasMesa(mesaId, restaurante));
-        return "garcom/mesas";
+        List<Comanda> comandas = comandaService.listarComandasAbertasRestaurante(restaurante);
+        model.addAttribute("comandas", comandas);
+        return "garcom/comandas/lista";
     }
 
     @PostMapping
