@@ -1,0 +1,21 @@
+<div class="layout" th:fragment="cardapio(produtos, modoSelecao)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="categorias-cardapio" >
+        <button type="button" data-categoria="ALL" onclick="filtrarCategoria('ALL')" class="botao-categoria ativo">Todos</button>
+        <button type="button" th:each="categoria : ${categorias}" th:text="${categoria.nome}" th:attr="data-categoria=${categoria.nome}, onclick='filtrarCategoria(\'' + ${categoria.nome} + '\')'" class="botao-categoria"></button>
+    </div>
+
+    <section class="pratos">
+        <div class="card-produto" th:each="produto : ${produtos}" th:classappend="${produto.categoria}" th:attr="data-categoria=${produto.categoria}" th:onclick="${modoSelecao} ? 'selecionarProduto(' + ${produto.id} + ')' : null" id="prato">
+            <img th:src="@{${produto.imagemUrl}}" class="imagem-produto" alt="">
+            <div>
+                <div class="div-titulo">
+                    <h3 class="titulo-prato" th:text="${produto.nome}"></h3>
+                    <p class="span-categoria" th:text="${produto.categoria}"></p>
+                </div>
+                <p th:text="${produto.descricao}"></p>
+                <span th:text="'R$ ' + ${produto.preco}"></span>
+                <span class="status"></span>
+            </div>
+        </div>
+    </section>
+</div>

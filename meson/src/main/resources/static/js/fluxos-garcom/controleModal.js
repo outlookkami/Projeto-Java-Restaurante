@@ -2,21 +2,7 @@
 let mesaAtualId = null;
 let comandaAtualId = null;
 
-//// Modal Detalhe Mesa
-//function abrirModalDetalheMesa(mesaId, mesaNumero) {
-//    mesaAtualId = mesaId;
-//    var modal = document.getElementById("modalDetalheMesa-" + mesaId);
-//    document.getElementById("mesaIdInput").value = mesaId;
-//    if (modal) {
-//        modal.style.display = "block";
-//    }
-//}
-//
-//function fecharModalDetalheMesa() {
-//    document.getElementById("modalDetalheMesa-" + mesaAtualId).style.display = "none";
-//}
-
-// Modal Detalhe Mesa NOVO
+// Modal Detalhe Mesa
 function abrirModalDetalheMesa(mesaId) {
     const url = `/garcom/mesas/${mesaId}/detalhe`;
     fetch(url)
@@ -32,9 +18,11 @@ function fecharModalDetalheMesa() {
     document.getElementById("modalPrincipal").style.display = "none";
 }
 
+//-----------------------------------------------------------------------
+
 // Modal Comanda
-function abrirModalComanda() {
-    document.getElementById("mesaIdInput").value = mesaAtualId;
+function abrirModalComanda(mesaId) {
+    document.getElementById("mesaIdInput").value = mesaId;
     document.getElementById("modalNovaComanda").style.display = "flex";
 }
 
@@ -43,16 +31,6 @@ function fecharModalComanda() {
 }
 
 // Modal Detalhe Comanda
-function abrirModalDetalheComanda(comandaId) {
-    comandaAtualId = comandaId;
-    var modal = document.getElementById("modalDetalheComanda-" + comandaId);
-    document.getElementById("comandaIdInput").value = comandaId;
-    if (modal) {
-        modal.style.display = "block";
-    }
-}
-
-// Modal Detalhe Comanda NOVO
 function abrirModalDetalheComanda(comandaId) {
     const url = `/garcom/comandas/${comandaId}/detalhe`;
 
@@ -64,12 +42,10 @@ function abrirModalDetalheComanda(comandaId) {
         });
 }
 
-function fecharModalDetalheMesa() {
-    document.getElementById("modalDetalheMesa-" + mesaAtualId).style.display = "none";
-}
+//-----------------------------------------------------------------------
 
 // Modal Pedido
-function abrirModalPedido() {
+function abrirModalPedido(comandaId) {
     document.getElementById("comandaIdInput").value = comandaId;
     document.getElementById("modalNovoPedido").style.display = "flex";
 }
@@ -77,6 +53,12 @@ function abrirModalPedido() {
 function fecharModalPedido() {
     document.getElementById("modalNovoPedido").style.display = "none";
 }
+
+function selecionarProduto(id) {
+    console.log("Produto selecionado: ", id)
+}
+
+//-----------------------------------------------------------------------
 
 // Modal único
 function abrirModal(url) {
@@ -93,7 +75,3 @@ function abrirModal(url) {
 function fecharModal() {
     document.getElementById("modalPrincipal").style.display = "none";
 }
-
-//function abrirModalDetalheMesa() {
-//
-//}

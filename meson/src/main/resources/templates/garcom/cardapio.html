@@ -6,33 +6,14 @@
 </head>
 <body>
 
-<div class="layout" th:fragment="cardapio">
     <aside th:replace="~{fragments/menu-lateral-garcom :: menu-lateral}"></aside>
-
     <main class="content">
         <header class="header">
             <h1>Cardápio</h1>
         </header>
-
-        <div class="categorias-cardapio" >
-            <button type="button" data-categoria="ALL" onclick="filtrarCategoria('ALL')" class="botao-categoria ativo">Todos</button>
-            <button type="button" th:each="categoria : ${categorias}" th:text="${categoria.nome}" th:attr="data-categoria=${categoria.nome}, onclick='filtrarCategoria(\'' + ${categoria.nome} + '\')'" class="botao-categoria"></button>
+        <div>
+            <div th:replace="fragments/cardapio :: cardapio(${produtos}, false)"></div>
         </div>
-
-        <section class="pratos">
-            <div class="card-produto" th:each="produto : ${produtos}" th:classappend="${produto.categoria}" th:attr="data-categoria=${produto.categoria}" id="prato">
-                <img th:src="@{${produto.imagemUrl}}" class="imagem-produto" alt="">
-                <div>
-                    <div class="div-titulo">
-                        <h3 class="titulo-prato" th:text="${produto.nome}"></h3>
-                        <p class="span-categoria" th:text="${produto.categoria}"></p>
-                    </div>
-                    <p th:text="${produto.descricao}"></p>
-                    <span th:text="'R$ ' + ${produto.preco}"></span>
-                    <span class="status"></span>
-                </div>
-            </div>
-        </section>
     </main>
 </div>
 
@@ -68,55 +49,6 @@
     cursor: pointer;
 }
 
-.mesas {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-}
-
-.card-mesa {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.card-mesa .titulo-mesa {
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: #777;
-}
-
-.card-mesa h4 {
-    font-size: 32px;
-    margin: 10px 0;
-    color: #6b3b2a;
-    font-family: 'Playfair Display', 'DM Sans', 'Inter', Arial;
-}
-
-.card-mesa p {
-    font-size: 14px;
-    color: #555;
-}
-
-.status {
-    display: flex;
-    margin-top: 10px;
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-}
-
-.ocupada .status {
-    background: #f1e3dd;
-    color: #6b3b2a;
-}
-
-.disponivel .status {
-    background: #e3f1ec;
-    color: #2f7a5f;
-}
-
 .card-produto {
     width: 80vw;
     border-radius: 12px;
@@ -148,8 +80,6 @@
     border-radius: 5px;
     padding: 5px;
 }
-
-
 </style>
 </body>
 </html>

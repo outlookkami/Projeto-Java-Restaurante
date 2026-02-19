@@ -1,12 +1,12 @@
 <div th:fragment="detalheComanda" xmlns:th="http://www.w3.org/1999/xhtml">
     <!-- Listagem dos Pedidos da Comanda -->
-    <h3 th:text="'Comanda - mesa ' + ${comanda.mesa.numero} + ' - '+ ${comanda.nomeCliente}"></h3>
+    <h3 th:text="'Mesa ' + ${comanda.mesa.numero} + ' - '+ ${comanda.nomeCliente}"></h3>
     <p>Valor Total: <span th:text="'R$ ' + ${comanda.valor != null ? comanda.valor : '0.00'}"></span></p>
     <hr>
     <h4>Pedidos</h4>
     <div class="header-detalhe">
         <span th:text="'Pedidos abertos: ' + ${pedidosComanda[comanda.id] != null ? #lists.size(pedidosComanda[comanda.id]) : 0}"></span>
-        <button type="button" onclick="abrirModalPedido()" class="btn-novo-pedido">+ Novo Pedido</button>
+        <button type="button" th:onclick="'abrirModalPedido(' + ${comanda.id} + ')'" class="btn-novo-pedido">+ Novo Pedido</button>
     </div>
     <div class="card-pedido" th:each="pedido : ${pedidosComanda[comanda.id]}" >
         <div>
@@ -15,6 +15,41 @@
         </div>
         <div class="">
             <button class=""></button>
+        </div>
+    </div>
+
+    <div id="modalNovoPedido" class="modal">
+        <div class="modal-conteudo layout-pedido">
+            <input type="hidden" name="comandaId" id="comandaIdInput">
+            <div class="coluna-produtos">
+                <form th:action="@{/garcom/pedidos}" method="post">
+                    <input type="hidden" name="comandaId" th:value="${comanda.id}">
+
+                    <div th:each="produto : ${produtos}" class="card-produto">
+                        <p th:text="${produto.nome}"></p>
+                        <span th:text="'R$ ' + ${produto.preco}"></span>
+                        <div class="controle-quantidade">
+                            <button type="button" onclick="alterarQuantidade(this, -1)">-</button>
+                            <input type="number" name="quantidades" value="0" min="0">
+                            <button type="button" onclick="alterarQuantidade(this, 1)"></button>
+                        </div>
+                        <input type="hidden" name="produtoIds" th:value="${produto.id}">
+                    </div>
+                    <button type="submit">Confirmar Pedido</button>
+                </form>
+            </div>
+            <div class="coluna-pedido">
+                <h3>Pedido Atual</h3>
+
+                <div id="listaPedido"></div>
+
+                <hr>
+
+                <h4>Total: R$ <span id="totalPedido"></span></h4>
+
+                <button onclick="salvarPedido()" class="btn-confirmar">Confirmar Pedido</button>
+                <button type="button" class="btn-cancelar" onclick="fecharModalPedido()">Cancelar</button>
+            </div>
         </div>
     </div>
 </div>

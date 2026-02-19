@@ -23,6 +23,7 @@ public class ComandaGarcomController {
     private final MesaService mesaService;
     private final PedidoService pedidoService;
     private final ProdutoService produtoService;
+    private final CategoriaService categoriaService;
 
     @GetMapping
     public String listarComandas(Model model) {
@@ -49,6 +50,8 @@ public class ComandaGarcomController {
         pedidosComanda.put(id, pedidos);
         model.addAttribute("comanda", comanda);
         model.addAttribute("pedidosComanda", pedidosComanda);
+        model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
+        model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
         return "garcom/comandas/detalheComanda :: detalheComanda";
     }
 

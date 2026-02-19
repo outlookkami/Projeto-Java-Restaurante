@@ -18,12 +18,12 @@
         <section class="comandas">
             <div class="card-comanda" th:each="comanda : ${comandas}" th:classappend="${comanda.status}" >
                 <div th:onclick="'abrirModalDetalheComanda(' + ${comanda.id} + ')'">
-                    <span class="titulo-comanda" th:text="'COMANDA: ' + 'Mesa ' + ${comanda.mesa.numero}">COMANDA</span>
+                    <span class="titulo-comanda" th:text="'COMANDA - ' + 'Mesa ' + ${comanda.mesa.numero}">COMANDA</span>
                     <h4 th:text="${comanda.nomeCliente}"></h4>
                     <span class="status" th:text="${comanda.status}" th:classappend="${comanda.status.name().toLowerCase()}"></span>
 
                     <p>
-                        <span th:text="'R$ ' + ${comanda.valor}"></span>
+                        <span th:text="'R$ ' + ${comanda.valor != null ? comanda.valor : '0.00'}"></span>
                     </p>
                 </div>
             </div>

@@ -3,7 +3,7 @@
     <h3 th:text="'Mesa ' + ${mesa.numero}"></h3>
     <div class="header-detalhe">
         <span th:text="'Comandas abertas: ' + ${#lists.size(comandas)}"></span>
-        <button type="button" th:onclick="'abrirModalComanda()'" class="btn-nova-comanda">+ Nova Comanda</button>
+        <button type="button" th:onclick="'abrirModalComanda(' + ${mesa.id} + ')'" class="btn-nova-comanda">+ Nova Comanda</button>
     </div>
     <!-- Listagem das Comandas da Mesa -->
     <div class="card-comanda" th:each="comanda : ${comandas}" >

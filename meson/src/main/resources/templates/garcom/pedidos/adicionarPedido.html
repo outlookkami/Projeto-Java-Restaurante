@@ -2,5 +2,24 @@
     <input id="busca" class="barra-pesquisa" type="text" name="nome" placeholder="Buscar produto..." th:value="${nome}">
 
     <!-- Listagem Produtos -->
-    <div class="lista-produtos" th:replace="garcom/cardapio :: cardapio"></div>
+
+    <div class="coluna-produtos">
+        <div class="categorias-cardapio" >
+            <button type="button" data-categoria="ALL" onclick="filtrarCategoria('ALL')" class="botao-categoria ativo">Todos</button>
+            <button type="button" th:each="categoria : ${categorias}" th:text="${categoria.nome}" th:attr="data-categoria=${categoria.nome}, onclick='filtrarCategoria(\'' + ${categoria.nome} + '\')'" class="botao-categoria"></button>
+        </div>
+        <div class="lista-produtos" th:replace="fragments/cardapio :: cardapio(${produtos}, true)">
+        </div>
+    </div>
+    <div class="coluna-pedido">
+        <h3>Pedido Atual</h3>
+
+        <div id="listaPedido"></div>
+
+        <hr>
+
+        <h4>Total: R$ <span id="totalPedido"></span></h4>
+
+        <button onclick="salvarPedido()">Confirmar Pedido</button>
+    </div>
 </div>

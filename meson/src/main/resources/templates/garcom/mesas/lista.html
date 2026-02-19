@@ -4,6 +4,7 @@
     <th:block th:replace="~{fragments/head :: head('Lista Mesas')}"></th:block>
     <script th:src="@{/js/garcom.js}"></script>
     <script th:src="@{/js/fluxos-garcom/controleModal.js}"></script>
+    <script th:src="@{/js/filtros.js}"></script>
 </head>
 <body>
 
@@ -190,6 +191,75 @@
     background-color: #fdf6ee;
     border-radius: 12px;
     float: left;
+}
+
+.btn-novo-pedido {
+    border: none;
+    background-color: #577569;
+    color: white;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.layout-pedido {
+    display: flex;
+    width: 900px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.coluna-produtos {
+    width: 50%;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+}
+
+.coluna-pedido {
+    width: 50%;
+    padding-left: 20px;
+}
+
+.card-produto {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.card-produto:hover {
+    background: #f5f5f5;
+}
+
+.controle-quantidade{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.categorias-produtos {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.categoria-botao {
+    color: #5c3024;
+    background-color: #fdf6ee;
+    border: solid 1px #5c3024;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.categoria-botao.ativo{
+    color: #ffffff;
+    background-color: #5c3024;
+    border: solid 1px #5c3024;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 </style>
 </body>
