@@ -5,6 +5,7 @@
     <script th:src="@{/js/garcom.js}"></script>
     <script th:src="@{/js/fluxos-garcom/controleModal.js}"></script>
     <script th:src="@{/js/filtros.js}"></script>
+    <script th:src="@{/js/fluxos-garcom/pedidos.js}"></script>
 </head>
 <body>
 
@@ -261,6 +262,48 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.card-pedido {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
+    gap: 20px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    height: 180px;
+}
+
+.info-produto {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-quant-pedido {
+    width: 120px;
+    height: 30px;
+    text-align: center;
+}
+
+.botao-quant-pedido {
+    display: flex;
+    background-color: white;
+    border: solid 1px #5c3024;
+    height: 16px;
+    width: 16px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-observacao {
+    font-size: 14px;
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+}
+
 </style>
 </body>
 </html>

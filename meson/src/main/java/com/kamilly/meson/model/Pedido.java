@@ -42,9 +42,6 @@ public class Pedido {
     @Column(name = "data_entrega")
     private LocalDateTime dataEntrega;
 
-    @Column(name = "obs_pedido")
-    private String obsPedido;
-
     @Column(name = "valor_pedido")
     private BigDecimal valor;
 

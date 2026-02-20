@@ -1,9 +1,6 @@
 package com.kamilly.meson.controller.Garcom;
 
-import com.kamilly.meson.model.Comanda;
-import com.kamilly.meson.model.Mesa;
-import com.kamilly.meson.model.Pedido;
-import com.kamilly.meson.model.Restaurante;
+import com.kamilly.meson.model.*;
 import com.kamilly.meson.model.enums.StatusComanda;
 import com.kamilly.meson.service.ComandaService;
 import com.kamilly.meson.service.MesaService;
@@ -37,6 +34,7 @@ public class MesaGarcomController {
         List<Mesa> mesas = mesaService.listarMesas(restaurante);
         Map<Long, List<Comanda>> comandasMesa = new HashMap<>();
         Map<Long, List<Pedido>> pedidosComanda = new HashMap<>();
+        Map<Long, List<ItemPedido>> itensPedido = new HashMap<>();
         for(Mesa mesa : mesas){
             List<Comanda> comandas = comandaService.buscarComandasAbertasMesa(mesa.getId(), restaurante);
             comandasMesa.put(
@@ -53,6 +51,7 @@ public class MesaGarcomController {
         model.addAttribute("mesas", mesas);
         model.addAttribute("comandasMesa", comandasMesa);
         model.addAttribute("pedidosComanda", pedidosComanda);
+        model.addAttribute("itensPedido", itensPedido);
         return "garcom/mesas/lista";
     }
 

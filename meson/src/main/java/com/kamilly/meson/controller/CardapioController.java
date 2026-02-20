@@ -23,7 +23,7 @@ public class CardapioController {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
         model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
-        return "garcom/cardapio";
+        return "cardapio";
     }
 
     @GetMapping("/admin/cardapio")
@@ -31,6 +31,14 @@ public class CardapioController {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
         model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
-        return "admin/cardapio";
+        return "cardapio";
+    }
+
+    @GetMapping("/cozinha/cardapio")
+    public String cozinhaCardapio(Model model){
+        Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
+        model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
+        return "cardapio";
     }
 }

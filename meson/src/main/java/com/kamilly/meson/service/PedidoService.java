@@ -2,9 +2,12 @@ package com.kamilly.meson.service;
 
 import com.kamilly.meson.model.*;
 import com.kamilly.meson.model.enums.StatusComanda;
+import com.kamilly.meson.model.enums.StatusItemPedido;
 import com.kamilly.meson.model.enums.StatusPedido;
 import com.kamilly.meson.repository.ComandaRepository;
+import com.kamilly.meson.repository.ItemPedidoRepository;
 import com.kamilly.meson.repository.PedidoRepository;
+import com.kamilly.meson.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ public class PedidoService {
     private final PedidoRepository pedidoRepository;
     private final ComandaRepository comandaRepository;
     private final UsuarioService usuarioService;
+    private final ProdutoRepository produtoRepository;
+    private final ItemPedidoRepository itemPedidoRepository;
 
     public List<Pedido> listarPedidosPorComanda(Long comandaId, Restaurante restaurante) {
         Comanda comanda = comandaRepository.findById(comandaId).orElseThrow(() -> new RuntimeException("Comanda não encontrada."));
@@ -32,14 +37,36 @@ public class PedidoService {
         pedido.setRestaurante(comanda.getRestaurante());
         pedido.setGarcom(usuarioService.getUsuarioLogado());
         pedido.setDataCriacao(LocalDateTime.now());
-        pedido.setStatus(StatusPedido.RECEBIDO);
+        pedido.setStatus(StatusPedido.ENVIADO);
         comandaRepository.save(comanda);
         return pedidoRepository.save(pedido);
     }
 
+    public ItemPedido adicionarItem(Long idPedido, Long idProduto, Integer quantidade, String observacao) {
+        Pedido pedido = pedidoRepository.findById(idPedido).orElseThrow(() -> new RuntimeException("Pedido não encontrado."));
+        Produto produto = produtoRepository.findById(idProduto).orElseThrow(() -> new RuntimeException("Produto não encontrado."));
+        ItemPedido itemPedido = new ItemPedido();
+        itemPedido.setPedido(pedido);
+        itemPedido.setProduto(produto);
+        itemPedido.setQuantidade(quantidade);
+        itemPedido.setPrecoUnitario(produto.getPreco());
+        if (observacao != null && observacao.isBlank()) {
+            observacao = null;
+        }
+        itemPedido.setObsItemPedido(observacao);
+        itemPedido.setStatusItem(StatusItemPedido.ENVIADO);
+        itemPedido.setSubtotal(produto.getPreco().multiply(BigDecimal.valueOf(quantidade)));
+        return itemPedidoRepository.save(itemPedido);
+    }
+
+    public List<Pedido> listarPedidosAbertosPorRestaurante(Restaurante restaurante) {
+        return pedidoRepository.findAllByRestauranteAndStatus(restaurante, StatusPedido.ENVIADO);
+    }
+
     public List<Pedido> buscarPedidosPorComanda(Long comandaId, Restaurante restaurante) {
-        Comanda comanda = comandaRepository.findById(comandaId).orElseThrow(() -> new RuntimeException("Comanda não encontrada."));
-        return pedidoRepository.findAllByComandaAndRestaurante(comanda, restaurante);
+        return pedidoRepository.buscarPedidos(comandaId, restaurante);
+        //Comanda comanda = comandaRepository.findById(comandaId).orElseThrow(() -> new RuntimeException("Comanda não encontrada."));
+        //return pedidoRepository.findAllByComandaAndRestaurante(comanda, restaurante);
     }
 
 //    BigDecimal totalPedido = itemPedido.stream();

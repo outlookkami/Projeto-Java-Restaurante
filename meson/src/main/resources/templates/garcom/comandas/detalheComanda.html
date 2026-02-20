@@ -9,45 +9,48 @@
         <button type="button" th:onclick="'abrirModalPedido(' + ${comanda.id} + ')'" class="btn-novo-pedido">+ Novo Pedido</button>
     </div>
     <div class="card-pedido" th:each="pedido : ${pedidosComanda[comanda.id]}" >
-        <div>
+        <div style="display: flex; justify-content: space-between">
             <p th:text="${pedido.status}" class="status-pedido" th:classappend="${pedido.status.name().toLowerCase()}"></p>
             <p th:text="'Valor: R$ ' + ${pedido.valor}"></p>
         </div>
-        <div class="">
-            <button class=""></button>
+        <div th:each="itemPedido : ${pedido.itens}" style="display: flex; justify-content: space-between">
+            <p th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></p>
+            <span th:text="${itemPedido.subtotal}"></span>
+            <p th:text="${itemPedido.statusItem}"></p>
         </div>
     </div>
 
     <div id="modalNovoPedido" class="modal">
         <div class="modal-conteudo layout-pedido">
+            <span class="fechar" onclick="fecharModalPedido()">&times;</span>
             <input type="hidden" name="comandaId" id="comandaIdInput">
             <div class="coluna-produtos">
                 <form th:action="@{/garcom/pedidos}" method="post">
                     <input type="hidden" name="comandaId" th:value="${comanda.id}">
 
                     <div th:each="produto : ${produtos}" class="card-produto">
-                        <p th:text="${produto.nome}"></p>
-                        <span th:text="'R$ ' + ${produto.preco}"></span>
-                        <div class="controle-quantidade">
-                            <button type="button" onclick="alterarQuantidade(this, -1)">-</button>
-                            <input type="number" name="quantidades" value="0" min="0">
-                            <button type="button" onclick="alterarQuantidade(this, 1)"></button>
+                        <div class="info-produto">
+                            <div>
+                                <p th:text="${produto.nome}"></p>
+                                <span th:text="'R$ ' + ${produto.preco}"></span>
+                            </div>
+                            <div class="controle-quantidade">
+                                <button type="button" onclick="alterarQuantidade(this, -1)" class="botao-quant-pedido">-</button>
+                                <input type="number" name="quantidades" value="0" min="0" class="input-quant-pedido">
+                                <button type="button" onclick="alterarQuantidade(this, 1)" class="botao-quant-pedido">+</button>
+                            </div>
                         </div>
-                        <input type="hidden" name="produtoIds" th:value="${produto.id}">
+                        <input type="text" name="observacoes" placeholder="Observação (opcional)" class="input-observacao">
+                        <input type="hidden" name="produtosIds" th:value="${produto.id}">
                     </div>
                     <button type="submit">Confirmar Pedido</button>
                 </form>
             </div>
             <div class="coluna-pedido">
                 <h3>Pedido Atual</h3>
-
                 <div id="listaPedido"></div>
-
                 <hr>
-
                 <h4>Total: R$ <span id="totalPedido"></span></h4>
-
-                <button onclick="salvarPedido()" class="btn-confirmar">Confirmar Pedido</button>
                 <button type="button" class="btn-cancelar" onclick="fecharModalPedido()">Cancelar</button>
             </div>
         </div>

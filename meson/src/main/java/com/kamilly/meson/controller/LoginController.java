@@ -76,4 +76,16 @@ public class LoginController {
         model.addAttribute("usuario", usuarioLogado());
         return "garcom/paginaInicial";
     }
+
+    @GetMapping("cozinha/paginaInicial")
+    public String cozPagInicial(Model model){
+        model.addAttribute("usuario", usuarioLogado());
+        return "cozinha/paginaInicial";
+    }
+
+    @GetMapping("admin-geral/paginaInicial")
+    public String admGeralPagInicial(Model model){
+        model.addAttribute("usuario", usuarioLogado());
+        return "admin-geral/paginaInicial";
+    }
 }

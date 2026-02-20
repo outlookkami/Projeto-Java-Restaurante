@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="~{fragments/head :: head('Pedidos Cozinha')}"></th:block>
 </head>
 <body>
+    <h1>Pedidos</h1>
+    <div class="cozinha">
+        <div class="card-cozinha" th:each="pedido : ${pedidos}">
+            <div class="header-card">
+                <span class="titulo-mesa">MESA</span>
+                <h3 th:text="${pedido.comanda.mesa.numero}"></h3>
+            </div>
+            <div class="header-info">
+                <span></span>
+                <span th:text="'#' + ${pedido.id}"></span>
+            </div>
 
+            <div class="conteudo-card">
+                <div class="item" th:each="itemPedido : ${pedido.itens}">
+                    <div>
+                        <strong th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></strong>
+                    </div>
+
+                    <button class="botao-status" th:classappend="${itemPedido.status.name() == 'PRONTO'} ? 'Iniciar' : (${itemPedido.status.name() == 'EM_PREPARO'} ? 'Pronto' :)"></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+<style>
+
+
+
+
+
+
+
+</style>
 </body>
-</html>

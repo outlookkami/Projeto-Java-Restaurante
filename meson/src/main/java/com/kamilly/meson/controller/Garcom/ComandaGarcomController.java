@@ -52,23 +52,23 @@ public class ComandaGarcomController {
         model.addAttribute("pedidosComanda", pedidosComanda);
         model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
         model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
-        return "garcom/comandas/detalheComanda :: detalheComanda";
+        return "garcom/comandas/detalheComanda";
     }
 
-    @GetMapping("/{id}/novo-pedido")
-    public String novoPedido(@PathVariable Long id, Model model) {
-        Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
-        Comanda comanda = comandaService.buscarComandaPorId(id, restaurante);
-        List<Produto> produtos = produtoService.listarProdutos(restaurante);
-        Pedido pedido = new Pedido();
-        pedido.setComanda(comanda);
-        ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setPedido(pedido);
-        pedido.setItens(new ArrayList<>());
-        pedido.getItens().add(itemPedido);
-        model.addAttribute("pedidos", pedido);
-        model.addAttribute("produtos", produtos);
-        return "garcom/pedidos/adicionarPedido :: adicionarPedido";
-    }
+//    @GetMapping("/{id}/novo-pedido")
+//    public String novoPedido(@PathVariable Long id, Model model) {
+//        Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
+//        Comanda comanda = comandaService.buscarComandaPorId(id, restaurante);
+//        List<Produto> produtos = produtoService.listarProdutos(restaurante);
+//        Pedido pedido = new Pedido();
+//        pedido.setComanda(comanda);
+//        ItemPedido itemPedido = new ItemPedido();
+//        itemPedido.setPedido(pedido);
+//        pedido.setItens(new ArrayList<>());
+//        pedido.getItens().add(itemPedido);
+//        model.addAttribute("pedidos", pedido);
+//        model.addAttribute("produtos", produtos);
+//        return "garcom/mesas";
+//    }
 
 }

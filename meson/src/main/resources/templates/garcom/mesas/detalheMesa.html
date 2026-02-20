@@ -8,9 +8,9 @@
     <!-- Listagem das Comandas da Mesa -->
     <div class="card-comanda" th:each="comanda : ${comandas}" >
         <div>
-            <p th:text="'Nome: ' + ${comanda.nomeCliente}"></p>
+            <p><b>Nome: </b><span th:text="${comanda.nomeCliente}"></span></p>
             <p th:text="${comanda.status}" class="status-comanda" th:classappend="${comanda.status.name().toLowerCase}"></p>
-            <p th:text="'Valor: R$' + ${comanda.valor != null ? comanda.valor : '0.00'}"></p>
+            <p>Valor:<span th:text="'R$ ' + ${comanda.valor != null ? comanda.valor : '0.00'}"></span></p>
         </div>
         <div class="div-btn-fechar-comanda">
             <button type="button" class="btn-ver-detalhes" th:onclick="'abrirModalDetalheComanda(' + ${comanda.id} + ')'">Ver Detalhes</button>

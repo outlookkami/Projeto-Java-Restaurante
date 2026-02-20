@@ -1,5 +1,6 @@
 package com.kamilly.meson.model;
 
+import com.kamilly.meson.model.enums.StatusItemPedido;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,9 @@ public class ItemPedido {
     @Column(name = "id_item_pedido")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private StatusItemPedido statusItem;
+
     @ManyToOne
     @JoinColumn(name = "pedido_id", nullable = false)
     private Pedido pedido;
@@ -31,6 +35,8 @@ public class ItemPedido {
 
     @Column(name = "preco_unitario",  nullable = false)
     private BigDecimal precoUnitario;
+
+    private BigDecimal subtotal;
 
     @Column(name = "obs_item_pedido")
     private String obsItemPedido;
