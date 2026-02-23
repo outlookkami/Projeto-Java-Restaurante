@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <th:block th:replace="~{fragments/head :: head('Dashboard Admin')}"></th:block>
+</head>
+<body>
+<div>
+  <aside th:replace="~{fragments/menu-lateral-admin :: menu-lateral}"></aside>
+  <main class="content">
+    <header class="header">
+      <h1>Dashboard</h1>
+    </header>
+    <div class="cards-dashboard">
+      <div class="card-info">
+        <img src="" alt="">
+        <div>
+          <strong th:text="${}"></strong>
+          <p>Faturamento total</p>
+        </div>
+      </div>
+
+      <div class="card-info">
+        <img src="" alt="">
+        <div>
+          <strong th:text="${}"></strong>
+          <p>Comandas abertas</p>
+        </div>
+      </div>
+
+      <div class="card-info">
+        <img src="" alt="">
+        <div>
+          <strong th:text="${}"></strong>
+          <p>Pedidos realizados</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+
+    </div>
+
+  </main>
+</div>
+
+<style>
+
+.cards-dashboard{
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.card-info{
+  display: flex;
+  border-radius: 20px;
+
+}
+
+
+</style>
+</body>
+</html>

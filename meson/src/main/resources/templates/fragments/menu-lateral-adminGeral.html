@@ -1,0 +1,11 @@
+<div th:fragment="layout" class="layout" xmlns:th="http://www.w3.org/1999/xhtml">
+  <aside class="sidebar" th:fragment="menu-lateral">
+    <div class="logo">
+      <img th:src="@{/assets/logoMeson.png}" alt="Logo Restaurante">
+    </div>
+    <nav>
+      <a th:href="@{/admin-geral/dashboard}">Dashboard</a>
+      <a th:href="@{/admin-geral/restaurantes}">Funcionários</a>
+    </nav>
+  </aside>
+</div>

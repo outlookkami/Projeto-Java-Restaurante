@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="~{fragments/head :: head('CRUD Produtos')}"></th:block>
 </head>
 <body>
 
+<div class="layout">
+    <aside th:replace="~{fragments/menu-lateral-adminGeral :: menu-lateral}"></aside>
+
+    <main class="content">
+        <header class="header">
+            <h1 th:text="'Olá, ' + ${usuario.nome}"></h1>
+        </header>
+
+        <h2>Bem-vindo ao Meson</h2>
+
+        <img th:src="@{/assets/logoMeson.png}" alt="">
+    </main>
+
+</div>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Dm Sans', 'Inter', Arial, sans-serif;
+    }
+</style>
 </body>
 </html>
