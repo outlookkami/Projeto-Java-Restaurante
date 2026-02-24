@@ -46,8 +46,5 @@ public class Produto {
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    private CategoriaProduto idCategoria;
-
-    @Column(name = "categoria_produto")
-    private String categoria;
+    private CategoriaProduto categoria;
 }

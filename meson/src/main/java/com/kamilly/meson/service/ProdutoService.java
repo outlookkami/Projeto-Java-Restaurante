@@ -29,29 +29,28 @@ public class ProdutoService {
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado."));
     }
 
-    public List<Produto> buscarProduto(String nome, Restaurante restaurante, Long idCategoria){
-        if ((nome == null || nome.isBlank()) && idCategoria == null) {
+    public List<Produto> buscarProduto(String nome, Restaurante restaurante, CategoriaProduto categoria){
+        if ((nome == null || nome.isBlank()) && categoria == null) {
             return produtoRepository.findAllByRestaurante(restaurante);
         }
 
-        if (idCategoria != null && (nome == null || nome.isBlank())) {
-            return produtoRepository.findByIdCategoriaAndRestaurante(idCategoria, restaurante);
+        if (categoria != null && (nome == null || nome.isBlank())) {
+            return produtoRepository.findByCategoriaAndRestaurante(categoria, restaurante);
         }
 
-        if (idCategoria == null) {
+        if (categoria == null) {
             return produtoRepository.findByNomeContainingIgnoreCaseAndRestaurante(nome, restaurante);
         }
 
-        return produtoRepository.findByNomeContainingIgnoreCaseAndIdCategoriaAndRestaurante(nome, idCategoria, restaurante);
+        return produtoRepository.findByNomeContainingIgnoreCaseAndCategoriaAndRestaurante(nome, categoria, restaurante);
     }
 
     public void salvarProduto(Produto produto, Restaurante restaurante){
-        if(produto.getCategoria() != null) {
-            produto.setCategoria(produto.getIdCategoria().getNome());
-        } else {
-            throw new RuntimeException("Categoria não selecionada.");
-        }
+        Long idCategoria = produto.getCategoria().getId();
+        CategoriaProduto categoria = categoriaRepository.findByIdAndRestaurante(idCategoria, restaurante)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
         produto.setRestaurante(restaurante);
+        produto.setCategoria(categoria);
         produtoRepository.save(produto);
     }
 

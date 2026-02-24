@@ -43,10 +43,10 @@ public class ProdutoController {
     }
 
     @GetMapping("/buscar")
-    public String buscarProdutos(@RequestParam(required = false) String nome, @RequestParam(required = false) Long idCategoria, Model model, @AuthenticationPrincipal UsuarioDetails usuarioDetails) {
+    public String buscarProdutos(@RequestParam(required = false) String nome, @RequestParam(required = false) CategoriaProduto categoria, Model model, @AuthenticationPrincipal UsuarioDetails usuarioDetails) {
         Usuario usuarioLogado = usuarioDetails.getUsuario();
         Restaurante restaurante = usuarioLogado.getRestaurante();
-        model.addAttribute("produtos", produtoService.buscarProduto(nome, restaurante, idCategoria));
+        model.addAttribute("produtos", produtoService.buscarProduto(nome, restaurante, categoria));
         return "admin/produtos :: tabelaProdutos";
     }
 

@@ -1,5 +1,6 @@
 package com.kamilly.meson.repository;
 
+import com.kamilly.meson.model.CategoriaProduto;
 import com.kamilly.meson.model.Produto;
 import com.kamilly.meson.model.Restaurante;
 import jakarta.transaction.Transactional;
@@ -17,9 +18,9 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     List<Produto> findByNomeContainingIgnoreCaseAndRestaurante(String nome, Restaurante restaurante);
 
-    List<Produto> findByIdCategoriaAndRestaurante(Long idCategoria, Restaurante restaurante);
+    List<Produto> findByCategoriaAndRestaurante(CategoriaProduto categoria, Restaurante restaurante);
 
-    List<Produto> findByNomeContainingIgnoreCaseAndIdCategoriaAndRestaurante(String nome, Long idCategoria, Restaurante restaurante);
+    List<Produto> findByNomeContainingIgnoreCaseAndCategoriaAndRestaurante(String nome, CategoriaProduto categoria, Restaurante restaurante);
 
     @Transactional
     void deleteByIdAndRestaurante(Long id, Restaurante restaurante);

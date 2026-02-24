@@ -40,7 +40,7 @@
                     <td><img th:if="${produto.imagemUrl != null}" th:src="@{${produto.imagemUrl}}" alt=""></td>
                     <td th:text="${produto.nome}"></td>
                     <td th:text="${produto.preco}"></td>
-                    <td th:text="${produto.categoria}"></td>
+                    <td th:text="${produto.categoria.nome}"></td>
                     <td th:text="${produto.descricao}"></td>
                     <td th:text="${produto.ativo == true} ? 'Sim' : 'Não'"></td>
                     <td>
@@ -79,8 +79,8 @@
 
                 <div>
                     <label>Categoria:</label>
-                    <select th:field="*{idCategoria}" name="idCategoria" required>
-                        <option value="">Selecione</option>
+                    <select th:field="*{categoria.id}" name="categoria" required>
+                        <option value="" disabled selected>Selecione</option>
                         <option th:each="categoria : ${categorias}" th:text="${categoria.nome}" th:value="${categoria.id}"></option>
                     </select>
                 </div>
