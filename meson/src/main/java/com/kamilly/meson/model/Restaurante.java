@@ -1,5 +1,6 @@
 package com.kamilly.meson.model;
 
+import com.kamilly.meson.model.enums.StatusRestaurante;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,6 +41,9 @@ public class Restaurante{
     private String razaoSocial;
 
     private Boolean ativo;
+
+    @Enumerated(EnumType.STRING)
+    private StatusRestaurante status;
 
     @CreationTimestamp
     @Column(name = "data_criacao")

@@ -2,9 +2,14 @@ package com.kamilly.meson.service;
 
 import com.kamilly.meson.dto.request.CadastroDTO;
 import com.kamilly.meson.dto.request.RestauranteReqDTO;
+import com.kamilly.meson.dto.response.RestauranteAnaliseResDTO;
 import com.kamilly.meson.model.Restaurante;
+import com.kamilly.meson.model.enums.StatusRestaurante;
 import com.kamilly.meson.repository.RestauranteRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class RestauranteService {
@@ -37,8 +42,8 @@ public class RestauranteService {
     // ANÁLISE RESTAURANTE
 
     @Transactional(readOnly = true)
-    public RestauranteAnaliseResDTO buscaParaAnalise(Integer id) {
-        Restaurante resturante = restauranteRepository.findById(id).orElseThrow();
+    public RestauranteAnaliseResDTO buscarParaAnalise(Integer id) {
+        Restaurante restaurante = restauranteRepository.findById(id).orElseThrow();
         RestauranteAnaliseResDTO dto = new RestauranteAnaliseResDTO();
         dto.setCnpj(restaurante.getCnpj());
         dto.setNomeFantasia(restaurante.getNomeFantasia());
@@ -53,7 +58,6 @@ public class RestauranteService {
     public void aprovarRestaurante(Integer id){
         Restaurante restaurante = restauranteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Restaurante não encontrado"));
-        Restaurante restaurante = restauranteRepository.findById(id);
         restaurante.setStatus(StatusRestaurante.APROVADO);
         restaurante.setAtivo(true);
         restauranteRepository.save(restaurante);

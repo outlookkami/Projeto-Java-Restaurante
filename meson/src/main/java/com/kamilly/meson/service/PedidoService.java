@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class PedidoService {
         Pedido pedido = new Pedido();
         pedido.setComanda(comanda);
         pedido.setRestaurante(comanda.getRestaurante());
-        pedido.setNumeroDia(ultimo == null ? 1 : ultimo + 1);
+        pedido.setNumeroDia(ultimoNum == null ? 1 : ultimoNum + 1);
         pedido.setDataReferencia(hoje);
         pedido.setGarcom(usuarioService.getUsuarioLogado());
         pedido.setDataCriacao(LocalDateTime.now());

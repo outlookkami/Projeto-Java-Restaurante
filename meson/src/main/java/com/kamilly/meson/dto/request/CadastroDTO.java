@@ -1,5 +1,6 @@
 package com.kamilly.meson.dto.request;
 
+import com.kamilly.meson.model.enums.StatusRestaurante;
 import lombok.Data;
 import lombok.Getter;
 

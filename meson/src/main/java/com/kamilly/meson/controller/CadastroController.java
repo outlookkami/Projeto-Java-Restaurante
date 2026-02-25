@@ -7,6 +7,7 @@ import com.kamilly.meson.dto.request.RestauranteReqDTO;
 import com.kamilly.meson.dto.request.UsuarioDTO;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.Usuario;
+import com.kamilly.meson.model.enums.StatusRestaurante;
 import com.kamilly.meson.service.RestauranteService;
 import com.kamilly.meson.service.UsuarioService;
 import jakarta.validation.Valid;
