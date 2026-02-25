@@ -23,6 +23,11 @@ public class Pedido {
     @Column(name = "id_pedido")
     private Long id;
 
+    @Column(name = "numero_dia")
+    private Integer numeroDia;
+
+    private LocalDate dataReferencia;
+
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 

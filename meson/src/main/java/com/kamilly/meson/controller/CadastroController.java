@@ -43,6 +43,8 @@ public class CadastroController {
     public String salvarRestaurante(@Valid @ModelAttribute("cadastro") CadastroDTO cadastroDTO, RestauranteReqDTO restauranteDTO, RestauranteForm restauranteForm){
         cadastroDTO.setCnpj(restauranteForm.getCnpj());
         cadastroDTO.setTelefone(restauranteForm.getTelefone());
+        cadastroDTO.setAtivo(false);
+        cadastroDTO.setStatus(StatusRestaurante.PENDENTE);
 
         return "redirect:/cadastro/admin";
     }

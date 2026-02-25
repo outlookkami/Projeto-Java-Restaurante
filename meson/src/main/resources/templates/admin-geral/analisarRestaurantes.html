@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta charset="UTF-8">
+    <!-- Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Estilização -->
+    <link rel="stylesheet" th:href="@{/css/modeloTelas.css}">
+    <link rel="stylesheet" th:href="@{/css/menu-lateral.css}">
+    <link rel="stylesheet" th:href="@{/css/modalIncluir.css}">
+    <link rel="stylesheet" th:href="@{/css/modalExcluir.css}">
+    <script th:src="@{/js/modalIncluir.js}"></script>
+    <title th:text="${title}">Página</title>
+</head>
+<!--<head>-->
+<!--    <th:block th:replace="~{fragments/head :: head('Aprovar Restaurantes')}"></th:block>-->
+<!--</head>-->
+<body>
+<div class="layout">
+    <aside class="sidebar" th:fragment="menu-lateral">
+        <div class="logo">
+            <img th:src="@{/assets/logoMeson.png}" alt="Logo Restaurante">
+        </div>
+        <nav>
+            <a th:href="@{/admin-geral/dashboard}">Dashboard</a>
+            <a th:href="@{/admin-geral/restaurantes}">Funcionários</a>
+        </nav>
+    </aside>
+<!--    <aside th:replace="~{fragments/menu-lateral-adminGeral :: menu-lateral}"></aside>-->
+
+    <main class="content">
+        <header class="header">
+            <h1>Restaurantes</h1>
+        </header>
+        <!-- Listagem de Restaurantes -->
+        <section class="restaurantes">
+            <div class="card-restaurante" th:each="restaurante : ${restaurantes}">
+                <div onclick="abrirModalAnalise(this)" th:data-id="${restaurante.id}">
+                    <span class="titulo-restaurante" th:text="${restaurante.razaoSocial}"></span>
+                    <h4 th:text="${restaurante.nomeFantasia}"></h4>
+                    <span class="cnpj" th:text="${restaurante.cnpj}"></span>
+
+                    <p>
+                        <span th:text="'Cnae: ' + ${restaurante.cnae} + ' - ' + ${restaurante.descricaoCnae}"></span>
+                    </p>
+                </div>
+                <div>
+                    <a th:href="@{/admin-geral/analisarRestaurantes/aprovar/{id}(id=${restaurante.id})}"  class="btn-aprovar">Aprovar</a>
+                    <a th:href="@{/admin-geral/analisarRestaurantes/recusar/{id}(id=${restaurante.id})}" class="btn-recusar">Recusar</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+    <div id="modalRestaurante" class="modal-restaurante">
+        <span class="fechar" onclick="fecharModalAnalise()">×</span>
+        <h4 th:text="${restaurante.nomeFantasia}"></h4>
+        <div class="info-rest">
+            <h3 id="modalNomeFantasia"></h3>
+            <p><strong>Cnpj:</strong><span id="modalCnpj"></span></p>
+            <p><strong>Razão Social:</strong><span id="modalRazaoSocial"></span></p>
+            <p><strong>Código Cnae:</strong><span id="modalCnae"></span></p>
+            <p><strong>Descrição do Cnae:</strong><span id="modalDescCnae"></span></p>
+            <p><strong>Telefone:</strong><span id="modalTelefone"></span></p>
+        </div>
+    </div>
+
+<style>
+.modal-restaurante{
+
+}
+
+.info-rest{
+
+}
+
+.btn-aprovar{
+    text-decoration: none;
+    font-size: 14px;
+    background-color: #567568;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-recusar{
+    text-decoration: none;
+    background-color: #5e3023;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+
+}
+
+/*Css para visualização no chrome*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    background-color: #5c3024;
+    color: #5c3024;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid;
+}
+
+.logo img {
+    max-width: 120px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar nav a {
+    padding: 15px 20px;
+    color: #eee0cb;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background-color: #6d453a;
+    color: #ffffff;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Dm Sans', 'Inter', Arial, sans-serif;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+    background-color: #fdf6ee;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    color: #5c3024;
+    font-family: 'Playfair Display', 'Dm Sans', 'Inter', Arial;
+}
+
+.btn-primary {
+    background-color: #5e3023;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-primary:hover {
+    background-color: #b48b7d;
+}
+
+.btn-edit {
+    text-decoration: none;
+    font-size: 14px;
+    background-color: #567568;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-delete {
+    background-color: #5e3023;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th {
+    background-color: #eee0cb;
+    color: #161925;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+select {
+    width: 180px;
+    height: 32px;
+    font-size: 14px;
+    padding: 4px;
+    margin-bottom: 10px;
+}
+
+/* CSS Pesquisa*/
+.div-pesquisa{
+    margin-bottom: 16px;
+}
+
+.barra-pesquisa{
+    width: 400px;
+    height: 32px;
+    font-size: 14px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border: solid 1px #5c3024;
+    padding-left: 7px;
+    margin-right: 10px;
+}
+
+.barra-pesquisa:focus{
+    border-style: solid 2px #5c3024;
+    border-color: #5c3024;
+    outline:none;
+}
+
+.filtro-categoria{
+    width:160px;
+    border: solid 1px #5c3024;
+}
+
+.filtro-categoria:focus{
+    border-color: #5c3024;
+    outline: none;
+    border-style: solid 2px #5c3024;
+}
+</style>
+</body>
+</html>

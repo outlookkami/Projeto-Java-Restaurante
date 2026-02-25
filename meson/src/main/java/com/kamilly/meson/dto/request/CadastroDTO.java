@@ -10,6 +10,8 @@ public class CadastroDTO {
 //    private String razaoSocial;
 //    private String cnae;
 //    private String cnaeDescricao;
+    private Boolean Ativo;
+    private StatusRestaurante status;
     private String telefone;
 
     private String nomeAdmin;
