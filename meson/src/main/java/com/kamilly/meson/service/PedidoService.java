@@ -32,9 +32,13 @@ public class PedidoService {
 
     public Pedido abrirPedido(Long comandaId, Usuario usuarioLogado) {
         Comanda comanda = comandaRepository.findById(comandaId).orElseThrow(() -> new RuntimeException("Comanda não encontrada."));
+        LocalDate hoje = LocalDate.now();
+        Integer ultimoNum = pedidoRepository.buscarUltimoNumeroDia(hoje);
         Pedido pedido = new Pedido();
         pedido.setComanda(comanda);
         pedido.setRestaurante(comanda.getRestaurante());
+        pedido.setNumeroDia(ultimo == null ? 1 : ultimo + 1);
+        pedido.setDataReferencia(hoje);
         pedido.setGarcom(usuarioService.getUsuarioLogado());
         pedido.setDataCriacao(LocalDateTime.now());
         pedido.setStatus(StatusPedido.ENVIADO);
@@ -68,6 +72,8 @@ public class PedidoService {
         //Comanda comanda = comandaRepository.findById(comandaId).orElseThrow(() -> new RuntimeException("Comanda não encontrada."));
         //return pedidoRepository.findAllByComandaAndRestaurante(comanda, restaurante);
     }
+
+
 
 //    BigDecimal totalPedido = itemPedido.stream();
 //    public BigDecimal totalPedido(List<ItemPedido> itensPedidos) {

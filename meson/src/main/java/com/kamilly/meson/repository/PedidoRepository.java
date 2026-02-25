@@ -26,4 +26,11 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
             WHERE p.comanda.id = :comandaId
             """)
     List<Pedido> buscarPedidos(@Param("comandaId") Long comandaId, Restaurante restaurante);
+
+    @Query("""
+            SELECT MAX(p.numeroDia)
+            FROM Pedido p
+            WHERE p.dataReferencia = :hoje
+            """)
+    Integer buscarUltimoNumeroDia(LocalDate hoje);
 }

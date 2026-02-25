@@ -6,42 +6,92 @@
 <body>
     <h1>Pedidos</h1>
     <div class="cozinha">
-        <div class="card-cozinha" th:each="pedido : ${pedidos}">
+        <div class="card-cozinha" th:each="pedido : ${pedidos}" th:if="${#lists.size(pedido.itens.?[status.name() != 'PRONTO']) > 0}">
             <div class="header-card">
-                <span class="titulo-mesa">MESA</span>
+                <span class="titulo-mesa" style="color: #fbfaf9;">MESA</span>
                 <h3 th:text="${pedido.comanda.mesa.numero}"></h3>
             </div>
             <div class="header-info">
-                <span></span>
-                <span th:text="'#' + ${pedido.id}"></span>
+                <span th:text="${#temporals.format(pedido.dataCriacao, 'HH:mm')}" style="color: #fbfaf9;"></span>
+                <span th:text="'#' + ${pedido.numeroDia}"></span>
             </div>
 
             <div class="conteudo-card">
-                <div class="item" th:each="itemPedido : ${pedido.itens}">
+                <div class="item" th:each="itemPedido : ${pedido.itens}" th:if="${itemPedido.status.name() != 'PRONTO'}">
                     <div>
                         <strong th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></strong>
                     </div>
 
-                    <button class="botao-status" th:classappend="${itemPedido.status.name() == 'PRONTO'} ? 'Iniciar' : (${itemPedido.status.name() == 'EM_PREPARO'} ? 'Pronto' :)"></button>
+                    <form th:action="@{/cozinha/item/{id}/status(id=${itemPedido.id})}" class="botoes">
+                        <button type="submit" name="acao" value="INICIAR" class="btn-status iniciar" th:if="${item.status.name() == 'ENVIADO'}">Iniciar</button>
+                        <button type="submit" name="acao" value="FINALIZAR" class="btn-status preparando" th:if="${item.status.name() == 'EM_PREPARO'}">Finalizar</button>
+                    </form>
+
                 </div>
             </div>
-
+            <hr>
+            <div class="footer-card">
+                <span th:text="${#lists.size(pedido.itens.?[status.name() != 'PRONTO'])} + ' itens restantes'"></span>
+            </div>
         </div>
     </div>
 
-
-
-
-
-
-
 <style>
+.card-cozinha {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
 
+.header-card{
+    background-color: #5c2f24;
+    color: #ffffff;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.conteudo-card{
+    background-color: #ffffff;
+    padding: 5px;
+}
 
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
 
+.btn-status {
+    border: none;
+    border-radius: 5px;
+    padding: 6px 8px;
+    cursor: pointer;
+}
 
+.iniciar {
+    background-color: #f1f0ee;
+    color: #696575;
+}
 
+.preparando, .iniciar:hover {
+    background-color: #feedd5;
+    color: #db7e00;
+}
 
+.preparando:hover{
+    background-color: #D6FCE8;
+    color: #148A58;
+}
+
+.footer-card {
+    background-color: #fafaf9;
+    color: #616a7d;
+    padding: 14px;
+    text-align: center;
+}
 </style>
 </body>

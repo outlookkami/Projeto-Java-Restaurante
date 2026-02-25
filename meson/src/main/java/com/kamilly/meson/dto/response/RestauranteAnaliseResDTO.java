@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class RestauranteResDTO {
+public class RestauranteAnaliseResDTO {
     private String cnpj;
-    private String razaoSocial;
     private String nomeFantasia;
+    private String razaoSocial;
     private String cnae;
     private String descricaoCnae;
-
+    private String telefone;
 }

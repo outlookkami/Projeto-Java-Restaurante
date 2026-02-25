@@ -33,4 +33,8 @@ public class UsuarioDetailsService implements UserDetailsService{
             return new UsuarioDetails(usuario);
         }
 
+   if(!usuario.getRestaurante().isAtivo()) {
+       throw new DisabledException("Restaurante desativado");
+    }
+
 }
