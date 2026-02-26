@@ -11,7 +11,7 @@
     <div class="card-pedido" th:each="pedido : ${pedidosComanda[comanda.id]}" >
         <div style="display: flex; justify-content: space-between">
             <p th:text="${pedido.status}" class="status-pedido" th:classappend="${pedido.status.name().toLowerCase()}"></p>
-            <p th:text="'Valor: R$ ' + ${pedido.valor}"></p>
+            <p th:text="'Valor: R$ ' + ${pedido.calcularValor()}"></p>
         </div>
         <div th:each="itemPedido : ${pedido.itens}" style="display: flex; justify-content: space-between">
             <p th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></p>

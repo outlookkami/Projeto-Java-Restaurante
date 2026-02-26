@@ -1,5 +1,6 @@
 package com.kamilly.meson.controller.Garcom;
 
+import com.kamilly.meson.dto.response.ComandaResDTO;
 import com.kamilly.meson.model.*;
 import com.kamilly.meson.model.enums.StatusComanda;
 import com.kamilly.meson.service.ComandaService;
@@ -32,17 +33,17 @@ public class MesaGarcomController {
     public String listarMesas(Model model){
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         List<Mesa> mesas = mesaService.listarMesas(restaurante);
-        Map<Long, List<Comanda>> comandasMesa = new HashMap<>();
+        Map<Long, List<ComandaResDTO>> comandasMesa = new HashMap<>();
         Map<Long, List<Pedido>> pedidosComanda = new HashMap<>();
         Map<Long, List<ItemPedido>> itensPedido = new HashMap<>();
         for(Mesa mesa : mesas){
-            List<Comanda> comandas = comandaService.buscarComandasAbertasMesa(mesa.getId(), restaurante);
+            List<ComandaResDTO> comandas = comandaService.buscarComandasAbertasMesa(mesa.getId(), restaurante);
             comandasMesa.put(
               mesa.getId(),
               comandas != null ? comandas : new ArrayList<>()
             );
 
-            for(Comanda comanda : comandas){
+            for(ComandaResDTO comanda : comandas){
                 List<Pedido> pedidos = pedidoService.listarPedidosPorComanda(comanda.getId(), restaurante);
 
             }
@@ -60,7 +61,7 @@ public class MesaGarcomController {
     public String detalheMesa(@PathVariable Long id, Model model){
         Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
         Mesa mesa = mesaService.buscarMesaPorId(id, restaurante);
-        List<Comanda> comandas = comandaService.buscarComandasAbertasMesa(id, restaurante);
+        List<ComandaResDTO> comandas = comandaService.buscarComandasAbertasMesa(id, restaurante);
         model.addAttribute("mesa", mesa);
         model.addAttribute("comandas", comandas);
         return "garcom/mesas/detalheMesa :: detalheMesa";

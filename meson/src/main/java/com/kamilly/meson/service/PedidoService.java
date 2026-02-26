@@ -75,7 +75,6 @@ public class PedidoService {
     }
 
 
-
 //    BigDecimal totalPedido = itemPedido.stream();
 //    public BigDecimal totalPedido(List<ItemPedido> itensPedidos) {
 //        BigDecimal totalPedido = itensPedidos.stream();

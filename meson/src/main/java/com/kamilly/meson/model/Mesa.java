@@ -38,7 +38,7 @@ public class Mesa {
     private int posicaoY;
 
     @Enumerated(EnumType.STRING)
-    private StatusMesa status;
+    private StatusMesa status = StatusMesa.DISPONIVEL;
 
     @ManyToOne
     @JoinColumn(name = "id_restaurante", nullable = false)

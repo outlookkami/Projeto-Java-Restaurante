@@ -77,7 +77,8 @@ public class UsuarioService {
     public void deletarFuncionario(Long id, Restaurante restaurante) {
         Usuario funcionario = usuarioRepository.findByIdAndRestaurante(id, restaurante)
                 .orElseThrow(() -> new RuntimeException("Funcionário não encontrado."));
-        usuarioRepository.delete(funcionario);
+        funcionario.setAtivo(false);
+        usuarioRepository.save(funcionario);
     }
 
     public void atualizarUsuarioPorId(Long id, Usuario usuario) {

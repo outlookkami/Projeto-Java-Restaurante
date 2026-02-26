@@ -4,37 +4,46 @@
     <th:block th:replace="~{fragments/head :: head('Pedidos Cozinha')}"></th:block>
 </head>
 <body>
-    <h1>Pedidos</h1>
-    <div class="cozinha">
-        <div class="card-cozinha" th:each="pedido : ${pedidos}" th:if="${#lists.size(pedido.itens.?[status.name() != 'PRONTO']) > 0}">
-            <div class="header-card">
-                <span class="titulo-mesa" style="color: #fbfaf9;">MESA</span>
-                <h3 th:text="${pedido.comanda.mesa.numero}"></h3>
-            </div>
-            <div class="header-info">
-                <span th:text="${#temporals.format(pedido.dataCriacao, 'HH:mm')}" style="color: #fbfaf9;"></span>
-                <span th:text="'#' + ${pedido.numeroDia}"></span>
-            </div>
+<div class="layout">
+    <aside th:replace="~{fragments/menu-lateral-cozinha :: menu-lateral}"></aside>
 
-            <div class="conteudo-card">
-                <div class="item" th:each="itemPedido : ${pedido.itens}" th:if="${itemPedido.status.name() != 'PRONTO'}">
-                    <div>
-                        <strong th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></strong>
+    <main class="content">
+        <header class="header">
+            <h1>Pedidos</h1>
+        </header>
+        <div class="cozinha">
+            <div class="card-cozinha" th:each="pedido : ${pedidos}" th:if="${#lists.size(pedido.itens.?[status.name() != 'PRONTO']) > 0}">
+                <div class="header-card">
+                    <span class="titulo-mesa" style="color: #fbfaf9;">MESA</span>
+                    <h3 th:text="${pedido.comanda.mesa.numero}"></h3>
+                </div>
+                <div class="header-info">
+                    <span th:text="${#temporals.format(pedido.dataCriacao, 'HH:mm')}" style="color: #fbfaf9;"></span>
+                    <span th:text="'#' + ${pedido.numeroDia}"></span>
+                </div>
+
+                <div class="conteudo-card">
+                    <div class="item" th:each="itemPedido : ${pedido.itens}" th:if="${itemPedido.status.name() != 'PRONTO'}">
+                        <div>
+                            <strong th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></strong>
+                        </div>
+
+                        <form th:action="@{/cozinha/item/{id}/status(id=${itemPedido.id})}" class="botoes">
+                            <button type="submit" name="acao" value="INICIAR" class="btn-status iniciar" th:if="${item.status.name() == 'ENVIADO'}">Iniciar</button>
+                            <button type="submit" name="acao" value="FINALIZAR" class="btn-status preparando" th:if="${item.status.name() == 'EM_PREPARO'}">Finalizar</button>
+                        </form>
+
                     </div>
-
-                    <form th:action="@{/cozinha/item/{id}/status(id=${itemPedido.id})}" class="botoes">
-                        <button type="submit" name="acao" value="INICIAR" class="btn-status iniciar" th:if="${item.status.name() == 'ENVIADO'}">Iniciar</button>
-                        <button type="submit" name="acao" value="FINALIZAR" class="btn-status preparando" th:if="${item.status.name() == 'EM_PREPARO'}">Finalizar</button>
-                    </form>
-
+                </div>
+                <hr>
+                <div class="footer-card">
+                    <span th:text="${#lists.size(pedido.itens.?[status.name() != 'PRONTO'])} + ' itens restantes'"></span>
                 </div>
             </div>
-            <hr>
-            <div class="footer-card">
-                <span th:text="${#lists.size(pedido.itens.?[status.name() != 'PRONTO'])} + ' itens restantes'"></span>
-            </div>
         </div>
-    </div>
+    </main>
+
+</div>
 
 <style>
 .card-cozinha {

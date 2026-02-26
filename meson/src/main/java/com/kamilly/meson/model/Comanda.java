@@ -8,7 +8,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,8 +35,8 @@ public class Comanda {
     @Enumerated(EnumType.STRING)
     private StatusComanda status;
 
-    @Column(name = "valor_comanda")
-    private BigDecimal valor;
+    @Column(name = "valor_comanda", nullable = false)
+    private BigDecimal valor = BigDecimal.ZERO;
 
     @CreationTimestamp
     @Column(name = "data_abertura")
@@ -48,6 +50,13 @@ public class Comanda {
     @JoinColumn(name = "id_restaurante", nullable = false)
     private Restaurante restaurante;
 
+//    @OneToMany(mappedBy = "comanda")
+//    private List<Pedido> pedidos;
+
     @OneToMany(mappedBy = "comanda")
-    private List<Pedido> pedidos;
+    private Set<Pedido> pedidos = new HashSet<>();
+
+    public BigDecimal calcularValor() {
+        return pedidos.stream().map(Pedido::calcularValor).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }

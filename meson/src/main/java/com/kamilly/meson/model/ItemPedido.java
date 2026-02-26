@@ -40,4 +40,8 @@ public class ItemPedido {
 
     @Column(name = "obs_item_pedido")
     private String obsItemPedido;
+
+    public BigDecimal calcularSubtotal() {
+        return precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+    }
 }

@@ -1,7 +1,11 @@
 package com.kamilly.meson.service;
 
+import com.kamilly.meson.dto.response.ComandaResDTO;
+import com.kamilly.meson.dto.response.ItemPedidoResDTO;
+import com.kamilly.meson.dto.response.PedidoResDTO;
 import com.kamilly.meson.model.Comanda;
 import com.kamilly.meson.model.Mesa;
+import com.kamilly.meson.model.Pedido;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.enums.StatusComanda;
 import com.kamilly.meson.model.enums.StatusMesa;
@@ -12,8 +16,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +29,37 @@ public class ComandaService {
     private final MesaRepository mesaRepository;
     private final UsuarioService usuarioService;
 
-    public List<Comanda> buscarComandasAbertasMesa(Long mesaId, Restaurante restaurante) {
-        if (mesaId == null) {
-            throw new IllegalArgumentException("MesaId não pode ser nulo.");
-        }
+    @Transactional(readOnly = true)
+    public List<ComandaResDTO> buscarComandasAbertasMesa(Long mesaId, Restaurante restaurante) {
+        Mesa mesa = mesaRepository.findById(mesaId).orElseThrow();
+        List<Comanda> comandas = comandaRepository.findAllByMesaAndRestauranteAndStatus(mesa, restaurante, StatusComanda.ABERTA);
+        return comandas.stream().map(comanda -> {
+            List<PedidoResDTO> pedidosDTO = comanda.getPedidos().stream().map(pedido -> {
+                List<ItemPedidoResDTO> itensDTO = pedido.getItens().stream().map(itemPedido ->
+                    new ItemPedidoResDTO(
+                            itemPedido.getProduto().getNome(),
+                            itemPedido.getQuantidade(),
+                            itemPedido.getSubtotal()
+                    )
+                ).toList();
 
-        Mesa mesa = mesaRepository.findById(mesaId).orElseThrow(() -> new RuntimeException("Mesa não encontrada."));
-        return comandaRepository.findAllByMesaAndRestauranteAndStatus(mesa, restaurante, StatusComanda.ABERTA);
+                return new PedidoResDTO(
+                        pedido.getStatus(),
+                        pedido.getValor(),
+                        itensDTO
+                );
+            }).toList();
+
+            BigDecimal valor = comanda.calcularValor();
+            return new ComandaResDTO(
+                    comanda.getId(),
+                    comanda.getNomeCliente(),
+                    comanda.getMesa().getNumero(),
+                    comanda.getStatus(),
+                    valor,
+                    pedidosDTO
+            );
+         }).toList();
     }
 
     public List<Comanda> listarComandasAbertasRestaurante(Restaurante restaurante) {
@@ -47,6 +77,11 @@ public class ComandaService {
         mesa.setStatus(StatusMesa.OCUPADA);
         mesaRepository.save(mesa);
         return comandaRepository.save(comanda);
+    }
+
+    private void atualizarValorComanda(Comanda comanda) {
+        BigDecimal valor = comanda.getPedidos().stream().map(Pedido::getValor).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add);
+        comanda.setValor(valor);
     }
 
     @Transactional
