@@ -20,6 +20,7 @@ public class ItemPedido {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StatusItemPedido statusItem;
 
     @ManyToOne

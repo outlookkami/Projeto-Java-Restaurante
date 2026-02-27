@@ -34,4 +34,13 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
             WHERE p.dataReferencia = :hoje
             """)
     Integer buscarUltimoNumeroDia(LocalDate hoje);
+
+    @Query("""
+           SELECT DISTINCT p FROM Pedido p 
+           LEFT JOIN FETCH p.itens i
+           WHERE i.statusItem IN ('ENVIADO', 'EM_PREPARO')
+           ORDER BY p.dataCriacao ASC
+           """)
+    List<Pedido> buscarPedidosParaCozinha(List<StatusPedido> status);
+
 }

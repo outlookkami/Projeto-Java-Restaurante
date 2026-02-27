@@ -35,6 +35,8 @@ public class RestauranteService {
         restaurante.setNomeFantasia(api.getNomeFantasia());
         restaurante.setCnae(api.getCnae());
         restaurante.setDescricaoCnae(api.getDescricaoCnae());
+        restaurante.setAtivo(false);
+        restaurante.setStatus(StatusRestaurante.PENDENTE);
 
         return restauranteRepository.save(restaurante);
     }
@@ -74,10 +76,10 @@ public class RestauranteService {
 
     // Listagem baseada no status
 
-    public List<Restaurante> listarRestaurantesPendentes(Restaurante restaurante) {
-        if (restaurante.getStatus() != StatusRestaurante.PENDENTE) {
-            throw new IllegalStateException("Restaurante não pôde ser listado.");
-        }
+    public List<Restaurante> listarRestaurantesPendentes() {
+//        if (restaurante.getStatus() != StatusRestaurante.PENDENTE) {
+//            throw new IllegalStateException("Restaurante não pôde ser listado.");
+//        }
         return restauranteRepository.findByStatus(StatusRestaurante.PENDENTE);
     }
 

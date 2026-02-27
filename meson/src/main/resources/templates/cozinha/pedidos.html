@@ -12,7 +12,7 @@
             <h1>Pedidos</h1>
         </header>
         <div class="cozinha">
-            <div class="card-cozinha" th:each="pedido : ${pedidos}" th:if="${#lists.size(pedido.itens.?[status.name() != 'PRONTO']) > 0}">
+            <div class="card-cozinha" th:each="pedido : ${pedidos}" th:if="${#lists.size(pedido.itens.?[statusItem.name() != 'PRONTO']) > 0}">
                 <div class="header-card">
                     <span class="titulo-mesa" style="color: #fbfaf9;">MESA</span>
                     <h3 th:text="${pedido.comanda.mesa.numero}"></h3>
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="conteudo-card">
-                    <div class="item" th:each="itemPedido : ${pedido.itens}" th:if="${itemPedido.status.name() != 'PRONTO'}">
+                    <div class="item" th:each="itemPedido : ${pedido.itens}" th:if="${itemPedido}">
                         <div>
                             <strong th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></strong>
                         </div>
@@ -37,7 +37,7 @@
                 </div>
                 <hr>
                 <div class="footer-card">
-                    <span th:text="${#lists.size(pedido.itens.?[status.name() != 'PRONTO'])} + ' itens restantes'"></span>
+                    <span th:text="${#lists.size(pedido.itens.?[statusItem.name() != 'PRONTO'])} + ' itens restantes'"></span>
                 </div>
             </div>
         </div>

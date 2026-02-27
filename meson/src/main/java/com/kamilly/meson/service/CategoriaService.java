@@ -27,6 +27,7 @@ public class CategoriaService {
 
     public void salvarCategoria(CategoriaProduto categoria, Restaurante restaurante){
         categoria.setRestaurante(restaurante);
+        categoria.setAtiva(true);
         categoriaRepository.save(categoria);
     }
 

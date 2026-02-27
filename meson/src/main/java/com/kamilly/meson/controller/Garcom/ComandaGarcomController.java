@@ -52,6 +52,7 @@ public class ComandaGarcomController {
         model.addAttribute("pedidosComanda", pedidosComanda);
         model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
         model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
+//        model.addAttribute("valor", comandaService.atualizarValorComanda(comanda));
         return "garcom/comandas/detalheComanda";
     }
 

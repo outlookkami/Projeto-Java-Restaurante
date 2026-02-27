@@ -92,7 +92,7 @@ public class SecurityConfig {
                 response.sendRedirect("/trocar-senha");
             } else {
                 if (usuario.getPerfilUsuario() == PerfilUsuario.ADMIN_GERAL) {
-                    response.sendRedirect("/admin-geral/dashboard");
+                    response.sendRedirect("/admin-geral/paginaInicial");
                 } else if (usuario.getPerfilUsuario() == PerfilUsuario.ADMIN) {
                     response.sendRedirect("/admin/paginaInicial");
                 } else if (usuario.getPerfilUsuario() == PerfilUsuario.GARCOM) {

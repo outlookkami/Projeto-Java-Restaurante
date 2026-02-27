@@ -1,15 +1,20 @@
 function abrirModalAnalise(element) {
-    const id = element.getAttibute("data-id");
+    const id = element.getAttribute("data-id");
 
     fetch(`/admin-geral/analisarRestaurantes/${id}`)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             document.getElementById("modalNomeFantasia").innerText = data.nomeFantasia;
             document.getElementById("modalCnpj").innerText = data.cnpj;
             document.getElementById("modalRazaoSocial").innerText = data.razaoSocial;
             document.getElementById("modalCnae").innerText = data.cnae;
             document.getElementById("modalDescCnae").innerText = data.descricaoCnae;
             document.getElementById("modalTelefone").innerText = data.telefone;
+
+            document.getElementById("btnAprovar").href = `/admin-geral/analisarRestaurantes/aprovar/${id}`
+            document.getElementById("btnRecusar").href = `/admin-geral/analisarRestaurantes/recusar/${id}`
+
             document.getElementById("modalRestaurante").style.display = "block";
         })
         .catch(error => {

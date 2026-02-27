@@ -98,6 +98,8 @@ public class UsuarioService {
     public Usuario criarAdmin(Usuario usuario, Restaurante restaurante) {
         usuario.setPerfilUsuario(PerfilUsuario.ADMIN);
         usuario.setRestaurante(restaurante);
+        usuario.setAtivo(true);
+        usuario.setTrocarSenha(false);
         return usuario;
     }
 
