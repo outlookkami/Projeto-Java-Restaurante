@@ -5,12 +5,12 @@
     </div>
 
     <section class="pratos">
-        <div class="card-produto" th:each="produto : ${produtos}" th:classappend="${produto.categoria}" th:attr="data-categoria=${produto.categoria}" th:onclick="${modoSelecao} ? 'selecionarProduto(' + ${produto.id} + ')' : null" id="prato">
+        <div class="card-produto" th:each="produto : ${produtos}" th:classappend="${produto.categoria.nome}" th:attr="data-categoria=${produto.categoria}" th:onclick="${modoSelecao} ? 'selecionarProduto(' + ${produto.id} + ')' : null" id="prato">
             <img th:src="@{${produto.imagemUrl}}" class="imagem-produto" alt="">
             <div>
                 <div class="div-titulo">
                     <h3 class="titulo-prato" th:text="${produto.nome}"></h3>
-                    <p class="span-categoria" th:text="${produto.categoria}"></p>
+                    <p class="span-categoria" th:text="${produto.categoria.nome}"></p>
                 </div>
                 <p th:text="${produto.descricao}"></p>
                 <span th:text="'R$ ' + ${produto.preco}"></span>

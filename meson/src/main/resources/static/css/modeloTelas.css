@@ -122,3 +122,15 @@ select {
     outline: none;
     border-style: solid 2px #5c3024;
   }
+
+  .btn-trocar-mesa{
+      font-size: 14px;
+      background-color: #b47d7d;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      margin-right: 5px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 120px;
+  }

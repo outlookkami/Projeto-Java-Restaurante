@@ -74,6 +74,7 @@ public class ComandaService {
         comanda.setRestaurante(restaurante);
         comanda.setStatus(StatusComanda.ABERTA);
         comanda.setDataAbertura(LocalDateTime.now());
+        comanda.setValor(BigDecimal.ZERO);
         mesa.setStatus(StatusMesa.OCUPADA);
         mesaRepository.save(mesa);
         return comandaRepository.save(comanda);
@@ -89,7 +90,7 @@ public class ComandaService {
         Comanda comanda = comandaRepository.findById(comandaId).orElseThrow();
         comanda.setStatus(StatusComanda.FINALIZADA);
         Mesa mesa = comanda.getMesa();
-        boolean existeOutraComandaAberta = comandaRepository.existsByMesaAndStatus(mesa.getId(),  StatusComanda.ABERTA);
+        boolean existeOutraComandaAberta = comandaRepository.existsByMesaIdAndStatus(mesa.getId(),  StatusComanda.ABERTA);
 
         if(!existeOutraComandaAberta){
             mesa.setStatus(StatusMesa.DISPONIVEL);
@@ -103,6 +104,22 @@ public class ComandaService {
     public Comanda buscarComandaPorId(Long id, Restaurante restaurante){
         return comandaRepository.findByIdAndRestaurante(id, restaurante)
                 .orElseThrow(() -> new RuntimeException("Comanda não encontrada."));
+    }
+
+    @Transactional
+    public void trocarMesa(Long comandaId, Long novaMesaId) {
+        Comanda comanda = comandaRepository.findById(comandaId).orElseThrow();
+        Mesa mesaAntiga = comanda.getMesa();
+        Mesa novaMesa = mesaRepository.findById(novaMesaId).orElseThrow();
+        comanda.setMesa(novaMesa);
+        comandaRepository.save(comanda);
+        novaMesa.setStatus(StatusMesa.OCUPADA);
+        mesaRepository.save(novaMesa);
+        boolean mesaTemComanda = comandaRepository.existsByMesaIdAndStatus(mesaAntiga.getId(), StatusComanda.ABERTA);
+        if(!mesaTemComanda){
+            mesaAntiga.setStatus(StatusMesa.DISPONIVEL);
+            mesaRepository.save(mesaAntiga);
+        }
     }
 
 //    public void salvarComanda(Comanda comanda, Restaurante restaurante){

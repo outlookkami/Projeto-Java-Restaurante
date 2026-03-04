@@ -23,7 +23,7 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long>{
 
     List<Comanda> findAllByRestauranteAndStatus(Restaurante restaurante, StatusComanda statusComanda);
 
-    boolean existsByMesaAndStatus(Long mesaId, StatusComanda status);
+    boolean existsByMesaIdAndStatus(Long mesaId, StatusComanda status);
 
     @Query("""
             SELECT DISTINCT c FROM Comanda c

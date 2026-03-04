@@ -10,6 +10,7 @@ import com.kamilly.meson.repository.PedidoRepository;
 import com.kamilly.meson.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -40,28 +41,46 @@ public class PedidoService {
         pedido.setRestaurante(comanda.getRestaurante());
         pedido.setNumeroDia(ultimoNum == null ? 1 : ultimoNum + 1);
         pedido.setDataReferencia(hoje);
-        pedido.setGarcom(usuarioService.getUsuarioLogado());
+        pedido.setGarcom(usuarioLogado);
         pedido.setDataCriacao(LocalDateTime.now());
         pedido.setStatus(StatusPedido.ENVIADO);
+        pedido.setValor(BigDecimal.ZERO);
         comandaRepository.save(comanda);
         return pedidoRepository.save(pedido);
     }
 
+    @Transactional
     public ItemPedido adicionarItem(Long idPedido, Long idProduto, Integer quantidade, String observacao) {
         Pedido pedido = pedidoRepository.findById(idPedido).orElseThrow(() -> new RuntimeException("Pedido não encontrado."));
         Produto produto = produtoRepository.findById(idProduto).orElseThrow(() -> new RuntimeException("Produto não encontrado."));
+        BigDecimal precoUnitario = produto.getPreco();
+        BigDecimal subtotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
         ItemPedido itemPedido = new ItemPedido();
         itemPedido.setPedido(pedido);
         itemPedido.setProduto(produto);
         itemPedido.setQuantidade(quantidade);
-        itemPedido.setPrecoUnitario(produto.getPreco());
+        itemPedido.setPrecoUnitario(precoUnitario);
+        itemPedido.setSubtotal(subtotal);
+        itemPedido.setStatusItem(StatusItemPedido.ENVIADO);
         if (observacao != null && observacao.isBlank()) {
             observacao = null;
         }
         itemPedido.setObsItemPedido(observacao);
-        itemPedido.setStatusItem(StatusItemPedido.ENVIADO);
-        itemPedido.setSubtotal(produto.getPreco().multiply(BigDecimal.valueOf(quantidade)));
-        return itemPedidoRepository.save(itemPedido);
+        itemPedidoRepository.save(itemPedido);
+
+        if(pedido.getValor() == null) {
+            pedido.setValor(BigDecimal.ZERO);
+        }
+        pedido.setValor(pedido.getValor().add(subtotal));
+        pedidoRepository.save(pedido);
+
+        Comanda comanda = pedido.getComanda();
+        if(comanda.getValor() == null){
+            comanda.setValor(BigDecimal.ZERO);
+        }
+        comanda.setValor(comanda.getValor().add(subtotal));
+        comandaRepository.save(comanda);
+        return itemPedido;
     }
 
     public List<Pedido> listarPedidosAbertosPorRestaurante(Restaurante restaurante) {
@@ -72,6 +91,11 @@ public class PedidoService {
         return pedidoRepository.buscarPedidos(comandaId, restaurante);
         //Comanda comanda = comandaRepository.findById(comandaId).orElseThrow(() -> new RuntimeException("Comanda não encontrada."));
         //return pedidoRepository.findAllByComandaAndRestaurante(comanda, restaurante);
+    }
+
+    public Pedido buscarPedidoPorId(Long id, Restaurante restaurante){
+        return pedidoRepository.findByIdAndRestaurante(id, restaurante)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado."));
     }
 
 

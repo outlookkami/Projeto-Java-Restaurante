@@ -42,11 +42,31 @@ function abrirModalDetalheComanda(comandaId) {
         });
 }
 
+// Modal Trocar Mesa
+function abrirModalTrocarMesa(comandaId){
+    document.getElementById("comandaIdInputTroca").value = comandaId;
+    document.getElementById("modalTrocarMesa").style.display = "flex";
+}
+
+function fecharModalTrocarMesa() {
+    document.getElementById("modalTrocarMesa").style.display = "none";
+}
 //-----------------------------------------------------------------------
 
 // Modal Pedido
-function abrirModalPedido(comandaId) {
-    document.getElementById("comandaIdInput").value = comandaId;
+function abrirModalDetalhePedido(pedido){
+    const url = `/garcom/pedidos/${pedidoId}/detalhe`;
+
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("modalConteudo").innerHTML = html;
+            document.getElementById("modalPrincipal").style.display = "block";
+        });
+}
+
+function abrirModalPedido(comanda) {
+    document.getElementById("comandaIdInput").value = comanda;
     document.getElementById("modalNovoPedido").style.display = "flex";
 }
 

@@ -2,6 +2,7 @@
     <!-- Listagem dos Pedidos da Comanda -->
     <h3 th:text="'Mesa ' + ${comanda.mesa.numero} + ' - '+ ${comanda.nomeCliente}"></h3>
     <p>Valor Total: <span th:text="'R$ ' + ${comanda.valor}"></span></p>
+    <span><button type="button" class="btn-trocar-mesa" th:onclick="'abrirModalTrocarMesa(' + ${comanda.id} + ')'">Trocar Mesa</button></span>
     <hr>
     <h4>Pedidos</h4>
     <div class="header-detalhe">
@@ -28,8 +29,9 @@
             <div class="coluna-produtos">
                 <form th:action="@{/garcom/pedidos}" method="post">
                     <input type="hidden" name="comandaId" th:value="${comanda.id}">
+                    <input type="text" id="buscarProduto" class="barra-pesquisa" placeholder="Buscar produto..." onkeyup="filtrarProdutos()">
 
-                    <div th:each="produto : ${produtos}" class="card-produto">
+                    <div th:each="produto : ${produtos}" class="card-produto produto" th:attr="data-id=${produto.id}, data-nome=${produto.nome}, data-preco=${produto.preco}">
                         <div class="info-produto">
                             <div>
                                 <p th:text="${produto.nome}"></p>
@@ -44,16 +46,46 @@
                         <input type="text" name="observacoes" placeholder="Observação (opcional)" class="input-observacao">
                         <input type="hidden" name="produtosIds" th:value="${produto.id}">
                     </div>
-                    <button type="submit">Confirmar Pedido</button>
+                    <button type="submit" class="btn-confirmar" style="width: 180px;">Confirmar Pedido</button>
                 </form>
             </div>
             <div class="coluna-pedido">
                 <h3>Pedido Atual</h3>
-                <div id="listaPedido"></div>
+                <div id="listaPedido">
+
+                </div>
                 <hr>
                 <h4>Total: R$ <span id="totalPedido"></span></h4>
                 <button type="button" class="btn-cancelar" onclick="fecharModalPedido()">Cancelar</button>
             </div>
+        </div>
+    </div>
+
+    <div id="modalTrocarMesa" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar" onclick="fecharModalTrocarMesa()">&times;</span>
+            <h3>Trocar Mesa</h3>
+
+            <form th:action="@{/garcom/comandas/trocar-mesa}" method="post">
+                <div class="form-div">
+                    <input type="hidden" name="comandaId" th:value="${comanda.id}" id="comandaIdInputTroca">
+                    <p th:text="'Nome do cliente: ' + ${comanda.nomeCliente}"></p>
+                    <p th:text="'Mesa atual: ' + ${comanda.mesa.numero}"></p>
+                    <hr>
+                    <div>
+                        <label>Nova Mesa</label>
+                        <select name="novaMesaId" required>
+                            <option value="" disabled selected>Selecione uma mesa</option>
+                            <option th:each="mesa : ${mesas}" th:text="'Mesa ' + ${mesa.numero}" th:value="${mesa.id}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-acoes">
+                    <button type="submit" class="btn-confirmar">Confirmar Troca</button>
+                    <button type="button" class="btn-cancelar" onclick="fecharModalTrocarMesa()">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

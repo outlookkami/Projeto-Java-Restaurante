@@ -51,7 +51,7 @@ public class Pedido {
     private LocalDateTime dataEntrega;
 
     @Column(name = "valor_pedido", nullable = false)
-    private BigDecimal valor = BigDecimal.ZERO;
+    private BigDecimal valor;
 
     @ManyToOne
     @JoinColumn(name = "id_comanda", nullable = false)

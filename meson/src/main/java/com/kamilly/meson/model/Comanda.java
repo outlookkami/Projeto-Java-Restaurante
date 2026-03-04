@@ -36,7 +36,7 @@ public class Comanda {
     private StatusComanda status;
 
     @Column(name = "valor_comanda", nullable = false)
-    private BigDecimal valor = BigDecimal.ZERO;
+    private BigDecimal valor;
 
     @CreationTimestamp
     @Column(name = "data_abertura")

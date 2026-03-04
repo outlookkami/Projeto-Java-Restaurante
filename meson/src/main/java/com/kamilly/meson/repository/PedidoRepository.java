@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
@@ -18,6 +19,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Pedido> findAllByComandaAndRestaurante(Comanda comanda, Restaurante restaurante);
 
     List<Pedido> findAllByRestauranteAndStatus(Restaurante restaurante, StatusPedido statusPedido);
+
+    Optional<Pedido> findByIdAndRestaurante(Long id, Restaurante restaurante);
 
     @Query(""" 
             SELECT DISTINCT p

@@ -1,0 +1,17 @@
+<div th:fragment="detalhePedido" xmlns:th="http://www.w3.org/1999/xhtml">
+    <!-- Listagem dos Itens do Pedido -->
+    <h3 th:text="'Pedido #' + ${pedido.numeroDia} + ' - '+ ${pedido.comanda.nomeCliente}"></h3>
+    <p>Valor Total: <span th:text="'R$ ' + ${pedido.valor}"></span></p>
+    <hr>
+    <h4>Itens</h4>
+    <div class="header-detalhe">
+        <span th:text="'Itens no pedido: ' + ${itensPedido[pedido.id] != null ? #lists.size(itensPedido[pedido.id]) : 0}"></span>
+    </div>
+    <div class="card-pedido" th:each="item : ${itensPedido[pedido.id]}" >
+        <div th:each="itemPedido : ${pedido.itens}" style="display: flex; justify-content: space-between">
+            <p th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></p>
+            <span th:text="${itemPedido.subtotal}"></span>
+            <p th:text="${itemPedido.statusItem}"></p>
+        </div>
+    </div>
+</div>

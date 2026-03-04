@@ -45,15 +45,23 @@ public class ComandaGarcomController {
     public String detalheComanda(@PathVariable Long id, Model model) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
         Comanda comanda = comandaService.buscarComandaPorId(id, restaurante);
+        List<Mesa> mesas = mesaService.listarMesas(restaurante);
         List<Pedido> pedidos = pedidoService.buscarPedidosPorComanda(id, restaurante);
         Map<Long, List<Pedido>> pedidosComanda = new HashMap<>();
         pedidosComanda.put(id, pedidos);
+        model.addAttribute("mesas", mesas);
         model.addAttribute("comanda", comanda);
         model.addAttribute("pedidosComanda", pedidosComanda);
         model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
         model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
 //        model.addAttribute("valor", comandaService.atualizarValorComanda(comanda));
         return "garcom/comandas/detalheComanda";
+    }
+
+    @PostMapping("/trocar-mesa")
+    public String trocaMesaComanda(@RequestParam Long comandaId, @RequestParam Long novaMesaId, Model model) {
+        comandaService.trocarMesa(comandaId, novaMesaId);
+        return "redirect:/garcom/mesas";
     }
 
 //    @GetMapping("/{id}/novo-pedido")

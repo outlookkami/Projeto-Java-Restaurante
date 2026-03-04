@@ -1,18 +1,16 @@
 package com.kamilly.meson.controller.Garcom;
 
-import com.kamilly.meson.model.Comanda;
-import com.kamilly.meson.model.Pedido;
-import com.kamilly.meson.model.Restaurante;
-import com.kamilly.meson.service.PedidoService;
-import com.kamilly.meson.service.ProdutoService;
-import com.kamilly.meson.service.UsuarioService;
+import com.kamilly.meson.model.*;
+import com.kamilly.meson.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/garcom/pedidos")
@@ -22,13 +20,20 @@ public class PedidoGarcomController {
     private final ProdutoService produtoService;
     private final UsuarioService usuarioService;
     private final PedidoService pedidoService;
+    private final ComandaService comandaService;
+    private final ItemPedidoService itemPedidoService;
+
 
     @GetMapping("/{comandaId}")
     public String incluirPedido(@PathVariable Long comandaId, Model model) {
         Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        Comanda comanda = comandaService.buscarComandaPorId(comandaId, restaurante);
+        List<Produto> produtos = produtoService.listarProdutos(restaurante);
+        model.addAttribute("comanda", comanda);
         model.addAttribute("comandaId", comandaId);
         model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
-        return "pedidos/adicionarPedido :: adicionarPedido";
+        return "garcom/comandas/detalheComanda";
+        //        return "pedidos/adicionarPedido :: adicionarPedido";
     }
 
     @GetMapping
@@ -57,6 +62,18 @@ public class PedidoGarcomController {
                );
            }
        }
-        return "redirect:/garcom/comandas/" + comandaId + "/detalhe";
+        return "redirect:/garcom/mesas";
+    }
+
+    @GetMapping("/{id}/detalhe")
+    public String detalhePedido (@PathVariable Long id, Model model){
+        Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        Pedido pedido = pedidoService.buscarPedidoPorId(id, restaurante);
+        List<ItemPedido> itens = itemPedidoService.listarItensPedido(id);
+        Map<Long, List<ItemPedido>> itensPedido = new HashMap<>();
+        itensPedido.put(id, itens);
+        model.addAttribute("pedido", pedido);
+        model.addAttribute("pedidosComanda", itensPedido);
+        return "garcom/pedidos/detalhePedido";
     }
 }
