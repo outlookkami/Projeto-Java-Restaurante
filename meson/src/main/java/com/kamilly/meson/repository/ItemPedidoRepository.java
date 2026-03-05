@@ -12,4 +12,6 @@ import java.util.List;
 public interface ItemPedidoRepository extends JpaRepository<ItemPedido, Long> {
 
     List<ItemPedido> findAllByPedidoAndStatusItemIn(Pedido pedido, List<StatusItemPedido> statusItem);
+
+    List<ItemPedido> findByPedido(Pedido pedido);
 }

@@ -4,6 +4,7 @@ import com.kamilly.meson.model.ItemPedido;
 import com.kamilly.meson.model.Pedido;
 import com.kamilly.meson.model.Restaurante;
 import com.kamilly.meson.model.enums.StatusItemPedido;
+import com.kamilly.meson.model.enums.StatusPedido;
 import com.kamilly.meson.repository.ItemPedidoRepository;
 import com.kamilly.meson.repository.PedidoRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,19 @@ public class ItemPedidoService {
         if(acao.equals("FINALIZAR")) {
             item.setStatusItem(StatusItemPedido.PRONTO);
         }
+        if(acao.equals("ENTREGAR")){
+            item.setStatusItem(StatusItemPedido.ENTREGUE);
+        }
         itemPedidoRepository.save(item);
+        conferirStatusPedido(item.getPedido());
+    }
+
+    public void conferirStatusPedido(Pedido pedido) {
+        List<ItemPedido> itens = itemPedidoRepository.findByPedido(pedido);
+        boolean itensEntregues = pedido.getItens().stream().allMatch(i -> i.getStatusItem() == StatusItemPedido.ENTREGUE);
+        if(itensEntregues){
+            pedido.setStatus(StatusPedido.ENTREGUE);
+            pedidoRepository.save(pedido);
+        }
     }
 }

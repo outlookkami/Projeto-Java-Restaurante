@@ -33,7 +33,6 @@
                             <button type="submit" name="acao" value="INICIAR" class="btn-status iniciar" th:if="${itemPedido.statusItem.name() == 'ENVIADO'}">Iniciar</button>
                             <button type="submit" name="acao" value="FINALIZAR" class="btn-status preparando" th:if="${itemPedido.statusItem.name() == 'EM_PREPARO'}">Finalizar</button>
                         </form>
-
                     </div>
                 </div>
                 <hr>
@@ -76,8 +75,6 @@
     padding: 5px;
     display: flex;
     flex-direction: column;
-    /*justify-content: space-between;*/
-    /*align-items: center;*/
 }
 
 .header-info {
@@ -103,13 +100,15 @@
     justify-content: space-between;
     align-items: center;
     font-size: 18px;
+    margin-bottom: 7px;
 }
 
 .btn-status {
     border: none;
     border-radius: 5px;
-    padding: 6px 8px;
+    padding: 6px;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .iniciar {

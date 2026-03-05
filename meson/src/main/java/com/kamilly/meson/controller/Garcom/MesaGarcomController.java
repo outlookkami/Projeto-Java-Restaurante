@@ -3,16 +3,11 @@ package com.kamilly.meson.controller.Garcom;
 import com.kamilly.meson.dto.response.ComandaResDTO;
 import com.kamilly.meson.model.*;
 import com.kamilly.meson.model.enums.StatusComanda;
-import com.kamilly.meson.service.ComandaService;
-import com.kamilly.meson.service.MesaService;
-import com.kamilly.meson.service.PedidoService;
-import com.kamilly.meson.service.UsuarioService;
+import com.kamilly.meson.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +23,7 @@ public class MesaGarcomController {
     private final UsuarioService usuarioService;
     private final ComandaService comandaService;
     private final PedidoService pedidoService;
+    private final ItemPedidoService itemPedidoService;
 
     @GetMapping
     public String listarMesas(Model model){
@@ -65,6 +61,12 @@ public class MesaGarcomController {
         model.addAttribute("mesa", mesa);
         model.addAttribute("comandas", comandas);
         return "garcom/mesas/detalheMesa :: detalheMesa";
+    }
+
+    @PostMapping("/item/{id}/status")
+    public String atualizarStatusItem(@PathVariable Long id, @RequestParam String acao) {
+        itemPedidoService.atualizarStatus(id, acao);
+        return "redirect:/garcom/mesas";
     }
 
 //    @GetMapping("/{id}")

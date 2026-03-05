@@ -1,14 +1,18 @@
 <div th:fragment="detalheComanda" xmlns:th="http://www.w3.org/1999/xhtml">
     <!-- Listagem dos Pedidos da Comanda -->
     <h3 th:text="'Mesa ' + ${comanda.mesa.numero} + ' - '+ ${comanda.nomeCliente}"></h3>
-    <p>Valor Total: <span th:text="'R$ ' + ${comanda.valor}"></span></p>
-    <span><button type="button" class="btn-trocar-mesa" th:onclick="'abrirModalTrocarMesa(' + ${comanda.id} + ')'">Trocar Mesa</button></span>
+    <div class="info-topo">
+        <p>Valor Total: <span th:text="'R$ ' + ${comanda.valor}"></span></p>
+        <span><button type="button" class="btn-trocar-mesa" th:onclick="'abrirModalTrocarMesa(' + ${comanda.id} + ')'">Trocar Mesa</button></span>
+    </div>
     <hr>
+
     <h4>Pedidos</h4>
     <div class="header-detalhe">
         <span th:text="'Pedidos abertos: ' + ${pedidosComanda[comanda.id] != null ? #lists.size(pedidosComanda[comanda.id]) : 0}"></span>
         <button type="button" th:onclick="'abrirModalPedido(' + ${comanda.id} + ')'" class="btn-novo-pedido">+ Novo Pedido</button>
     </div>
+
     <div class="card-pedido" th:each="pedido : ${pedidosComanda[comanda.id]}" >
         <div style="display: flex; justify-content: space-between">
             <p th:text="${pedido.status}" class="status-pedido" th:classappend="${pedido.status.name().toLowerCase()}"></p>
@@ -17,8 +21,13 @@
         <hr>
         <div th:each="itemPedido : ${pedido.itens}" style="display: flex; justify-content: space-between">
             <p th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></p>
-            <span th:text="${itemPedido.subtotal}"></span>
+            <span th:text="'R$ ' + ${itemPedido.subtotal}"></span>
             <p th:text="${itemPedido.statusItem}"></p>
+            <form th:action="@{/garcom/mesas/item/{id}/status(id=${itemPedido.id})}" method="post" class="botoes">
+                <button type="submit" name="acao" value="ENTREGAR" class="btn-status entregue" th:if="${itemPedido.statusItem.name() == 'EM_PREPARO' or itemPedido.statusItem.name() == 'PRONTO'}">
+                    <img th:src="@{/assets/icone-entrega-pedido.png}" width="18px" alt="">
+                </button>
+            </form>
         </div>
     </div>
 

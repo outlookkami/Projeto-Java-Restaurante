@@ -102,6 +102,13 @@ public class PedidoService {
         return pedidoRepository.listarPedidosCozinha(restaurante);
     }
 
+    public void atualizarStatus(Long pedidoId, String acao) {
+        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow();
+//        if () {
+//
+//        }
+    }
+
 //    BigDecimal totalPedido = itemPedido.stream();
 //    public BigDecimal totalPedido(List<ItemPedido> itensPedidos) {
 //        BigDecimal totalPedido = itensPedidos.stream();
