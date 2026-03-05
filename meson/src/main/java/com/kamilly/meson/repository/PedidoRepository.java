@@ -39,11 +39,22 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     Integer buscarUltimoNumeroDia(LocalDate hoje);
 
     @Query("""
-           SELECT DISTINCT p FROM Pedido p 
+           SELECT DISTINCT p 
+           FROM Pedido p 
            LEFT JOIN FETCH p.itens i
            WHERE i.statusItem IN ('ENVIADO', 'EM_PREPARO')
            ORDER BY p.dataCriacao ASC
            """)
     List<Pedido> buscarPedidosParaCozinha(List<StatusPedido> status);
+
+    @Query("""
+           SELECT DISTINCT p 
+           FROM Pedido p 
+           LEFT JOIN FETCH p.itens 
+           WHERE p.restaurante = :restaurante
+           AND p.status = 'ENVIADO'
+           """)
+    List<Pedido> listarPedidosCozinha(Restaurante restaurante);
+
 
 }

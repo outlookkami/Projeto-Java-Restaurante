@@ -12,32 +12,33 @@
             <h1>Pedidos</h1>
         </header>
         <div class="cozinha">
-            <div class="card-cozinha" th:each="pedido : ${pedidos}" th:if="${#lists.size(pedido.itens.?[statusItem.name() != 'PRONTO']) > 0}">
+            <div class="card-cozinha" th:each="pedido : ${pedidos}" th:if="${itensRestantes[pedido.id] > 0}">
                 <div class="header-card">
-                    <span class="titulo-mesa" style="color: #fbfaf9;">MESA</span>
-                    <h3 th:text="${pedido.comanda.mesa.numero}"></h3>
+                    <div class="header-mesa">
+                        <span class="titulo-mesa">MESA</span>
+                        <h3 th:text="${pedido.comanda.mesa.numero}" style="font-family: 'Playfair Display';"></h3>
+                    </div>
+                    <div class="header-info">
+                        <span th:text="${#temporals.format(pedido.dataCriacao, 'HH:mm')}" style="color: #ccb8a5;"></span>
+                        <strong th:text="'#' + ${pedido.numeroDia}"></strong>
+                    </div>
                 </div>
-                <div class="header-info">
-                    <span th:text="${#temporals.format(pedido.dataCriacao, 'HH:mm')}" style="color: #fbfaf9;"></span>
-                    <span th:text="'#' + ${pedido.numeroDia}"></span>
-                </div>
-
                 <div class="conteudo-card">
                     <div class="item" th:each="itemPedido : ${pedido.itens}" th:if="${itemPedido}">
                         <div>
                             <strong th:text="${itemPedido.quantidade} + 'x ' + ${itemPedido.produto.nome}"></strong>
                         </div>
 
-                        <form th:action="@{/cozinha/item/{id}/status(id=${itemPedido.id})}" class="botoes">
-                            <button type="submit" name="acao" value="INICIAR" class="btn-status iniciar" th:if="${item.status.name() == 'ENVIADO'}">Iniciar</button>
-                            <button type="submit" name="acao" value="FINALIZAR" class="btn-status preparando" th:if="${item.status.name() == 'EM_PREPARO'}">Finalizar</button>
+                        <form th:action="@{/cozinha/pedidos/item/{id}/status(id=${itemPedido.id})}" method="post" class="botoes">
+                            <button type="submit" name="acao" value="INICIAR" class="btn-status iniciar" th:if="${itemPedido.statusItem.name() == 'ENVIADO'}">Iniciar</button>
+                            <button type="submit" name="acao" value="FINALIZAR" class="btn-status preparando" th:if="${itemPedido.statusItem.name() == 'EM_PREPARO'}">Finalizar</button>
                         </form>
 
                     </div>
                 </div>
                 <hr>
                 <div class="footer-card">
-                    <span th:text="${#lists.size(pedido.itens.?[statusItem.name() != 'PRONTO'])} + ' itens restantes'"></span>
+                    <span th:text="${itensRestantes[pedido.id]} + ' itens restantes'"></span>
                 </div>
             </div>
         </div>
@@ -46,23 +47,53 @@
 </div>
 
 <style>
+
+.cozinha {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 2fr));
+    gap: 20px;
+}
+
 .card-cozinha {
     display: flex;
     flex-direction: column;
+    border: solid 1px transparent;
     border-radius: 20px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-.header-card{
+.header-card {
+    display: flex;
+    background-color: #5c2f24;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.header-mesa {
     background-color: #5c2f24;
     color: #ffffff;
     padding: 5px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
 }
 
-.conteudo-card{
+.header-info {
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter';
+}
+
+.titulo-mesa {
+    color: #ccb8a5;
+    font-size: 14px;
+    font-family: 'Dm Sans', 'Inter', Arial;
+}
+
+.conteudo-card {
     background-color: #ffffff;
     padding: 5px;
 }
@@ -99,7 +130,6 @@
 .footer-card {
     background-color: #fafaf9;
     color: #616a7d;
-    padding: 14px;
     text-align: center;
 }
 </style>

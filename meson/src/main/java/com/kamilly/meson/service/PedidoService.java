@@ -98,6 +98,9 @@ public class PedidoService {
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado."));
     }
 
+    public List<Pedido> listarPedidosCozinha(Restaurante restaurante) {
+        return pedidoRepository.listarPedidosCozinha(restaurante);
+    }
 
 //    BigDecimal totalPedido = itemPedido.stream();
 //    public BigDecimal totalPedido(List<ItemPedido> itensPedidos) {
