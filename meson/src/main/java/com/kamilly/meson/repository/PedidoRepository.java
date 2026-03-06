@@ -18,6 +18,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     List<Pedido> findAllByComandaAndRestaurante(Comanda comanda, Restaurante restaurante);
 
+    List<Pedido> findByComandaId(Long comandaId);
+
     List<Pedido> findAllByRestauranteAndStatus(Restaurante restaurante, StatusPedido statusPedido);
 
     Optional<Pedido> findByIdAndRestaurante(Long id, Restaurante restaurante);
@@ -42,10 +44,11 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
            SELECT DISTINCT p 
            FROM Pedido p 
            LEFT JOIN FETCH p.itens i
-           WHERE i.statusItem IN ('ENVIADO', 'EM_PREPARO')
+           WHERE p.restaurante = :restaurante
+           AND p.status = 'ENVIADO' 
            ORDER BY p.dataCriacao ASC
            """)
-    List<Pedido> buscarPedidosParaCozinha(List<StatusPedido> status);
+    List<Pedido> listarPedidosParaCozinha(Restaurante restaurante);
 
     @Query("""
            SELECT DISTINCT p 

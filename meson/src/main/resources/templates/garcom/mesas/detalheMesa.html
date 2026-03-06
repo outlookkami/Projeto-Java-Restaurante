@@ -14,7 +14,7 @@
         </div>
         <div class="div-btn-fechar-comanda">
             <button type="button" class="btn-ver-detalhes" th:onclick="'abrirModalDetalheComanda(' + ${comanda.id} + ')'">Ver Detalhes</button>
-            <button class="btn-fechar-comanda">Fechar Comanda</button>
+            <button class="btn-fechar-comanda" th:onclick="'abrirModalFechamentoComanda(' + ${comanda.id} +')'">Fechar Comanda</button>
         </div>
     </div>
 

@@ -24,6 +24,7 @@ public class ComandaGarcomController {
     private final PedidoService pedidoService;
     private final ProdutoService produtoService;
     private final CategoriaService categoriaService;
+    private final ItemPedidoService itemPedidoService;
 
     @GetMapping
     public String listarComandas(Model model) {
@@ -62,6 +63,16 @@ public class ComandaGarcomController {
     public String trocaMesaComanda(@RequestParam Long comandaId, @RequestParam Long novaMesaId, Model model) {
         comandaService.trocarMesa(comandaId, novaMesaId);
         return "redirect:/garcom/mesas";
+    }
+
+    @GetMapping("/{id}/fechamento")
+    public String fechamentoComanda(@PathVariable Long id, Model model) {
+        Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        Comanda comanda = comandaService.buscarComandaPorId(id, restaurante);
+        List<ItemPedido> itens = comandaService.listarItensComanda(id);
+        model.addAttribute("itens", itens);
+        model.addAttribute("restaurante", restaurante);
+        return "garcom/comandas/fechamentoComanda";
     }
 
 //    @GetMapping("/{id}/novo-pedido")

@@ -3,8 +3,11 @@ package com.kamilly.meson.model;
 import com.kamilly.meson.model.enums.StatusItemPedido;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,6 +44,19 @@ public class ItemPedido {
 
     @Column(name = "obs_item_pedido")
     private String obsItemPedido;
+
+    @CreationTimestamp
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "data_preparo")
+    private LocalDateTime dataPreparo;
+
+    @Column(name = "data_pronto")
+    private LocalDateTime dataPronto;
+
+    @Column(name = "data_entrega")
+    private LocalDateTime dataEntrega;
 
     public BigDecimal calcularSubtotal() {
         return precoUnitario.multiply(BigDecimal.valueOf(quantidade));

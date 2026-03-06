@@ -42,6 +42,17 @@ function abrirModalDetalheComanda(comandaId) {
         });
 }
 
+// Modal Fechamento de Comanda
+function abrirModalFechamentoComanda(comandaId) {
+    const url = `/garcom/comandas/${comandaId}/fechamento`;
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("modalConteudo").innerHTML = html;
+            document.getElementById("modalPrincipal").style.display = "block";
+        });
+}
+
 // Modal Trocar Mesa
 function abrirModalTrocarMesa(comandaId){
     document.getElementById("comandaIdInputTroca").value = comandaId;

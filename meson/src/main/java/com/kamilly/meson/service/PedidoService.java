@@ -1,7 +1,6 @@
 package com.kamilly.meson.service;
 
 import com.kamilly.meson.model.*;
-import com.kamilly.meson.model.enums.StatusComanda;
 import com.kamilly.meson.model.enums.StatusItemPedido;
 import com.kamilly.meson.model.enums.StatusPedido;
 import com.kamilly.meson.repository.ComandaRepository;
@@ -61,6 +60,7 @@ public class PedidoService {
         itemPedido.setQuantidade(quantidade);
         itemPedido.setPrecoUnitario(precoUnitario);
         itemPedido.setSubtotal(subtotal);
+        itemPedido.setDataCriacao(LocalDateTime.now());
         itemPedido.setStatusItem(StatusItemPedido.ENVIADO);
         if (observacao != null && observacao.isBlank()) {
             observacao = null;
@@ -102,22 +102,11 @@ public class PedidoService {
         return pedidoRepository.listarPedidosCozinha(restaurante);
     }
 
-    public void atualizarStatus(Long pedidoId, String acao) {
-        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow();
-//        if () {
-//
-//        }
-    }
 
-//    BigDecimal totalPedido = itemPedido.stream();
-//    public BigDecimal totalPedido(List<ItemPedido> itensPedidos) {
-//        BigDecimal totalPedido = itensPedidos.stream();
-//        return itensPedidos.stream()
-//                .mapToDouble(ip -> ip.getPrecoUnitario() * ip.getQuantidade())
-//                .sum();
-//    }
+
+//    public void listarPedidosComanda(Long comandaId) {
+//        List<Pedido> pedidos = pedidoRepository.findByComandaId(comandaId);
 //
-//    public BigDecimal adicionar10PorCento(){
-//        return null;
+//        List<ItemPedido> itens = pedidos.stream().flatMap(p -> p.getItens().stream()).toList();
 //    }
 }

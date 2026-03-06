@@ -3,15 +3,12 @@ package com.kamilly.meson.service;
 import com.kamilly.meson.dto.response.ComandaResDTO;
 import com.kamilly.meson.dto.response.ItemPedidoResDTO;
 import com.kamilly.meson.dto.response.PedidoResDTO;
-import com.kamilly.meson.model.Comanda;
-import com.kamilly.meson.model.Mesa;
-import com.kamilly.meson.model.Pedido;
-import com.kamilly.meson.model.Restaurante;
+import com.kamilly.meson.model.*;
 import com.kamilly.meson.model.enums.StatusComanda;
 import com.kamilly.meson.model.enums.StatusMesa;
 import com.kamilly.meson.repository.ComandaRepository;
+import com.kamilly.meson.repository.ItemPedidoRepository;
 import com.kamilly.meson.repository.MesaRepository;
-import com.kamilly.meson.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +24,7 @@ public class ComandaService {
 
     private final ComandaRepository comandaRepository;
     private final MesaRepository mesaRepository;
-    private final UsuarioService usuarioService;
+    private final ItemPedidoRepository itemPedidoRepository;
 
     @Transactional(readOnly = true)
     public List<ComandaResDTO> buscarComandasAbertasMesa(Long mesaId, Restaurante restaurante) {
@@ -120,6 +117,10 @@ public class ComandaService {
             mesaAntiga.setStatus(StatusMesa.DISPONIVEL);
             mesaRepository.save(mesaAntiga);
         }
+    }
+
+    public List<ItemPedido> listarItensComanda(Long comandaId) {
+        return itemPedidoRepository.findByPedidoComandaId(comandaId);
     }
 
 //    public void salvarComanda(Comanda comanda, Restaurante restaurante){
