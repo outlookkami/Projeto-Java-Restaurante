@@ -1,14 +1,12 @@
 package com.kamilly.meson.controller.Garcom;
 
 import com.kamilly.meson.model.*;
-import com.kamilly.meson.model.enums.StatusMesa;
 import com.kamilly.meson.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +53,6 @@ public class ComandaGarcomController {
         model.addAttribute("pedidosComanda", pedidosComanda);
         model.addAttribute("categorias", categoriaService.listarCategorias(restaurante));
         model.addAttribute("produtos", produtoService.listarProdutos(restaurante));
-//        model.addAttribute("valor", comandaService.atualizarValorComanda(comanda));
         return "garcom/comandas/detalheComanda";
     }
 
@@ -72,23 +69,13 @@ public class ComandaGarcomController {
         List<ItemPedido> itens = comandaService.listarItensComanda(id);
         model.addAttribute("itens", itens);
         model.addAttribute("restaurante", restaurante);
+        model.addAttribute("comanda", comanda);
         return "garcom/comandas/fechamentoComanda";
     }
 
-//    @GetMapping("/{id}/novo-pedido")
-//    public String novoPedido(@PathVariable Long id, Model model) {
-//        Restaurante restaurante =  usuarioService.getUsuarioLogado().getRestaurante();
-//        Comanda comanda = comandaService.buscarComandaPorId(id, restaurante);
-//        List<Produto> produtos = produtoService.listarProdutos(restaurante);
-//        Pedido pedido = new Pedido();
-//        pedido.setComanda(comanda);
-//        ItemPedido itemPedido = new ItemPedido();
-//        itemPedido.setPedido(pedido);
-//        pedido.setItens(new ArrayList<>());
-//        pedido.getItens().add(itemPedido);
-//        model.addAttribute("pedidos", pedido);
-//        model.addAttribute("produtos", produtos);
-//        return "garcom/mesas";
+//    @PostMapping("")
+//    public String fecharComanda() {
+//
 //    }
 
 }

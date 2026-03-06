@@ -40,15 +40,6 @@
     </div>
 </div>
 
-
-<!--<div class="modal" id="modalNovoPedido">-->
-<!--    <div class="modal-conteudo">-->
-<!--        <span class="fechar" onclick="fecharModalComanda()">&times;</span>-->
-<!--        <h3>Novo Pedido</h3>-->
-
-<!--    </div>-->
-<!--</div>-->
-
 <style>
     * {
     margin: 0;
@@ -315,6 +306,58 @@
     margin-top: 10px;
 }
 
+.modal-fechamento{
+    width: 500px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nota-fiscal {
+    width: 420px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: monospace;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header-nota {
+    text-align:center;
+}
+
+.nota-fiscal hr {
+    border-top: 1px dashed #000000;
+}
+
+.tabela-itens {
+    width:100%;
+    border-collapse: collapse;
+}
+
+.tabela-itens th,
+.tabela-itens td {
+    padding:6px;
+    font-size:14px;
+}
+
+.tabela-itens th{
+    border-bottom:1px solid #ccc;
+}
+
+
+.totais {
+    text-align: right;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.footer-nota{
+    text-align:center;
+    font-size:12px;
+}
 </style>
 </body>
 </html>

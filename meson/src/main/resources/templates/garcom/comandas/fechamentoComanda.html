@@ -1,70 +1,65 @@
-<div th:fragment="detalheComanda" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="fechamentoComanda" style="width:600px;" xmlns:th="http://www.w3.org/1999/xhtml">
     <!-- Nota Fiscal Comanda -->
-    <div class="modal" id="fechamentoComandaModal">
-        <div>
-            <div class="modal-conteudo">
+    <div class="modal-conteudo modal-fechamento">
+        <div class="nota-fiscal">
+            <div class="header-nota">
+                <h5 th:text="${restaurante.nomeFantasia}"></h5>
+                <p>CNPJ: <span th:text="${restaurante.cnpj}"></span></p>
+                <p>Telefone: <span th:text="${restaurante.telefone}"></span></p>
+            </div>
 
-                <div class="nota-fiscal">
-                    <div class="header-nota">
-                        <h5 th:text="${restaurante.nome}"></h5>
-                        <p>CNPJ: <span th:text="${restaurante.cnpj}"></span></p>
-                        <p>Telefone: <span th:text="${restaurante.telefone}"></span></p>
-                    </div>
+            <hr>
 
-                    <hr>
+            <div>
+                <p>Comanda: <span th:text="${comanda.id}"></span></p>
+                <p>Mesa: <span th:text="${comanda.mesa.numero}"></span></p>
+                <p>Data: <span th:text="${#temporals.format(comanda.dataAbertura,'dd/MM/yyyy HH:mm')}"></span></p>
+            </div>
 
-                    <div>
-                        <p>Comanda: <span th:text="${comanda.id}"></span></p>
-                        <p>Mesa: <span th:text="${comanda.mesa.numero}"></span></p>
-                        <p>Data: <span th:text="${#temporals.format(comanda.dataAbertura,'dd/MM/yyyy HH:mm')}"></span></p>
-                    </div>
+            <hr>
 
-                    <hr>
+            <table class="tabela-itens">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qtd</th>
+                        <th>Vl. Unit</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
 
-                    <table class="tabela-itens">
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Qtd</th>
-                                <th>Vl. Unit</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
+                <tbody>
+                    <tr th:each="itemPedido : ${itens}">
+                        <td th:text="${itemPedido.produto.nome}"></td>
+                        <td th:text="${itemPedido.quantidade}"></td>
+                        <td th:text="${itemPedido.produto.preco}"></td>
+                        <td th:text="${itemPedido.calcularSubtotal()}"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-                        <tbody>
-                            <tr th:each="itemPedido : ${comanda.itens}">
-                                <td th:text="${itemPedido.nome}"></td>
-                                <td th:text="${itemPedido.quantidade}"></td>
-                                <td th:text="${itemPedido.produto.preco}"></td>
-                                <td th:text="${itemPedido.calcularSubtotal()}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <hr>
 
-                    <hr>
+            <div class="totais">
+                <p>TOTAL R$ <span th:text="${comanda.valor}"></span></p>
+            </div>
 
-                    <div class="totais">
-                        <p>TOTAL R$ <span th:text="${comanda.valor}"></span></p>
-                    </div>
+            <hr>
 
-                    <hr>
-
-                    <div class="footer-nota">
-                        <div class="rodape text-center">
-                            <p>Documento sem valor fiscal</p>
-                            <p>Obrigado pela preferência!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-modal">
-                    <form th:action="@{/comandas/fechar}" method="post">
-                        <input type="hidden" name="comandaId" th:value="${comanda.id}">
-                        <button class="btn-confirmar">Confirmar fechamento</button>
-                        <button class="btn-cancelar">Cancelar</button>
-                    </form>
+            <div class="footer-nota">
+                <div>
+                    <p>Documento sem valor fiscal</p>
+                    <p>Obrigado pela preferência!</p>
                 </div>
             </div>
+        </div>
+
+        <div class="footer-modal">
+            <form th:action="@{/garcom/comandas/{id}/fechamento(id=${comanda.id})}" method="post">
+                <input type="hidden" name="comandaId" th:value="${comanda.id}">
+                <button class="btn-confirmar" style="width: 180px;">Confirmar fechamento</button>
+                <button class="btn-cancelar">Cancelar</button>
+            </form>
         </div>
     </div>
 </div>
