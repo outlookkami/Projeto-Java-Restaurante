@@ -4,7 +4,7 @@
   <th:block th:replace="~{fragments/head :: head('Dashboard Admin')}"></th:block>
 </head>
 <body>
-<div>
+<div class="layout">
   <aside th:replace="~{fragments/menu-lateral-admin :: menu-lateral}"></aside>
   <main class="content">
     <header class="header">
@@ -14,7 +14,6 @@
       <div class="card-info">
         <img src="" alt="">
         <div>
-          <strong th:text="${}"></strong>
           <p>Faturamento total</p>
         </div>
       </div>
@@ -22,7 +21,6 @@
       <div class="card-info">
         <img src="" alt="">
         <div>
-          <strong th:text="${}"></strong>
           <p>Comandas abertas</p>
         </div>
       </div>
@@ -30,7 +28,6 @@
       <div class="card-info">
         <img src="" alt="">
         <div>
-          <strong th:text="${}"></strong>
           <p>Pedidos realizados</p>
         </div>
       </div>
@@ -38,29 +35,74 @@
 
     <div>
       <h3>Ver Relatórios</h3>
-      
-      <button>Produtos mais vendidos</button>
-      <button>Análise de vendas</button>
-      <button>Faturamento por produto</button>
+        <div class="gerar-relatorio">
+            <h5>Produtos mais vendidos</h5>
+            <form th:action="@{/admin/dashboard/relatorios/produtos-mais-vendidos}" method="get" class="form-periodo">
+
+                <input type="date" name="inicio" required>
+                <input type="date" name="fim" required>
+
+                <button type="submit" class="btn-gerar">Gerar PDF</button>
+            </form>
+        </div>
+
+      <h5>Análise de vendas</h5>
+      <h5>Faturamento por produto</h5>
     </div>
 
   </main>
 </div>
 
 <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Dm Sans', 'Inter', Arial, sans-serif;
+}
 
 .cards-dashboard{
-  display: flex;
-  gap: 24px;
-  justify-content: space-between;
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .card-info{
-  display: flex;
-  border-radius: 20px;
-
+    background-color: #ffffff;
+    padding: 10px;
+    display: flex;
+    border-radius: 20px;
 }
 
+h3 {
+    font-family: 'Playfair Display', 'DM Sans', 'Inter', Arial;
+}
+
+.gerar-relatorio {
+    margin: 16px 0;
+}
+
+.form-periodo {
+    margin: 10px 0;
+}
+
+.btn-gerar {
+    background-color: #567568;
+    color: #ffffff;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.btn-gerar :hover {
+    opacity: 0.9;
+}
+
+h5 {
+    font-family: 'Dm Sans', 'Inter', Arial;
+}
 
 </style>
 </body>

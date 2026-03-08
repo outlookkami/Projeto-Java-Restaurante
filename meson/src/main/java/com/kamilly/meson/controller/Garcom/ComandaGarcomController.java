@@ -22,7 +22,6 @@ public class ComandaGarcomController {
     private final PedidoService pedidoService;
     private final ProdutoService produtoService;
     private final CategoriaService categoriaService;
-    private final ItemPedidoService itemPedidoService;
 
     @GetMapping
     public String listarComandas(Model model) {
@@ -73,9 +72,11 @@ public class ComandaGarcomController {
         return "garcom/comandas/fechamentoComanda";
     }
 
-//    @PostMapping("")
-//    public String fecharComanda() {
-//
-//    }
-
+    @PostMapping("/{id}/fechamento")
+    public String fecharComanda(@PathVariable Long id) {
+        Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        comandaService.buscarComandaPorId(id, restaurante);
+        comandaService.fecharComanda(id);
+        return "redirect:/garcom/mesas";
+    }
 }

@@ -86,6 +86,7 @@ public class ComandaService {
     public void fecharComanda(Long comandaId) {
         Comanda comanda = comandaRepository.findById(comandaId).orElseThrow();
         comanda.setStatus(StatusComanda.FINALIZADA);
+        comanda.setDataFechamento(LocalDateTime.now());
         Mesa mesa = comanda.getMesa();
         boolean existeOutraComandaAberta = comandaRepository.existsByMesaIdAndStatus(mesa.getId(),  StatusComanda.ABERTA);
 

@@ -42,7 +42,6 @@ public class Comanda {
     @Column(name = "data_abertura")
     private LocalDateTime dataAbertura;
 
-    @UpdateTimestamp
     @Column(name = "data_fechamento")
     private LocalDateTime dataFechamento;
 

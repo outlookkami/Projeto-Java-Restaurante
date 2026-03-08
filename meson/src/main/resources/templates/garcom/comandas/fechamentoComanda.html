@@ -57,9 +57,14 @@
         <div class="footer-modal">
             <form th:action="@{/garcom/comandas/{id}/fechamento(id=${comanda.id})}" method="post">
                 <input type="hidden" name="comandaId" th:value="${comanda.id}">
-                <button class="btn-confirmar" style="width: 180px;">Confirmar fechamento</button>
+                <button type="submit" class="btn-confirmar" style="width: 180px;">Confirmar fechamento</button>
                 <button class="btn-cancelar">Cancelar</button>
             </form>
+
+<!--            <div>-->
+<!--                <button type="" class="btn-confirmar" style="width: 180px;">Confirmar fechamento</button>-->
+<!--                <button class="btn-cancelar">Cancelar</button>-->
+<!--            </div>-->
         </div>
     </div>
 </div>
