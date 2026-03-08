@@ -54,12 +54,15 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/cnpj/**").permitAll()
                         .requestMatchers(
                                 "/login",
                                 "/cadastro/**",
                                 "/css/**",
                                 "/js/**",
-                                "/api/**",
+                                "/assets/**",
+//                                "/api/**",
+//                                "/api/cnpj/**",
                                 "/funcionarios/**"
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
