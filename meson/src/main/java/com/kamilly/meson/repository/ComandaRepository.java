@@ -23,6 +23,8 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long>{
 
     List<Comanda> findAllByRestauranteAndStatus(Restaurante restaurante, StatusComanda statusComanda);
 
+    long countByStatusAndRestaurante(StatusComanda status, Restaurante restaurante);
+
     boolean existsByMesaIdAndStatus(Long mesaId, StatusComanda status);
 
     @Query("""
@@ -37,4 +39,6 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long>{
             @Param("mesa") Mesa mesa,
             @Param("restaurante") Restaurante restaurante,
             @Param("status") StatusComanda status);
+
+
 }

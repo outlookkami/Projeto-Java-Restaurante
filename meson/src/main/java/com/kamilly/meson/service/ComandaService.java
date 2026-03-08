@@ -124,8 +124,7 @@ public class ComandaService {
         return itemPedidoRepository.findByPedidoComandaId(comandaId);
     }
 
-//    public void salvarComanda(Comanda comanda, Restaurante restaurante){
-//        comanda.setRestaurante(restaurante);
-//        comandaRepository.save(comanda);
-//    }
+    public long contarComandasAbertas(Restaurante restaurante) {
+        return comandaRepository.countByStatusAndRestaurante(StatusComanda.ABERTA, restaurante);
+    }
 }

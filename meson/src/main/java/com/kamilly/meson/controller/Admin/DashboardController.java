@@ -1,8 +1,12 @@
 package com.kamilly.meson.controller.Admin;
 
 import com.kamilly.meson.dto.response.ProdutoMaisVendidoDTO;
+import com.kamilly.meson.model.Comanda;
+import com.kamilly.meson.model.Restaurante;
+import com.kamilly.meson.service.ComandaService;
 import com.kamilly.meson.service.RelatorioPdfService;
 import com.kamilly.meson.service.RelatorioService;
+import com.kamilly.meson.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +26,14 @@ public class DashboardController {
 
     private final RelatorioService relatorioService;
     private final RelatorioPdfService relatorioPdfService;
+    private final ComandaService comandaService;
+    private final UsuarioService usuarioService;
 
     @GetMapping
     public String exibirDashboard(Model model){
-
+        Restaurante restaurante = usuarioService.getUsuarioLogado().getRestaurante();
+        Long comandasAbertas = comandaService.contarComandasAbertas(restaurante);
+        model.addAttribute("comandasAbertas", comandasAbertas);
         return "admin/dashboard";
     }
 

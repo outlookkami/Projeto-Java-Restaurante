@@ -12,21 +12,23 @@
     </header>
     <div class="cards-dashboard">
       <div class="card-info">
-        <img src="" alt="">
+        <img th:src="@{/assets/icone-faturamento-dashboard.png}" alt="">
         <div>
+<!--          <strong th:text="${}"></strong>-->
           <p>Faturamento total</p>
         </div>
       </div>
 
       <div class="card-info">
-        <img src="" alt="">
+        <img th:src="@{/assets/icone-comandas-dashboard.png}" alt="">
         <div>
+          <strong th:text="${comandasAbertas}"></strong>
           <p>Comandas abertas</p>
         </div>
       </div>
 
       <div class="card-info">
-        <img src="" alt="">
+        <img th:src="@{/assets/icone-pedidos-dashboard.png}" alt="">
         <div>
           <p>Pedidos realizados</p>
         </div>
@@ -46,8 +48,28 @@
             </form>
         </div>
 
-      <h5>Análise de vendas</h5>
-      <h5>Faturamento por produto</h5>
+        <div class="gerar-relatorio">
+          <h5>Análise de vendas</h5>
+          <form th:action="@{/admin/dashboard/relatorios/}" method="get" class="form-periodo">
+
+            <input type="date" name="inicio" required>
+            <input type="date" name="fim" required>
+
+            <button type="submit" class="btn-gerar">Gerar PDF</button>
+          </form>
+        </div>
+
+        <div class="gerar-relatorio">
+          <h5>Faturamento por produto</h5>
+          <form th:action="@{/admin/dashboard/relatorios/}" method="get" class="form-periodo">
+
+            <input type="date" name="inicio" required>
+            <input type="date" name="fim" required>
+
+            <button type="submit" class="btn-gerar">Gerar PDF</button>
+          </form>
+        </div>
+
     </div>
 
   </main>
