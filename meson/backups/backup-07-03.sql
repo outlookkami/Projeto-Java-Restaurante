@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 5IWPgtLaEpQ9fyoCH0Xv42VahmWIUeKmccNdlUsviqZLrO5Lmrvw9EJT3bIKjur
+\restrict 9pECLkIr19XZrdOE1DJnTY9ouKwiniFSkPAveL7p5jl4b3DKJCWQd2PeF8yuDN0
 
 -- Dumped from database version 15.17 (Debian 15.17-1.pgdg13+1)
 -- Dumped by pg_dump version 15.17 (Debian 15.17-1.pgdg13+1)
@@ -63,7 +63,7 @@ CREATE TABLE public.comandas (
     valor_comanda numeric(38,2) NOT NULL,
     id_mesa bigint NOT NULL,
     id_restaurante integer NOT NULL,
-    CONSTRAINT comandas_status_check CHECK (((status)::text = ANY (ARRAY[('ABERTA'::character varying)::text, ('FINALIZADA'::character varying)::text])))
+    CONSTRAINT comandas_status_check CHECK (((status)::text = ANY ((ARRAY['ABERTA'::character varying, 'FINALIZADA'::character varying])::text[])))
 );
 
 
@@ -100,7 +100,7 @@ CREATE TABLE public.itens_pedido (
     data_entrega timestamp(6) without time zone,
     data_preparo timestamp(6) without time zone,
     data_pronto timestamp(6) without time zone,
-    CONSTRAINT itens_pedido_status_item_check CHECK (((status_item)::text = ANY (ARRAY[('ENVIADO'::character varying)::text, ('EM_PREPARO'::character varying)::text, ('PRONTO'::character varying)::text, ('ENTREGUE'::character varying)::text])))
+    CONSTRAINT itens_pedido_status_item_check CHECK (((status_item)::text = ANY ((ARRAY['ENVIADO'::character varying, 'EM_PREPARO'::character varying, 'PRONTO'::character varying, 'ENTREGUE'::character varying])::text[])))
 );
 
 
@@ -132,7 +132,7 @@ CREATE TABLE public.mesas (
     posicao_y integer,
     status character varying(255),
     id_restaurante integer NOT NULL,
-    CONSTRAINT mesas_status_check CHECK (((status)::text = ANY (ARRAY[('DISPONIVEL'::character varying)::text, ('OCUPADA'::character varying)::text])))
+    CONSTRAINT mesas_status_check CHECK (((status)::text = ANY ((ARRAY['DISPONIVEL'::character varying, 'OCUPADA'::character varying])::text[])))
 );
 
 
@@ -169,7 +169,7 @@ CREATE TABLE public.pedidos (
     id_comanda bigint NOT NULL,
     id_usuario bigint NOT NULL,
     id_restaurante integer NOT NULL,
-    CONSTRAINT pedidos_status_check CHECK (((status)::text = ANY (ARRAY[('ENVIADO'::character varying)::text, ('ENTREGUE'::character varying)::text])))
+    CONSTRAINT pedidos_status_check CHECK (((status)::text = ANY ((ARRAY['ENVIADO'::character varying, 'ENTREGUE'::character varying])::text[])))
 );
 
 
@@ -236,7 +236,7 @@ CREATE TABLE public.restaurante (
     razao_social character varying(100),
     status character varying(255),
     telefone_restaurante character varying(14),
-    CONSTRAINT restaurante_status_check CHECK (((status)::text = ANY (ARRAY[('PENDENTE'::character varying)::text, ('APROVADO'::character varying)::text, ('RECUSADO'::character varying)::text])))
+    CONSTRAINT restaurante_status_check CHECK (((status)::text = ANY ((ARRAY['PENDENTE'::character varying, 'APROVADO'::character varying, 'RECUSADO'::character varying])::text[])))
 );
 
 
@@ -270,7 +270,7 @@ CREATE TABLE public.usuarios (
     senha_usuario character varying(255) NOT NULL,
     trocar_senha boolean,
     id_restaurante integer NOT NULL,
-    CONSTRAINT usuarios_perfil_usuario_check CHECK (((perfil_usuario)::text = ANY (ARRAY[('ADMIN_GERAL'::character varying)::text, ('ADMIN'::character varying)::text, ('GARCOM'::character varying)::text, ('COZINHA'::character varying)::text])))
+    CONSTRAINT usuarios_perfil_usuario_check CHECK (((perfil_usuario)::text = ANY ((ARRAY['ADMIN_GERAL'::character varying, 'ADMIN'::character varying, 'GARCOM'::character varying, 'COZINHA'::character varying])::text[])))
 );
 
 
@@ -298,9 +298,6 @@ COPY public.categoria_produto (id_categoria, ativa, nome_categoria, id_restauran
 1	\N	Bebidas	1
 2	\N	Sobremesas	1
 3	\N	Pratos principais	1
-4	t	Bebidas	6
-5	t	Sobremesas	6
-6	t	Pratos principais	6
 \.
 
 
@@ -309,16 +306,11 @@ COPY public.categoria_produto (id_categoria, ativa, nome_categoria, id_restauran
 --
 
 COPY public.comandas (id_comanda, data_abertura, data_fechamento, nome_cliente, status, valor_comanda, id_mesa, id_restaurante) FROM stdin;
+2	2026-02-27 14:43:26.465775	2026-02-27 14:43:26.465775	Cliente	ABERTA	0.00	2	1
+4	2026-03-04 17:38:29.479421	2026-03-04 17:45:53.135117	Teste Troca	ABERTA	46.00	2	1
+1	2026-02-27 14:39:52.071905	2026-03-04 17:46:39.554704	Teste	ABERTA	0.00	5	1
+5	2026-03-06 14:48:25.408665	2026-03-06 14:48:46.47761	Comanda	ABERTA	124.00	1	1
 3	2026-03-04 15:31:58.903054	2026-03-06 17:28:47.441918	Kami	ABERTA	138.00	4	1
-2	2026-02-27 14:43:26.465775	2026-03-07 21:07:37.307221	Cliente	FINALIZADA	0.00	2	1
-4	2026-03-04 17:38:29.479421	2026-03-07 21:14:00.430581	Teste Troca	FINALIZADA	46.00	2	1
-6	2026-03-08 13:34:32.61644	2026-03-08 13:36:10.799938	Miguel	FINALIZADA	16.00	3	1
-7	2026-03-08 18:04:13.564726	\N	Kamilly	ABERTA	7.99	6	6
-8	2026-03-08 18:04:29.177959	\N	Benjamim	ABERTA	15.98	6	6
-5	2026-03-06 14:48:25.408665	2026-03-08 18:10:29.163272	Comanda	FINALIZADA	124.00	1	1
-1	2026-02-27 14:39:52.071905	2026-03-08 20:41:10.911558	Teste	FINALIZADA	0.00	5	1
-9	2026-03-08 20:41:37.768524	\N	Vinicius	ABERTA	77.20	2	1
-10	2026-03-08 20:42:00.991605	\N	Miguel	ABERTA	28.00	3	1
 \.
 
 
@@ -327,6 +319,7 @@ COPY public.comandas (id_comanda, data_abertura, data_fechamento, nome_cliente, 
 --
 
 COPY public.itens_pedido (id_item_pedido, obs_item_pedido, preco_unitario, quantidade, status_item, subtotal, pedido_id, produto_id, data_criacao, data_entrega, data_preparo, data_pronto) FROM stdin;
+8	\N	30.00	1	ENVIADO	30.00	6	2	\N	\N	\N	\N
 11	\N	30.00	1	ENVIADO	30.00	8	2	\N	\N	\N	\N
 12	\N	16.00	1	ENVIADO	16.00	8	1	\N	\N	\N	\N
 4	sem bacon	30.00	2	ENTREGUE	60.00	3	2	\N	\N	\N	\N
@@ -334,22 +327,13 @@ COPY public.itens_pedido (id_item_pedido, obs_item_pedido, preco_unitario, quant
 1	sem bacon	30.00	1	ENTREGUE	30.00	1	2	\N	\N	\N	\N
 6	\N	16.00	1	ENTREGUE	16.00	4	1	\N	\N	\N	\N
 5	\N	30.00	1	ENTREGUE	30.00	4	2	\N	\N	\N	\N
+9	\N	16.00	1	EM_PREPARO	16.00	6	1	\N	\N	\N	\N
 10	\N	16.00	2	ENTREGUE	32.00	7	1	\N	\N	\N	\N
 13	\N	16.00	4	ENTREGUE	64.00	9	1	2026-03-06 14:48:39.631845	2026-03-06 14:52:11.830865	2026-03-06 14:52:11.830865	2026-03-06 14:52:11.830865
 14	\N	30.00	2	ENTREGUE	60.00	10	2	2026-03-06 14:48:46.474416	2026-03-06 14:58:45.00436	2026-03-06 14:51:11.544485	2026-03-06 14:51:11.544485
 3	\N	16.00	2	ENTREGUE	32.00	2	1	\N	2026-03-06 17:28:05.524687	\N	\N
 7	\N	16.00	1	ENTREGUE	16.00	5	1	\N	2026-03-06 17:28:10.079738	\N	\N
 15	\N	30.00	2	ENVIADO	60.00	11	2	2026-03-06 17:28:47.439243	\N	\N	\N
-16	\N	16.00	1	ENTREGUE	16.00	12	1	2026-03-08 13:34:50.466074	2026-03-08 13:35:41.048001	2026-03-08 13:35:21.438721	2026-03-08 13:35:22.827719
-17	\N	7.99	1	ENVIADO	7.99	13	3	2026-03-08 18:04:39.203876	\N	\N	\N
-18	\N	7.99	2	ENVIADO	15.98	14	3	2026-03-08 18:05:07.356032	\N	\N	\N
-19	\N	17.50	1	ENVIADO	17.50	15	4	2026-03-08 20:41:53.306688	\N	\N	\N
-20	\N	32.90	1	ENVIADO	32.90	15	6	2026-03-08 20:41:53.318461	\N	\N	\N
-21	\N	26.80	1	ENVIADO	26.80	15	7	2026-03-08 20:41:53.328668	\N	\N	\N
-22	\N	16.00	1	ENVIADO	16.00	16	1	2026-03-08 20:42:16.111585	\N	\N	\N
-23	\N	12.00	1	ENVIADO	12.00	16	5	2026-03-08 20:42:16.123073	\N	\N	\N
-9	\N	16.00	1	ENTREGUE	16.00	6	1	\N	2026-03-08 20:44:53.585301	\N	2026-03-08 18:08:16.757269
-8	\N	30.00	1	ENTREGUE	30.00	6	2	\N	2026-03-08 20:44:57.171221	2026-03-08 18:06:11.741358	2026-03-08 18:06:21.778736
 \.
 
 
@@ -358,15 +342,11 @@ COPY public.itens_pedido (id_item_pedido, obs_item_pedido, preco_unitario, quant
 --
 
 COPY public.mesas (id_mesa, capacidade_mesa, numero_mesa, posicao_x, posicao_y, status, id_restaurante) FROM stdin;
-4	6	4	0	0	OCUPADA	1
-7	2	2	0	0	DISPONIVEL	6
-8	2	3	0	0	DISPONIVEL	6
-6	4	1	0	0	OCUPADA	6
-1	2	1	0	0	DISPONIVEL	1
-9	6	6	0	0	DISPONIVEL	1
-5	2	5	0	0	DISPONIVEL	1
 2	4	2	0	0	OCUPADA	1
-3	4	3	0	0	OCUPADA	1
+4	6	4	0	0	OCUPADA	1
+3	4	3	0	0	DISPONIVEL	1
+5	2	5	0	0	OCUPADA	1
+1	2	1	0	0	OCUPADA	1
 \.
 
 
@@ -375,6 +355,7 @@ COPY public.mesas (id_mesa, capacidade_mesa, numero_mesa, posicao_x, posicao_y, 
 --
 
 COPY public.pedidos (id_pedido, data_criacao, data_entrega, data_preparo, data_pronto, data_referencia, numero_dia, status, valor_pedido, id_comanda, id_usuario, id_restaurante) FROM stdin;
+6	2026-03-04 15:40:51.985015	2026-03-04 15:40:52.047676	2026-03-04 15:40:52.047676	2026-03-04 15:40:52.047676	2026-03-04	3	ENVIADO	46.00	3	3	1
 8	2026-03-04 17:45:23.905843	2026-03-04 17:45:23.971036	2026-03-04 17:45:23.971036	2026-03-04 17:45:23.971036	2026-03-04	5	ENVIADO	46.00	4	3	1
 3	2026-02-27 16:02:57.188052	2026-03-06 14:35:59.686152	2026-03-06 14:35:59.686152	2026-03-06 14:35:59.686152	2026-02-27	3	ENTREGUE	0.00	2	3	1
 1	2026-02-27 14:40:23.62746	2026-03-06 14:36:23.524018	2026-03-06 14:36:23.524018	2026-03-06 14:36:23.524018	2026-02-27	1	ENTREGUE	0.00	1	3	1
@@ -385,12 +366,6 @@ COPY public.pedidos (id_pedido, data_criacao, data_entrega, data_preparo, data_p
 2	2026-02-27 16:02:40.030103	2026-03-06 17:28:05.590562	2026-03-06 17:28:05.590562	2026-03-06 17:28:05.590562	2026-02-27	2	ENTREGUE	0.00	1	3	1
 5	2026-03-04 14:13:37.388899	2026-03-06 17:28:10.103138	2026-03-06 17:28:10.103138	2026-03-06 17:28:10.103663	2026-03-04	2	ENTREGUE	0.00	1	3	1
 11	2026-03-06 17:28:47.413133	2026-03-06 17:28:47.443478	2026-03-06 17:28:47.443478	2026-03-06 17:28:47.443478	2026-03-06	3	ENVIADO	60.00	3	3	1
-12	2026-03-08 13:34:50.450091	2026-03-08 13:35:41.069295	2026-03-08 13:35:41.069809	2026-03-08 13:35:41.069809	2026-03-08	1	ENTREGUE	16.00	6	3	1
-13	2026-03-08 18:04:39.188124	2026-03-08 18:04:39.208524	2026-03-08 18:04:39.208524	2026-03-08 18:04:39.208524	2026-03-08	2	ENVIADO	7.99	7	9	6
-14	2026-03-08 18:05:07.344641	2026-03-08 18:05:07.358618	2026-03-08 18:05:07.358618	2026-03-08 18:05:07.358618	2026-03-08	3	ENVIADO	15.98	8	9	6
-15	2026-03-08 20:41:53.293625	2026-03-08 20:41:53.331255	2026-03-08 20:41:53.331255	2026-03-08 20:41:53.331255	2026-03-08	4	ENVIADO	77.20	9	3	1
-16	2026-03-08 20:42:16.102703	2026-03-08 20:42:16.125161	2026-03-08 20:42:16.125161	2026-03-08 20:42:16.125161	2026-03-08	5	ENVIADO	28.00	10	3	1
-6	2026-03-04 15:40:51.985015	2026-03-08 20:44:57.194473	2026-03-08 20:44:57.194473	2026-03-08 20:44:57.194473	2026-03-04	3	ENTREGUE	46.00	3	3	1
 \.
 
 
@@ -401,11 +376,6 @@ COPY public.pedidos (id_pedido, data_criacao, data_entrega, data_preparo, data_p
 COPY public.produtos (id_produto, ativo, descricao_produto, imagem_produto, nome_produto, preco_produto, id_categoria, id_restaurante) FROM stdin;
 1	t	Jarra de 1 litro	/uploads/27ab494f-d597-40eb-9212-4a90db2f314a.jpg	Suco de laranja natural	16.00	1	1
 2	t	Macarrão	/uploads/349659f9-5b41-4f43-8b45-1059693befd7.jpg	Macarrão Carbonara	30.00	3	1
-3	t	Garrafa de 600ml	/uploads/202b794e-58cf-4539-b76d-6cf88ba4cb09.png	Coca-cola 600ml	7.99	4	6
-4	t	Jarra de 1 litro	/uploads/194a2f07-4c8b-4221-910d-5f97dc4e5b19.jpg	Suco de morango	17.50	1	1
-5	t	Fatia de pudim de leite	/uploads/bbebf543-4a50-472b-9ed2-59eba865bde3.jfif	Pudim	12.00	2	1
-6	t	Prato com bife acebolado, arroz e batata frita	/uploads/8e900fed-416c-4cdb-a54c-ea5e32c70666.jfif	Bife acebolado e fritas	32.90	3	1
-7	t	Tiramisù na taça	/uploads/91c90878-76d9-4406-8bd2-0944bd017776.jfif	Tiramisù	26.80	2	1
 \.
 
 
@@ -416,8 +386,7 @@ COPY public.produtos (id_produto, ativo, descricao_produto, imagem_produto, nome
 COPY public.restaurante (id_restaurante, ativo, cnae, cnpj, data_criacao, cnae_descricao, nome_restaurante, razao_social, status, telefone_restaurante) FROM stdin;
 1	t	6203100	82454265000124	2026-02-27 14:27:51.816806	Desenvolvimento e licenciamento de programas de computador não-customizáveis	RP INFO SISTEMAS	RP INFO SISTEMAS LTDA.	APROVADO	41999999999
 2	t	6203100	11461915351509	\N	Desenvolvimento e licenciamento de programas de computador não-customizáveis	MESON	MESON SLU	APROVADO	41995937553
-6	t	5611201	79539920000132	2026-03-08 17:50:32.126523	Restaurantes e similares	GALPAO VENTANIA CARNES ASSADAS	RESTAURANTE GALPAO VENTANIA LTDA	APROVADO	4132321799
-5	f	8599699	03541088000147	2026-02-27 17:01:10.252097	Outras atividades de ensino não especificadas anteriormente	ADMINISTRACAO REGIONAL SENAC/PR	SERVICO NACIONAL DE APRENDIZAGEM COMERCIAL	RECUSADO	4132194700
+5	f	8599699	03541088000147	2026-02-27 17:01:10.252097	Outras atividades de ensino não especificadas anteriormente	ADMINISTRACAO REGIONAL SENAC/PR	SERVICO NACIONAL DE APRENDIZAGEM COMERCIAL	PENDENTE	4132194700
 \.
 
 
@@ -431,8 +400,6 @@ COPY public.usuarios (id_usuario, ativo, data_criacao, email_usuario, nome_usuar
 4	t	2026-02-27 14:53:32.076204	cozinha@gmail.com	Cozinha	COZINHA	$2a$12$HBv7.9CZ/tbOTgqubXrg8eoKm0dM2w/y6aTVaJcelkk5DoETdsvfu	f	1
 5	t	\N	meson@gmail.com	Adm Meson	ADMIN_GERAL	$2a$12$DWFcIJGGCzrErs0OaBI0uOLy0voHGzm4J0bQ5xrJt9zARDbXjFeKG	f	2
 7	t	2026-02-27 17:01:10.29697	senac@gmail.com	adm Senac	ADMIN	$2a$10$yqBpa.NsWRLJCSpWaVLg8uDAiOV4k4DbRtxAGMa2ID2bGkaA9z.8y	f	5
-8	t	2026-03-08 17:50:32.17412	galpaoventania@gmail.com	Galpão Ventania	ADMIN	$2a$10$eiz8xXBYbf6o/D1ut3aRxOTligTHVZ4Ppkt8ldUOhRbJtjXqz9K0G	f	6
-9	t	2026-03-08 18:02:01.442048	vini@gmail.com	Vinicius	GARCOM	$2a$10$FJKKczMLCkddWhUcfQb26ORTheUaz9pGqOs1hCe/V8ufe3YngMBSm	f	6
 \.
 
 
@@ -440,56 +407,56 @@ COPY public.usuarios (id_usuario, ativo, data_criacao, email_usuario, nome_usuar
 -- Name: categoria_produto_id_categoria_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.categoria_produto_id_categoria_seq', 6, true);
+SELECT pg_catalog.setval('public.categoria_produto_id_categoria_seq', 3, true);
 
 
 --
 -- Name: comandas_id_comanda_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.comandas_id_comanda_seq', 10, true);
+SELECT pg_catalog.setval('public.comandas_id_comanda_seq', 5, true);
 
 
 --
 -- Name: itens_pedido_id_item_pedido_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.itens_pedido_id_item_pedido_seq', 23, true);
+SELECT pg_catalog.setval('public.itens_pedido_id_item_pedido_seq', 15, true);
 
 
 --
 -- Name: mesas_id_mesa_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.mesas_id_mesa_seq', 9, true);
+SELECT pg_catalog.setval('public.mesas_id_mesa_seq', 5, true);
 
 
 --
 -- Name: pedidos_id_pedido_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pedidos_id_pedido_seq', 16, true);
+SELECT pg_catalog.setval('public.pedidos_id_pedido_seq', 11, true);
 
 
 --
 -- Name: produtos_id_produto_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.produtos_id_produto_seq', 7, true);
+SELECT pg_catalog.setval('public.produtos_id_produto_seq', 2, true);
 
 
 --
 -- Name: restaurante_id_restaurante_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.restaurante_id_restaurante_seq', 6, true);
+SELECT pg_catalog.setval('public.restaurante_id_restaurante_seq', 5, true);
 
 
 --
 -- Name: usuarios_id_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuarios_id_usuario_seq', 10, true);
+SELECT pg_catalog.setval('public.usuarios_id_usuario_seq', 7, true);
 
 
 --
@@ -696,5 +663,5 @@ ALTER TABLE ONLY public.itens_pedido
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 5IWPgtLaEpQ9fyoCH0Xv42VahmWIUeKmccNdlUsviqZLrO5Lmrvw9EJT3bIKjur
+\unrestrict 9pECLkIr19XZrdOE1DJnTY9ouKwiniFSkPAveL7p5jl4b3DKJCWQd2PeF8yuDN0
 
